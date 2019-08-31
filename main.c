@@ -12,19 +12,21 @@ const char *TITLE = "Ray2D";
 int main(void)
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, TITLE);
-
-    Boundary wall = NewBoundary((Vector2) {500.0f, 100.0f}, (Vector2) {500.0f, 400.0f});
-
+    DisableCursor();
+    SetMousePosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+    
+    Boundary wall = NewBoundary((Vector2) {300.0f, 100.0f}, (Vector2) {500.0f, 400.0f});
     Particle particle = NewParticle((Vector2) {200.0f, 200.0f});
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
     {
+        UpdateParticle(&particle, GetMousePosition());
         UpdateBoundary(&wall);
         BeginDrawing();
         ClearBackground(BLACK);
         DrawBoundary(&wall);
-        DrawParticle(&particle);
+        DrawParticle(&particle, &wall);
         
         EndDrawing();
     }

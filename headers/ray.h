@@ -20,7 +20,7 @@ Ray2D NewAngleRay2D(Vector2 position, float angle);
 
 void FreeRay2D(Ray2D *ray);
 
-void UpdateRay2D(Ray2D *const ray);
+void UpdateRay2D(Ray2D *const ray, Vector2 position);
 
 void DrawRay2D(const Ray2D *const ray);
 
