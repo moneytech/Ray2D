@@ -1,7 +1,10 @@
 #include "../headers/particle.h"
 #include <stdlib.h>
+#include <math.h>
 
 const int MAX_RAY = 360;
+
+static float __distance(Vector2 pto0, Vector2 pto1);
 
 Particle NewParticle(Vector2 position)
 {
@@ -25,25 +28,40 @@ void FreeParticle(Particle *particle)
     }
 }
 
-void DrawParticle(const Particle *const particle, const Boundary *const wall)
+void DrawParticle(const Particle *const particle, const Boundary *const walls)
 {
     DrawCircle(particle->position.x, particle->position.y, 2.0f, particle->color);
     Result result = {0};
 
-    for (int index=0; index < MAX_RAY; index ++)
+    Vector2 closest = (Vector2) {-1.0f, -1.0f};
+
+    for (int index=0; index < MAX_RAY; index++)
     {
-        DrawRay2D(&particle->rays[index]);
-        result = CastRay2D(&particle->rays[index], wall);
-        if (result.ok)
+        float record = 100000000.0f;
+
+        for (int iWall=0; iWall < 4; iWall++)
         {
+            DrawRay2D(&particle->rays[index]);
+            result = CastRay2D(&particle->rays[index], &walls[iWall]);
+            if (result.ok)
+            {
+                float d = __distance(particle->position, *((Vector2*) result.value));
+                if (d < record)
+                {
+                    record = d;
+                    closest = *((Vector2*) result.value);
+                }
+            }
+
+        }
+        if (closest.x > 0)
             DrawLine(
                 particle->position.x,
                 particle->position.y,
-                ((Vector2*) result.value)->x,
-                ((Vector2*) result.value)->y,
+                closest.x,
+                closest.y,
                 particle->color
             );
-        } 
     }
 }
 
@@ -53,4 +71,13 @@ void UpdateParticle(Particle *const particle, Vector2 mousePos)
 
     for (int index=0; index < MAX_RAY; index ++)
         UpdateRay2D(&particle->rays[index], particle->position);
+}
+
+static float __distance(Vector2 pto0, Vector2 pto1)
+{
+    float a = pow(pto0.x - pto1.x, 2);
+    float b = pow(pto0.y - pto1.y, 2);
+    float c =  sqrt(a + b);
+    
+    return c;
 }
