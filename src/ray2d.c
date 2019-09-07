@@ -4,7 +4,7 @@
 #include <math.h>
 #include <stdio.h>
 
-const int LENGTH = 100;
+const int LENGTH = 10;
 
 Ray2D NewRay2D(const Vector2 position, const Vector2 direction)
 {
@@ -57,4 +57,11 @@ void DrawRay2D(const Ray2D *const ray2d)
 void FreeRay2d(Ray2D *const ray2d)
 {
     //Liberacion de recursos...
+}
+
+Vector2 GetIntersection(const Ray *const ray2d, const Boundary *const wall)
+{
+    Vector2 pto = {0};
+
+    return pto;
 }
