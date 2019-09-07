@@ -54,14 +54,49 @@ void DrawRay2D(const Ray2D *const ray2d)
     );
 }
 
+void DrawLineRay2D(const Ray2D *const ray2d, const Vector2 position)
+{
+    DrawLine(
+        ray2d->position.x,
+        ray2d->position.y,
+        position.x,
+        position.y,
+        RAYWHITE
+    );
+}
+
 void FreeRay2d(Ray2D *const ray2d)
 {
     //Liberacion de recursos...
 }
 
-Vector2 GetIntersection(const Ray *const ray2d, const Boundary *const wall)
+Vector2 GetIntersection(const Ray2D *const ray2d, const Boundary *const wall)
 {
-    Vector2 pto = {0};
+    Vector2 pto = {-1.0f, -1.0f};
+
+    float x1 = wall->pto0.x;
+    float y1 = wall->pto0.y;
+    float x2 = wall->pto1.x;
+    float y2 = wall->pto1.y;
+    
+
+    float x3 = ray2d->position.x;
+    float y3 = ray2d->position.y;
+    float x4 = ray2d->position.x + ray2d->direction.x;
+    float y4 = ray2d->position.y + ray2d->direction.y;
+
+    float d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+    if (d == 0)
+        return pto;
+
+    float t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / d; 
+    float u = ((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / d;
+
+    if (t >= 0 && t <= 1 && u > 0)
+    {
+        pto.x = x1 + t * (x2 - x1);
+        pto.y = y1 + t * (y2 - y1);
+    }
 
     return pto;
 }

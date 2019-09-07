@@ -1,7 +1,7 @@
 #include "../headers/app.h"
 #include <stdlib.h>
 
-const int MAX_WALLS = 1;
+const int MAX_WALLS = 2;
 
 //******************************************************************
 //*********************FIRMA FUNCIOANES STATIC**********************
@@ -28,8 +28,13 @@ App NewApp(const int screenWidth, const int screenHeight, const char *title)
     // Reservo memoria para almacenar paredes.
     app.walls = (Boundary*) malloc(sizeof(Boundary) * MAX_WALLS);
     app.walls[0] = NewBoundary(
-        (Vector2) {400.0f, 10.0f},
+        (Vector2) {400.0f, 100.0f},
         (Vector2) {400.0f, 400.0f}
+    );
+
+    app.walls[1] = NewBoundary(
+        (Vector2) {450.0f, 10.0f},
+        (Vector2) {440.0f, 400.0f}
     );
 
 
@@ -96,7 +101,7 @@ static void __DrawApp(const App *const app)
         DrawBoundary(&(app->walls[i]));
     
     // Dibuja la particula.
-    DrawParticle(&app->player);
+    DrawParticle(&app->player, app->walls);
 
     EndDrawing();
 }

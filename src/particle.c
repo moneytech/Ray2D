@@ -1,6 +1,7 @@
 #include "../headers/particle.h"
 #include <stdlib.h>
 
+extern const int MAX_WALLS;
 const int MAX_RAYS = 360; // angulo de vision del observador.
 
 Particle NewParticle(const Vector2 position)
@@ -19,14 +20,27 @@ void UpdateParticle(Particle *const particle, const Vector2 position)
 {
     // Detectar colision con pared.
     particle->position = position; // Mueve la particula segun el mouse.
+    
     for (int i=0; i < MAX_RAYS; i++)
         UpdateRay2D(&particle->rays[i], position);
+    
+    
 }
 
-void DrawParticle(const Particle *const particle)
+void DrawParticle(const Particle *const particle, const Boundary *const walls)
 {
-    for (int i=0; i < MAX_RAYS; i++)
-        DrawRay2D(&(particle->rays[i]));
+    Vector2 pto = {0};
+
+    for (int iWall=0; iWall < MAX_WALLS; iWall++)
+    {
+        for (int i=0; i < MAX_RAYS; i++)
+        {
+            pto = GetIntersection(&(particle->rays[i]), &walls[iWall]);
+            if (pto.x > 0)
+                DrawLineRay2D(&(particle->rays[i]), pto);
+        }
+    }
+
 }
 
 void FreeParticle(Particle *const particle)

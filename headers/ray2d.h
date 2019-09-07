@@ -21,8 +21,10 @@ void UpdateRay2D(Ray2D *const ray2d, const Vector2 position);
 
 void DrawRay2D(const Ray2D *const ray2d);
 
+void DrawLineRay2D(const Ray2D *const ray2d, const Vector2 position);
+
 void FreeRay2d(Ray2D *const ray2d);
 
-Vector2 GetIntersection(const Ray *const ray2d, const Boundary *const wall);
+Vector2 GetIntersection(const Ray2D *const ray2d, const Boundary *const wall);
 
 #endif //RAY2D_H

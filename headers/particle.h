@@ -16,7 +16,7 @@ Particle NewParticle(const Vector2 position);
 
 void UpdateParticle(Particle *const particle, const Vector2 position);
 
-void DrawParticle(const Particle *const particle);
+void DrawParticle(const Particle *const particle, const Boundary *const walls);
 
 void FreeParticle(Particle *const particle);
 
