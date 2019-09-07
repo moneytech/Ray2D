@@ -21,8 +21,8 @@ Result UnitVectorHelper(const Vector2 pto, const Vector2 pto1)
     float module = Module2VHelper(pto, pto1);
     if (module != 0)
     {
-        float x = (pto.x - pto1.x) / module;    
-        float y = (pto.y - pto1.y) / module;    
+        float x = (pto1.x - pto.x) / module;    
+        float y = (pto1.y - pto.y) / module;    
         result.pto = (Vector2) {x, y};
         
         result.ok = true;
