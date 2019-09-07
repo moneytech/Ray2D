@@ -1,7 +1,7 @@
 #include "../headers/app.h"
 #include <stdlib.h>
 
-const int MAX_WALLS = 2;
+const int MAX_WALLS = 4;
 
 //******************************************************************
 //*********************FIRMA FUNCIOANES STATIC**********************
@@ -28,13 +28,23 @@ App NewApp(const int screenWidth, const int screenHeight, const char *title)
     // Reservo memoria para almacenar paredes.
     app.walls = (Boundary*) malloc(sizeof(Boundary) * MAX_WALLS);
     app.walls[0] = NewBoundary(
-        (Vector2) {400.0f, 100.0f},
-        (Vector2) {400.0f, 400.0f}
+        (Vector2) {490.0f, 463.0f},
+        (Vector2) {480.0f, 151.0f}
     );
 
     app.walls[1] = NewBoundary(
-        (Vector2) {450.0f, 10.0f},
-        (Vector2) {440.0f, 400.0f}
+        (Vector2) {493.0f, 43.0f},
+        (Vector2) {425.0f, 86.0f}
+    );
+
+    app.walls[2] = NewBoundary(
+        (Vector2) {496.0f, 231.0f},
+        (Vector2) {241.0f, 21.0f}
+    );
+
+    app.walls[3] = NewBoundary(
+        (Vector2) {500.0f, 420.0f},
+        (Vector2) {185.0f, 437.0f}
     );
 
 
