@@ -13,7 +13,7 @@ static void __DrawApp(const App *const app);
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
-App NewApp(int screenWidth, int screenHeight, const char *title)
+App NewApp(const int screenWidth, const int screenHeight, const char *title)
 {
     App app = {0};
     app.screenWidth = screenWidth;
@@ -23,10 +23,7 @@ App NewApp(int screenWidth, int screenHeight, const char *title)
     app.background = BLUE;
     
     // Obervador. 
-    app.ray2d = NewRay2D(
-        (Vector2) {125.0f, 200.0f}, // posicion
-        (Vector2) {0.0f, 0.0f} // direccion
-    );
+    app.player = NewParticle((Vector2) {200.0f, 300.0f});
 
     // Reservo memoria para almacenar paredes.
     app.walls = (Boundary*) malloc(sizeof(Boundary) * MAX_WALLS);
@@ -42,6 +39,8 @@ App NewApp(int screenWidth, int screenHeight, const char *title)
         app.title
     );
 
+    DisableCursor();
+    SetMousePosition(screenWidth/2, screenHeight/2);
     SetExitKey(KEY_F8);
     SetTargetFPS(app.fps);
 
@@ -57,7 +56,7 @@ void RunApp(App *const app)
     }
 }
 
-void FreeApp(App *app)
+void FreeApp(App *const app)
 {
     // Libero la memoria reservada para las
     // paredes.
@@ -66,6 +65,7 @@ void FreeApp(App *app)
         free(app->walls);
         app->walls = NULL;
     }
+    FreeParticle(&app->player);
 
     CloseWindow();
 }
@@ -80,18 +80,23 @@ static void __KeyEventsApp(App *const app)
 static void __UpdateApp(App *const app)
 {
     __KeyEventsApp(app);
-    UpdateRay2D(&app->ray2d, GetMousePosition());
+    // actualiza la posicion de la particula
+    // segun el movimiento del mouse.
+    UpdateParticle(&app->player, GetMousePosition());
 }
 
 static void __DrawApp(const App *const app)
 {
     BeginDrawing();
+    // limpia la pantalla.
     ClearBackground(app->background);
 
-    DrawRay2D(&app->ray2d);
-
+    // Dibuja las paredes.
     for (int i=0; i < MAX_WALLS; i++)
         DrawBoundary(&(app->walls[i]));
+    
+    // Dibuja la particula.
+    DrawParticle(&app->player);
 
     EndDrawing();
 }

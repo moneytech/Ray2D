@@ -4,8 +4,9 @@
 #include <math.h>
 #include <stdio.h>
 
+const int LENGTH = 100;
 
-Ray2D NewRay2D(Vector2 position, Vector2 direction)
+Ray2D NewRay2D(const Vector2 position, const Vector2 direction)
 {
     Ray2D ray2d = {0};
     ray2d.position = position;
@@ -22,7 +23,7 @@ Ray2D NewRay2D(Vector2 position, Vector2 direction)
 
 // Crea una instancia de Ray2D a partir de un angulo
 // en grando.
-Ray2D NewAngleRay2D(Vector2 position, float angle)
+Ray2D NewAngleRay2D(const Vector2 position, float angle)
 {
     Ray2D ray2d = {0};
     ray2d.position = position;
@@ -34,18 +35,12 @@ Ray2D NewAngleRay2D(Vector2 position, float angle)
         sin(ray2d.angle)
     };
 
-
     return ray2d;
 }
 
 void UpdateRay2D(Ray2D *const ray2d, const Vector2 position)
 {
-    Result result = UnitVectorHelper(
-        ray2d->position,
-        position
-    );
-
-    ray2d->direction = result.pto;
+    ray2d->position = position;
 }
 
 void DrawRay2D(const Ray2D *const ray2d)
@@ -53,13 +48,13 @@ void DrawRay2D(const Ray2D *const ray2d)
     DrawLine(
         ray2d->position.x,
         ray2d->position.y,
-        ray2d->position.x + (ray2d->direction.x * 10),
-        ray2d->position.y + (ray2d->direction.y * 10),
+        ray2d->position.x + (ray2d->direction.x * LENGTH),
+        ray2d->position.y + (ray2d->direction.y * LENGTH),
         RAYWHITE
     );
 }
 
-void FreeRay2d(Ray2D *ray2d)
+void FreeRay2d(Ray2D *const ray2d)
 {
     //Liberacion de recursos...
 }

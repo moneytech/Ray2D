@@ -2,7 +2,7 @@
 #define APP_H
 
 #include "raylib.h"
-#include "ray2d.h"
+#include "particle.h"
 #include "boundary.h"
 
 typedef struct App
@@ -13,15 +13,15 @@ typedef struct App
     const char *title;
     Color background;
 
-    Ray2D ray2d;
+    Particle player;
     Boundary *walls;
 
 }App;
 
-App NewApp(int screenWidth, int screenHeight, const char *title);
+App NewApp(const int screenWidth, const int screenHeight, const char *title);
 
 void RunApp(App *const app);
 
-void FreeApp(App *app);
+void FreeApp(App *const app);
 
 #endif //APP_H

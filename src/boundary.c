@@ -27,7 +27,7 @@ void DrawBoundary(const Boundary *const boundary)
     );
 }
 
-void FreeBoundary(const Boundary *const boundary)
+void FreeBoundary(Boundary *const boundary)
 {
     //Liberear los recursos reservados.
 }

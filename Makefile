@@ -345,7 +345,8 @@ PROJECT_SOURCE_FILES ?= main.c          \
                         src/app.c       \
                         src/ray2d.c     \
                         src/boundary.c  \
-                        src/helper.c                     
+                        src/helper.c    \
+                        src/particle.c                 
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))

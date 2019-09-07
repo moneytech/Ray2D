@@ -16,6 +16,6 @@ void UpdateBoundary(Boundary *const boundary);
 
 void DrawBoundary(const Boundary *const boundary);
 
-void FreeBoundary(const Boundary *const boundary);
+void FreeBoundary(Boundary *const boundary);
 
 #endif //BOUNDARY_H
