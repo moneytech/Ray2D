@@ -19,6 +19,11 @@ App NewApp(int screenWidth, int screenHeight, const char *title)
     app.fps = 60;
     app.background = BLUE;
     app.close = false;
+    app.ray2d = NewRay2D(
+        (Vector2) {100.0f, 100.0f},
+        (Vector2) {500.0f, 500.0f}
+    );
+
 
     InitWindow(
         app.screenWidth,
@@ -57,12 +62,15 @@ static void __KeyEventsApp(App *const app)
 static void __UpdateApp(App *const app)
 {
     __KeyEventsApp(app);
+    UpdateRay2D(&app->ray2d, GetMousePosition());
 }
 
 static void __DrawApp(const App *const app)
 {
     BeginDrawing();
     ClearBackground(app->background);
+
+    DrawRay2D(&app->ray2d);
 
     EndDrawing();
 }

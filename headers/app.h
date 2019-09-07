@@ -2,6 +2,7 @@
 #define APP_H
 
 #include "raylib.h"
+#include "ray2d.h"
 
 typedef struct App
 {
@@ -11,6 +12,8 @@ typedef struct App
     bool close;
     const char *title;
     Color background;
+
+    Ray2D ray2d;
 
 }App;
 

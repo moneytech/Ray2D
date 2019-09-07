@@ -19,14 +19,14 @@ Result UnitVectorHelper(const Vector2 pto, const Vector2 pto1)
     result.ok = false;
 
     float module = Module2VHelper(pto, pto1);
-    if (module == 0)
-        return result;    
-
-    float x = (pto.x - pto1.x) / module;    
-    float y = (pto.y - pto1.y) / module;    
-
-    result.ok = true;
-    result.pto = (Vector2) {x, y};
+    if (module != 0)
+    {
+        float x = (pto.x - pto1.x) / module;    
+        float y = (pto.y - pto1.y) / module;    
+        result.pto = (Vector2) {x, y};
+        
+        result.ok = true;
+    }  
 
     return result;
 }

@@ -2,13 +2,8 @@
 #include "../headers/helper.h"
 #include "../headers/app.h"
 #include <math.h>
+#include <stdio.h>
 
-extern App *globalApp;
-
-static void __freeApp()
-{
-    globalApp->close = true;
-}
 
 Ray2D NewRay2D(Vector2 position, Vector2 direction)
 {
@@ -20,8 +15,7 @@ Ray2D NewRay2D(Vector2 position, Vector2 direction)
         direction
     );
 
-    if (!result.ok)
-        __freeApp();
+    ray2d.direction = result.pto;
 
     return ray2d;
 }
@@ -44,17 +38,28 @@ Ray2D NewAngleRay2D(Vector2 position, float angle)
     return ray2d;
 }
 
-void UpdateRay2D(Ray2D *const ray2d)
+void UpdateRay2D(Ray2D *const ray2d, const Vector2 position)
 {
+    Result result = UnitVectorHelper(
+        ray2d->position,
+        position
+    );
 
+    ray2d->direction = result.pto;
 }
 
 void DrawRay2D(const Ray2D *const ray2d)
 {
-
+    DrawLine(
+        ray2d->position.x,
+        ray2d->position.y,
+        ray2d->position.x + (ray2d->direction.x * 100),
+        ray2d->position.x + (ray2d->direction.y * 100),
+        RAYWHITE
+    );
 }
 
 void FreeRay2d(Ray2D *ray2d)
 {
-
+    //Liberacion de recursos...
 }
