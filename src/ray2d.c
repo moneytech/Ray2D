@@ -53,8 +53,8 @@ void DrawRay2D(const Ray2D *const ray2d)
     DrawLine(
         ray2d->position.x,
         ray2d->position.y,
-        ray2d->position.x + (ray2d->direction.x * 100),
-        ray2d->position.x + (ray2d->direction.y * 100),
+        ray2d->position.x + (ray2d->direction.x * 10),
+        ray2d->position.y + (ray2d->direction.y * 10),
         RAYWHITE
     );
 }

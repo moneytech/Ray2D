@@ -3,17 +3,18 @@
 
 #include "raylib.h"
 #include "ray2d.h"
+#include "boundary.h"
 
 typedef struct App
 {
     int screenWidth;
     int screenHeight;
     float fps;
-    bool close;
     const char *title;
     Color background;
 
     Ray2D ray2d;
+    Boundary *walls;
 
 }App;
 

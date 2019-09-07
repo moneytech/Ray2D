@@ -1,4 +1,7 @@
 #include "../headers/app.h"
+#include <stdlib.h>
+
+const int MAX_WALLS = 1;
 
 //******************************************************************
 //*********************FIRMA FUNCIOANES STATIC**********************
@@ -18,10 +21,18 @@ App NewApp(int screenWidth, int screenHeight, const char *title)
     app.title = title;
     app.fps = 60;
     app.background = BLUE;
-    app.close = false;
+    
+    // Obervador. 
     app.ray2d = NewRay2D(
-        (Vector2) {100.0f, 100.0f},
-        (Vector2) {500.0f, 500.0f}
+        (Vector2) {125.0f, 200.0f}, // posicion
+        (Vector2) {0.0f, 0.0f} // direccion
+    );
+
+    // Reservo memoria para almacenar paredes.
+    app.walls = (Boundary*) malloc(sizeof(Boundary) * MAX_WALLS);
+    app.walls[0] = NewBoundary(
+        (Vector2) {400.0f, 10.0f},
+        (Vector2) {400.0f, 400.0f}
     );
 
 
@@ -31,6 +42,7 @@ App NewApp(int screenWidth, int screenHeight, const char *title)
         app.title
     );
 
+    SetExitKey(KEY_F8);
     SetTargetFPS(app.fps);
 
     return app;
@@ -38,7 +50,7 @@ App NewApp(int screenWidth, int screenHeight, const char *title)
 
 void RunApp(App *const app)
 {
-    while (!app->close)
+    while (!WindowShouldClose())
     {
         __UpdateApp(app);
         __DrawApp(app);
@@ -47,6 +59,14 @@ void RunApp(App *const app)
 
 void FreeApp(App *app)
 {
+    // Libero la memoria reservada para las
+    // paredes.
+    if (app->walls != NULL)
+    {
+        free(app->walls);
+        app->walls = NULL;
+    }
+
     CloseWindow();
 }
 
@@ -55,8 +75,6 @@ void FreeApp(App *app)
 //******************************************************************
 static void __KeyEventsApp(App *const app)
 {
-    if (IsKeyPressed(KEY_F8))
-        app->close = true;
 }
 
 static void __UpdateApp(App *const app)
@@ -71,6 +89,9 @@ static void __DrawApp(const App *const app)
     ClearBackground(app->background);
 
     DrawRay2D(&app->ray2d);
+
+    for (int i=0; i < MAX_WALLS; i++)
+        DrawBoundary(&(app->walls[i]));
 
     EndDrawing();
 }

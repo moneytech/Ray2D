@@ -27,7 +27,7 @@
 PROJECT_NAME       ?= ray2D
 RAYLIB_VERSION     ?= 2.5.0
 RAYLIB_API_VERSION ?= 2
-RAYLIB_PATH        ?= ../../raylib/
+RAYLIB_PATH        ?= ../../raylib/src
 
 # Define default options
 
