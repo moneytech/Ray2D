@@ -11,7 +11,7 @@ typedef struct Result
 }Result;
 
 // Funcion que devuelve el modulo de dos vectores.
-float Module2VHelper(const Vector2 pto, const Vector2 pto1);
+float Distance(const Vector2 pto, const Vector2 pto1);
 
 Result UnitVectorHelper(const Vector2 pto, const Vector2 pto1);
 

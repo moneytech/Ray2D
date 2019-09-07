@@ -1,4 +1,5 @@
 #include "../headers/particle.h"
+#include "../headers/helper.h"
 #include <stdlib.h>
 
 extern const int MAX_WALLS;
@@ -23,22 +24,36 @@ void UpdateParticle(Particle *const particle, const Vector2 position)
     
     for (int i=0; i < MAX_RAYS; i++)
         UpdateRay2D(&particle->rays[i], position);
-    
-    
 }
 
 void DrawParticle(const Particle *const particle, const Boundary *const walls)
 {
+    float max = 1000000000.f;
     Vector2 pto = {0};
+    bool flag = false;
 
-    for (int iWall=0; iWall < MAX_WALLS; iWall++)
+    for (int i=0; i < MAX_RAYS; i++)
     {
-        for (int i=0; i < MAX_RAYS; i++)
+        max = 1000000000.f;
+        flag = false;
+
+        for (int iWall=0; iWall < MAX_WALLS; iWall++)
         {
-            pto = GetIntersection(&(particle->rays[i]), &walls[iWall]);
-            if (pto.x > 0)
-                DrawLineRay2D(&(particle->rays[i]), pto);
+            Vector2 auxPoint = GetIntersection(&(particle->rays[i]), &walls[iWall]);
+            if (auxPoint.x > 0)
+           {
+               float distance = Distance(particle->rays[i].position, auxPoint);
+                if (distance < max)
+                {
+                    max = distance;
+                    pto = auxPoint;
+                    flag = true;
+                }
+           }
         }
+
+        if (flag)
+            DrawLineRay2D(&particle->rays[i], pto);
     }
 
 }
