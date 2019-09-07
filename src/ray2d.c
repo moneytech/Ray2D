@@ -15,11 +15,6 @@ Ray2D NewRay2D(Vector2 position, Vector2 direction)
     Ray2D ray2d = {0};
     ray2d.position = position;
     
-    float module = Module2VHelper(
-        position,
-        direction
-    );
-
     Result result = UnitVectorHelper(
         position,
         direction
