@@ -341,7 +341,8 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
 endif
 
 # Define all source files required
-PROJECT_SOURCE_FILES ?= main.c                 
+PROJECT_SOURCE_FILES ?= main.c   \
+                        src/app.c              
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))
