@@ -2,8 +2,7 @@
 #define APP_H
 
 #include "raylib.h"
-#include "player.h"
-#include "boundary.h"
+#include "canvas.h"
 
 typedef struct App
 {
@@ -12,9 +11,7 @@ typedef struct App
     float fps;
     const char *title;
     Color background;
-
-    Player player;
-    Boundary *walls;
+    Canvas canvas;
 
 }App;
 

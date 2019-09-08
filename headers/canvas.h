@@ -2,12 +2,18 @@
 #define CANVAS_H
 
 #include "raylib.h"
+#include "player.h"
+#include "boundary.h"
 
 typedef struct Canvas
 {
     int slices;
     float spacing;
     Color color;
+
+    Player player;
+    Boundary *walls;
+    
 
 }Canvas;
 

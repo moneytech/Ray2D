@@ -1,7 +1,8 @@
 #include "../headers/app.h"
+#include "../headers/global.h"
 #include <stdlib.h>
 
-const int MAX_WALLS = 4;
+Global global;
 
 //******************************************************************
 //*********************FIRMA FUNCIOANES STATIC**********************
@@ -9,49 +10,30 @@ const int MAX_WALLS = 4;
 static void __KeyEventsApp(App *const app);
 static void __UpdateApp(App *const app);
 static void __DrawApp(const App *const app);
-
+static void __DrawCanvasApp(const App *const app);
+static void __DrawMapApp(const App *const app);
+static void __UpdateCanvasApp(App *const app);
+static void __UpdateMapApp(App *const app);
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
 App NewApp(const int screenWidth, const int screenHeight, const char *title)
 {
+    global = NewGlobal();
+
     App app = {0};
     app.screenWidth = screenWidth;
     app.screenHeight = screenHeight;
     app.title = title;
     app.fps = 60;
-    app.background = BLUE;
+    app.background = BLACK;
+    app.canvas = NewCanvas();
     
-    // Obervador. 
-    app.player = NewPlayer((Vector2) {200.0f, 300.0f});
-
-    // Reservo memoria para almacenar paredes.
-    app.walls = (Boundary*) malloc(sizeof(Boundary) * MAX_WALLS);
-    app.walls[0] = NewBoundary(
-        (Vector2) {490.0f, 463.0f},
-        (Vector2) {480.0f, 151.0f}
-    );
-
-    app.walls[1] = NewBoundary(
-        (Vector2) {493.0f, 43.0f},
-        (Vector2) {425.0f, 86.0f}
-    );
-
-    app.walls[2] = NewBoundary(
-        (Vector2) {496.0f, 231.0f},
-        (Vector2) {241.0f, 21.0f}
-    );
-
-    app.walls[3] = NewBoundary(
-        (Vector2) {500.0f, 420.0f},
-        (Vector2) {185.0f, 437.0f}
-    );
-
-
+    // Inicializacion de la ventana.   
     InitWindow(
-        app.screenWidth,
-        app.screenHeight,
-        app.title
+        app.screenWidth, // Ancho de la ventana.
+        app.screenHeight, // Alto de la ventana.
+        app.title // Titulo de la ventana.
     );
 
     HideCursor();
@@ -73,15 +55,7 @@ void RunApp(App *const app)
 
 void FreeApp(App *const app)
 {
-    // Libero la memoria reservada para las
-    // paredes.
-    if (app->walls != NULL)
-    {
-        free(app->walls);
-        app->walls = NULL;
-    }
-    FreePlayer(&app->player);
-
+    FreeCanvas(&app->canvas);
     CloseWindow();
 }
 
@@ -90,28 +64,59 @@ void FreeApp(App *const app)
 //******************************************************************
 static void __KeyEventsApp(App *const app)
 {
+    if (IsKeyPressed(KEY_TAB))
+        global.section = (global.section == CANVAS) ? (MAP) : (CANVAS);
 }
 
 static void __UpdateApp(App *const app)
 {
     __KeyEventsApp(app);
-    // actualiza la posicion de la particula
-    // segun el movimiento del mouse.
-    UpdatePlayer(&app->player, GetMousePosition());
+
+    switch (global.section)
+    {
+        case CANVAS:
+            __UpdateCanvasApp(app);
+            break;
+        
+        default:
+            __UpdateMapApp(app);
+    }
 }
 
 static void __DrawApp(const App *const app)
 {
     BeginDrawing();
-    // limpia la pantalla.
-    ClearBackground(app->background);
+    ClearBackground(app->background); // limpia la pantalla.
 
-    // Dibuja las paredes.
-    for (int i=0; i < MAX_WALLS; i++)
-        DrawBoundary(&(app->walls[i]));
-    
-    // Dibuja la particula.
-    DrawPlayer(&app->player, app->walls);
+    switch (global.section)
+    {
+        case CANVAS:
+            __DrawCanvasApp(app);
+            break;
+        
+        default:
+            __DrawMapApp(app);
+    }
 
     EndDrawing();
+}
+
+static void __DrawCanvasApp(const App *const app)
+{
+    DrawCanvas(&app->canvas);
+}
+
+static void __DrawMapApp(const App *const app)
+{
+    // falta implementar
+}
+
+static void __UpdateCanvasApp(App *const app)
+{
+    UpdateCanvas(&(app->canvas));
+}
+
+static void __UpdateMapApp(App *const app)
+{
+    // falta implementar
 }
