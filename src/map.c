@@ -1,6 +1,7 @@
 #include "../headers/map.h"
 #include "../headers/global.h"
 #include <stdio.h>
+#include <math.h>
 
 extern Global global;
 
@@ -35,19 +36,41 @@ static void __DrawRay(const Scene *const scene)
 {
     int sliceWidth = GetScreenWidthGlobal(&global) / GetNumRayPlayer(&scene->player);
     float value = 0;
+    float distance = 0;
 
     for (int i=0; i < GetNumRayPlayer(&scene->player); i++)
     {
         value = GetSlicesPlayerScene(scene)[i];
-        if (GetSlicesPlayer(&scene->player)[i] > 255)
+        distance = value;
+        if (distance > 255)
             value = 255.0f;
+
+        value = abs(value-255);
+
+        float h = abs(distance - GetScreenHeightGlobal(&global));
 
         DrawRectangle(
             i*sliceWidth,
-            0,
+            GetScreenHeightGlobal(&global) - h,
             sliceWidth,
-            global.screenHeight,
+            h - (GetScreenHeightGlobal(&global) - h),
             (Color) {value, value, value, 255.0f}
         );
+
+        // DrawRectangle(
+        //     i*sliceWidth + sliceWidth/2,
+        //     0,
+        //     sliceWidth,
+        //     abs(distance - GetScreenHeightGlobal(&global)),
+        //     (Color) {value, value, value, 255.0f}
+        // );
+
+        // DrawRectangle(
+        //     i*sliceWidth,
+        //     0,
+        //     sliceWidth,
+        //     global.screenHeight,
+        //     (Color) {value, value, value, 255.0f}
+        // );
     }
 }

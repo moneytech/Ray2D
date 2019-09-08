@@ -20,7 +20,7 @@ Player NewPlayer(const Vector2 position)
     Player player = {0};
     player.position = position;
     player.color = RED;
-    player.numRays = 90; // angulo de vision del observador.
+    player.numRays = 45; // angulo de vision del observador.
     player.slices = (float*) calloc(player.numRays, sizeof(float));
     
     player.rays = (Ray2D*) malloc(sizeof(Ray2D) * player.numRays);

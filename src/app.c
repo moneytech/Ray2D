@@ -24,8 +24,8 @@ App NewApp(const int screenWidth, const int screenHeight, const char *title)
 
     App app = {0};
 
-    app.backgroundCanvas = BLACK;
-    app.backgroundMap = BLUE;
+    app.backgroundCanvas = BLUE;
+    app.backgroundMap = BLACK;
     
     app.scene = NewScene();
     app.canvas = NewCanvas();
