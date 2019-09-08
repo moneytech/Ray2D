@@ -54,7 +54,7 @@ App NewApp(const int screenWidth, const int screenHeight, const char *title)
         app.title
     );
 
-    DisableCursor();
+    HideCursor();
     SetMousePosition(screenWidth/2, screenHeight/2);
     SetExitKey(KEY_F8);
     SetTargetFPS(app.fps);

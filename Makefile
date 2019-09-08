@@ -24,7 +24,7 @@
 .PHONY: all clean
 
 # Define required raylib variables
-PROJECT_NAME       ?= ray2D
+PROJECT_NAME       ?= overflow
 RAYLIB_VERSION     ?= 2.5.0
 RAYLIB_API_VERSION ?= 2
 RAYLIB_PATH        ?= ../../raylib/src
@@ -346,7 +346,10 @@ PROJECT_SOURCE_FILES ?= main.c          \
                         src/ray2d.c     \
                         src/boundary.c  \
                         src/helper.c    \
-                        src/particle.c                 
+                        src/particle.c  \
+                        src/canvas.c    \
+                        src/map.c       \
+                                       
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))

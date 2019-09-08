@@ -6,7 +6,7 @@ int main(void)
 {
     // Crea una instancia de app, recibe el ancho, alto y
     // el titulo de la ventana.
-    App app = NewApp(640, 480, "Overflow Engine");
+    App app = NewApp(800, 600, "Overflow Engine");
     // ciclo que actualiza  dibuja los 
     // elementos.
     RunApp(&app);
