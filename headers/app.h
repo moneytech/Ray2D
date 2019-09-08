@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "canvas.h"
+#include "scene.h"
 
 typedef struct App
 {
@@ -10,8 +11,11 @@ typedef struct App
     int screenHeight;
     float fps;
     const char *title;
+
     Color backgroundCanvas;
     Color backgroundMap;
+    
+    Scene scene;
     Canvas canvas;
 
 }App;

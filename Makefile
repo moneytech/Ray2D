@@ -350,6 +350,7 @@ PROJECT_SOURCE_FILES ?= main.c          \
                         src/canvas.c    \
                         src/map.c       \
                         src/global.c    \
+                        src/scene.c     \
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))

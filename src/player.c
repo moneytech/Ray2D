@@ -71,7 +71,7 @@ static void __DrawRay(const Player *const player, const Boundary *const walls)
                 }
            }
         }
-
+        
         if (flag)
             DrawLineRay2D(&player->rays[i], pto);
     }

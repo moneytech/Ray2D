@@ -14,6 +14,7 @@ static void __DrawCanvasApp(const App *const app);
 static void __DrawMapApp(const App *const app);
 static void __UpdateCanvasApp(App *const app);
 static void __UpdateMapApp(App *const app);
+
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
@@ -28,8 +29,9 @@ App NewApp(const int screenWidth, const int screenHeight, const char *title)
     app.fps = 60;
     app.backgroundCanvas = BLACK;
     app.backgroundMap = BLUE;
+    app.scene = NewScene();
     app.canvas = NewCanvas();
-    
+
     // Inicializacion de la ventana.   
     InitWindow(
         app.screenWidth, // Ancho de la ventana.
@@ -72,6 +74,7 @@ static void __KeyEventsApp(App *const app)
 static void __UpdateApp(App *const app)
 {
     __KeyEventsApp(app);
+    UpdateScene(&app->scene); // la escene se actualiza siempre.
 
     switch (global.section)
     {
@@ -106,7 +109,7 @@ static void __DrawApp(const App *const app)
 
 static void __DrawCanvasApp(const App *const app)
 {
-    DrawCanvas(&app->canvas);
+    DrawCanvas(&app->canvas, &app->scene);
 }
 
 static void __DrawMapApp(const App *const app)
