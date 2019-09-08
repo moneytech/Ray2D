@@ -19,6 +19,6 @@ void DrawScene(const Scene *const scene);
 
 void FreeScene(Scene *const scene);
 
-const int *GetSlicesPlayerScene(const Scene *const scene);
+const float *GetSlicesPlayerScene(const Scene *const scene);
 
 #endif //SCENE_H

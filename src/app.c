@@ -4,8 +4,6 @@
 
 Global global;
 
-static const int *slicesPlayer;
-
 //******************************************************************
 //******************FIRMAS DE FUNCIOANES STATIC*********************
 //******************************************************************
@@ -25,26 +23,25 @@ App NewApp(const int screenWidth, const int screenHeight, const char *title)
     global = NewGlobal();
 
     App app = {0};
-    app.screenWidth = screenWidth;
-    app.screenHeight = screenHeight;
-    app.title = title;
-    app.fps = 60;
+
     app.backgroundCanvas = BLACK;
     app.backgroundMap = BLUE;
+    
     app.scene = NewScene();
     app.canvas = NewCanvas();
+    app.map = NewMap();
 
     // Inicializacion de la ventana.   
     InitWindow(
-        app.screenWidth, // Ancho de la ventana.
-        app.screenHeight, // Alto de la ventana.
-        app.title // Titulo de la ventana.
+        GetScreenWidthGlobal(&global), // Ancho de la ventana.
+        GetScreenHeightGlobal(&global), // Alto de la ventana.
+        GetTitleGlobal(&global) // Titulo de la ventana.
     );
 
     HideCursor();
-    SetMousePosition(screenWidth/2, screenHeight/2);
+    SetMousePosition(GetScreenWidthGlobal(&global)/2, GetScreenHeightGlobal(&global)/2);
     SetExitKey(KEY_F8);
-    SetTargetFPS(app.fps);
+    SetTargetFPS(GetFPSGlobal(&global));
 
     return app;
 }
@@ -77,7 +74,6 @@ static void __UpdateApp(App *const app)
 {
     __KeyEventsApp(app);
     UpdateScene(&app->scene); // la escene se actualiza siempre.
-    slicesPlayer = GetSlicesPlayerScene(&app->scene);
 
     switch (global.section)
     {
@@ -93,7 +89,6 @@ static void __UpdateApp(App *const app)
 static void __DrawApp(const App *const app)
 {
     BeginDrawing();
-    
 
     switch (global.section)
     {
@@ -117,7 +112,7 @@ static void __DrawCanvasApp(const App *const app)
 
 static void __DrawMapApp(const App *const app)
 {
-    // falta implementar
+    DrawMap(&app->map, &app->scene);
 }
 
 static void __UpdateCanvasApp(App *const app)
@@ -127,5 +122,5 @@ static void __UpdateCanvasApp(App *const app)
 
 static void __UpdateMapApp(App *const app)
 {
-    // falta implementar
+    UpdateMap(&app->map);
 }

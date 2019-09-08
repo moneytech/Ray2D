@@ -19,7 +19,7 @@ Player NewPlayer(const Vector2 position)
     player.position = position;
     player.color = RED;
     player.numRays = 40; // angulo de vision del observador.
-    player.slices = (int*) calloc(player.numRays, sizeof(int));
+    player.slices = (float*) calloc(player.numRays, sizeof(float));
     
     player.rays = (Ray2D*) malloc(sizeof(Ray2D) * player.numRays);
     for (int angle=0; angle < player.numRays; angle++)
@@ -58,10 +58,16 @@ void FreePlayer(Player *const player)
     }
 }
 
-const int *GetSlicesPlayer(const Player *const player)
+const float *GetSlicesPlayer(const Player *const player)
 {
     return player->slices;
 }
+
+const int GetNumRayPlayer(const Player *const player)
+{
+    return player->numRays;
+}
+
 
 //******************************************************************
 //****************IMAPLEMENTACION FUNCIOANES STATIC*****************
@@ -69,7 +75,7 @@ const int *GetSlicesPlayer(const Player *const player)
 
 static void __DrawRay(const Player *const player, const Boundary *const walls)
 {
-    float max = 1000000000.f;
+    float max = 1000000000.0f;
     Vector2 pto = {0};
     bool flag = false;
 

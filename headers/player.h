@@ -11,7 +11,7 @@ typedef struct Player
     Color color;
 
     int numRays;
-    int *slices;
+    float *slices;
 
 }Player;
 
@@ -23,6 +23,8 @@ void DrawPlayer(const Player *const player, const Boundary *const walls);
 
 void FreePlayer(Player *const player);
 
-const int *GetSlicesPlayer(const Player *const player);
+const float *GetSlicesPlayer(const Player *const player);
+
+const int GetNumRayPlayer(const Player *const player);
 
 #endif //PLAYER_H

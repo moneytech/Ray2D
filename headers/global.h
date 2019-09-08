@@ -14,10 +14,22 @@ typedef enum Section
 */
 typedef struct Global
 {
+    int screenWidth;
+    int screenHeight;
+    int fps;
+    const char *title;
     Section section;
-    
+
 }Global;
 
 Global NewGlobal();
+
+const int GetScreenWidthGlobal(const Global *const global);
+
+const int GetScreenHeightGlobal(const Global *const global);
+
+const int GetFPSGlobal(const Global *const global);
+
+const char *GetTitleGlobal(const Global *const global);
 
 #endif //GLOBAL_H
