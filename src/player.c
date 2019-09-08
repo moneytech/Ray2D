@@ -3,18 +3,23 @@
 #include <stdlib.h>
 
 extern const int MAX_WALLS;
-const int MAX_RAYS = 360; // angulo de vision del observador.
+const int MAX_RAYS = 40; // angulo de vision del observador.
+
+static void __DrawRay(const Player *const player, const Boundary *const walls);
+
+static void __DrawPlayer(const Player *const player);
 
 Player NewPlayer(const Vector2 position)
 {
-    Player particle = {0};
-    particle.position = position;
+    Player player = {0};
+    player.position = position;
+    player.color = RED;
 
-    particle.rays = (Ray2D*) malloc(sizeof(Ray2D) * MAX_RAYS);
+    player.rays = (Ray2D*) malloc(sizeof(Ray2D) * MAX_RAYS);
     for (int angle=0; angle < MAX_RAYS; angle++)
-        particle.rays[angle] = NewAngleRay2D(position, angle);
+        player.rays[angle] = NewAngleRay2D(position, angle);
 
-    return particle;
+    return player;
 }
 
 void UpdatePlayer(Player *const player, const Vector2 position)
@@ -27,6 +32,21 @@ void UpdatePlayer(Player *const player, const Vector2 position)
 }
 
 void DrawPlayer(const Player *const player, const Boundary *const walls)
+{
+    __DrawRay(player, walls); // Dibuja la vision del player.
+    __DrawPlayer(player); // Dibuja la posicion del player.
+}
+
+void FreePlayer(Player *const player)
+{
+    if (player->rays != NULL)
+    {
+        free(player->rays);
+        player->rays = NULL;
+    }
+}
+
+static void __DrawRay(const Player *const player, const Boundary *const walls)
 {
     float max = 1000000000.f;
     Vector2 pto = {0};
@@ -55,14 +75,14 @@ void DrawPlayer(const Player *const player, const Boundary *const walls)
         if (flag)
             DrawLineRay2D(&player->rays[i], pto);
     }
-
 }
 
-void FreePlayer(Player *const player)
+static void __DrawPlayer(const Player *const player)
 {
-    if (player->rays != NULL)
-    {
-        free(player->rays);
-        player->rays = NULL;
-    }
+    DrawCircle(
+        player->position.x,
+        player->position.y,
+        5.0f,
+        player->color
+    );
 }

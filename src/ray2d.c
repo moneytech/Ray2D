@@ -31,7 +31,7 @@ Ray2D NewAngleRay2D(const Vector2 position, float angle)
 
     // direccion del vector
     ray2d.direction = (Vector2) {
-        cos(ray2d.angle),
+        cos(ray2d.angle + PI),
         sin(ray2d.angle)
     };
 

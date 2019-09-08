@@ -10,7 +10,8 @@ typedef struct App
     int screenHeight;
     float fps;
     const char *title;
-    Color background;
+    Color backgroundCanvas;
+    Color backgroundMap;
     Canvas canvas;
 
 }App;

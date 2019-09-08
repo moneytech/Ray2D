@@ -26,7 +26,8 @@ App NewApp(const int screenWidth, const int screenHeight, const char *title)
     app.screenHeight = screenHeight;
     app.title = title;
     app.fps = 60;
-    app.background = BLACK;
+    app.backgroundCanvas = BLACK;
+    app.backgroundMap = BLUE;
     app.canvas = NewCanvas();
     
     // Inicializacion de la ventana.   
@@ -86,15 +87,17 @@ static void __UpdateApp(App *const app)
 static void __DrawApp(const App *const app)
 {
     BeginDrawing();
-    ClearBackground(app->background); // limpia la pantalla.
+    
 
     switch (global.section)
     {
         case CANVAS:
+            ClearBackground(app->backgroundCanvas); // limpia la pantalla.
             __DrawCanvasApp(app);
             break;
         
         default:
+            ClearBackground(app->backgroundMap); // limpia la pantalla.
             __DrawMapApp(app);
     }
 
