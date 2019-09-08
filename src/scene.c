@@ -21,13 +21,13 @@ Scene NewScene()
     );
 
     scene.walls[1] = NewBoundary(
-        (Vector2) {493.0f, 43.0f},
-        (Vector2) {425.0f, 86.0f}
+        (Vector2) {200.0f, 143.0f},
+        (Vector2) {600.0f, 106.0f}
     );
 
     scene.walls[2] = NewBoundary(
         (Vector2) {496.0f, 231.0f},
-        (Vector2) {241.0f, 21.0f}
+        (Vector2) {141.0f, 21.0f}
     );
 
     scene.walls[3] = NewBoundary(

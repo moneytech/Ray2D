@@ -77,7 +77,7 @@ const int GetNumRayPlayer(const Player *const player)
 
 static void __DrawRay(const Player *const player, const Boundary *const walls)
 {
-    float max = 1000000000.0f;
+    float max = 0xF00000;
     Vector2 pto = {0};
     bool flag = false;
 
