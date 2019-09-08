@@ -1,7 +1,9 @@
 #include "../headers/player.h"
 #include "../headers/helper.h"
 #include "../headers/global.h"
+#include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 extern const int MAX_WALLS; // Numero de paredes a colisionar (MODIFICAR). 
 extern Global global;
@@ -13,6 +15,7 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
 static void __DrawPlayer(const Player *const player);
 static void __KeyEventPlayer(Player *const player);
 static void __RotatePlayer(Player *const player, float angle);
+static void __MovePlayer(Player *const player, float velocity);
 
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
@@ -22,7 +25,7 @@ Player NewPlayer(const Vector2 position)
     Player player = {0};
     player.position = position;
     player.color = RED;
-    player.numRays = 45; // angulo de vision del observador.
+    player.numRays = 60; // angulo de vision del observador.
     player.slices = (float*) calloc(player.numRays, sizeof(float));
     player.angle = 0;
 
@@ -36,11 +39,9 @@ Player NewPlayer(const Vector2 position)
 void UpdatePlayer(Player *const player, const Vector2 position)
 {   
     __KeyEventPlayer(player);
-    // Detectar colision con pared.
-    player->position = position; // Mueve la particula segun el mouse.
     
     for (int i=0; i < player->numRays; i++)
-        UpdateRay2D(&player->rays[i], position);
+        UpdateRay2D(&player->rays[i], player->position);
 }
 
 void DrawPlayer(const Player *const player, const Boundary *const walls)
@@ -108,6 +109,15 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
 
         if (flag && global.section == CANVAS)
             DrawLineRay2D(&player->rays[i], pto);
+        
+        else if (global.section == CANVAS)
+            DrawLine(
+                player->position.x,
+                player->position.y,
+                player->rays[i].position.x + player->rays[i].direction.x * (-1000),
+                player->rays[i].position.y + player->rays[i].direction.y * (-1000),
+                GRAY
+            );
     }
 }
 
@@ -129,6 +139,12 @@ static void __KeyEventPlayer(Player *const player)
     
     else if (IsKeyDown(KEY_RIGHT))
         __RotatePlayer(player, +0.1);
+    
+    else if (IsKeyDown(KEY_UP))
+        __MovePlayer(player, -0.1);
+    
+    else if (IsKeyDown(KEY_DOWN))
+        __MovePlayer(player, 0.1);
 }
 
 static void __RotatePlayer(Player *const player, float angle)
@@ -139,4 +155,10 @@ static void __RotatePlayer(Player *const player, float angle)
 
     for (int i=0; i < GetNumRayPlayer(player); i++)
         SetAngleRay2D(&player->rays[i], i + player->angle);
+}
+
+static void __MovePlayer(Player *const player, float velocity)
+{
+    player->position.x += cos(player->angle * DEG2RAD + PI/6) * velocity;
+    player->position.y += sin(player->angle * DEG2RAD + PI/6) * velocity;
 }
