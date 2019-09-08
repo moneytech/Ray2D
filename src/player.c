@@ -2,21 +2,27 @@
 #include "../headers/helper.h"
 #include <stdlib.h>
 
-extern const int MAX_WALLS;
-const int MAX_RAYS = 40; // angulo de vision del observador.
+extern const int MAX_WALLS; // Numero de paredes a colisionar (MODIFICAR). 
 
+//******************************************************************
+//******************FIRMAS DE FUNCIOANES STATIC*********************
+//******************************************************************
 static void __DrawRay(const Player *const player, const Boundary *const walls);
-
 static void __DrawPlayer(const Player *const player);
 
+//******************************************************************
+//*********************IMPLEMENTACION DE FUNCIONES******************
+//******************************************************************
 Player NewPlayer(const Vector2 position)
 {
     Player player = {0};
     player.position = position;
     player.color = RED;
-
-    player.rays = (Ray2D*) malloc(sizeof(Ray2D) * MAX_RAYS);
-    for (int angle=0; angle < MAX_RAYS; angle++)
+    player.numRays = 40; // angulo de vision del observador.
+    player.slices = (int*) calloc(player.numRays, sizeof(int));
+    
+    player.rays = (Ray2D*) malloc(sizeof(Ray2D) * player.numRays);
+    for (int angle=0; angle < player.numRays; angle++)
         player.rays[angle] = NewAngleRay2D(position, angle);
 
     return player;
@@ -27,7 +33,7 @@ void UpdatePlayer(Player *const player, const Vector2 position)
     // Detectar colision con pared.
     player->position = position; // Mueve la particula segun el mouse.
     
-    for (int i=0; i < MAX_RAYS; i++)
+    for (int i=0; i < player->numRays; i++)
         UpdateRay2D(&player->rays[i], position);
 }
 
@@ -44,7 +50,22 @@ void FreePlayer(Player *const player)
         free(player->rays);
         player->rays = NULL;
     }
+
+    if (player->slices != NULL)
+    {
+        free(player->slices);
+        player->slices = NULL;
+    }
 }
+
+const int *GetSlicesPlayer(const Player *const player)
+{
+    return player->slices;
+}
+
+//******************************************************************
+//****************IMAPLEMENTACION FUNCIOANES STATIC*****************
+//******************************************************************
 
 static void __DrawRay(const Player *const player, const Boundary *const walls)
 {
@@ -52,7 +73,7 @@ static void __DrawRay(const Player *const player, const Boundary *const walls)
     Vector2 pto = {0};
     bool flag = false;
 
-    for (int i=0; i < MAX_RAYS; i++)
+    for (int i=0; i < player->numRays; i++)
     {
         max = 1000000000.f;
         flag = false;
@@ -71,7 +92,8 @@ static void __DrawRay(const Player *const player, const Boundary *const walls)
                 }
            }
         }
-        
+        player->slices[i] = max; // almaceno las trazas para su renderizado en 'Map'.
+
         if (flag)
             DrawLineRay2D(&player->rays[i], pto);
     }

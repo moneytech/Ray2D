@@ -5,7 +5,7 @@
 Global global;
 
 //******************************************************************
-//*********************FIRMA FUNCIOANES STATIC**********************
+//******************FIRMAS DE FUNCIOANES STATIC*********************
 //******************************************************************
 static void __KeyEventsApp(App *const app);
 static void __UpdateApp(App *const app);
