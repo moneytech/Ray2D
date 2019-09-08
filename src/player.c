@@ -1,13 +1,13 @@
-#include "../headers/particle.h"
+#include "../headers/player.h"
 #include "../headers/helper.h"
 #include <stdlib.h>
 
 extern const int MAX_WALLS;
 const int MAX_RAYS = 360; // angulo de vision del observador.
 
-Particle NewParticle(const Vector2 position)
+Player NewPlayer(const Vector2 position)
 {
-    Particle particle = {0};
+    Player particle = {0};
     particle.position = position;
 
     particle.rays = (Ray2D*) malloc(sizeof(Ray2D) * MAX_RAYS);
@@ -17,16 +17,16 @@ Particle NewParticle(const Vector2 position)
     return particle;
 }
 
-void UpdateParticle(Particle *const particle, const Vector2 position)
+void UpdatePlayer(Player *const player, const Vector2 position)
 {
     // Detectar colision con pared.
-    particle->position = position; // Mueve la particula segun el mouse.
+    player->position = position; // Mueve la particula segun el mouse.
     
     for (int i=0; i < MAX_RAYS; i++)
-        UpdateRay2D(&particle->rays[i], position);
+        UpdateRay2D(&player->rays[i], position);
 }
 
-void DrawParticle(const Particle *const particle, const Boundary *const walls)
+void DrawPlayer(const Player *const player, const Boundary *const walls)
 {
     float max = 1000000000.f;
     Vector2 pto = {0};
@@ -39,10 +39,10 @@ void DrawParticle(const Particle *const particle, const Boundary *const walls)
 
         for (int iWall=0; iWall < MAX_WALLS; iWall++)
         {
-            Vector2 auxPoint = GetIntersection(&(particle->rays[i]), &walls[iWall]);
+            Vector2 auxPoint = GetIntersection(&(player->rays[i]), &walls[iWall]);
             if (auxPoint.x > 0)
            {
-               float distance = Distance(particle->rays[i].position, auxPoint);
+               float distance = Distance(player->rays[i].position, auxPoint);
                 if (distance < max)
                 {
                     max = distance;
@@ -53,16 +53,16 @@ void DrawParticle(const Particle *const particle, const Boundary *const walls)
         }
 
         if (flag)
-            DrawLineRay2D(&particle->rays[i], pto);
+            DrawLineRay2D(&player->rays[i], pto);
     }
 
 }
 
-void FreeParticle(Particle *const particle)
+void FreePlayer(Player *const player)
 {
-    if (particle->rays != NULL)
+    if (player->rays != NULL)
     {
-        free(particle->rays);
-        particle->rays = NULL;
+        free(player->rays);
+        player->rays = NULL;
     }
 }

@@ -2,7 +2,7 @@
 #define APP_H
 
 #include "raylib.h"
-#include "particle.h"
+#include "player.h"
 #include "boundary.h"
 
 typedef struct App
@@ -13,7 +13,7 @@ typedef struct App
     const char *title;
     Color background;
 
-    Particle player;
+    Player player;
     Boundary *walls;
 
 }App;

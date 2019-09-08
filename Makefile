@@ -346,7 +346,7 @@ PROJECT_SOURCE_FILES ?= main.c          \
                         src/ray2d.c     \
                         src/boundary.c  \
                         src/helper.c    \
-                        src/particle.c  \
+                        src/player.c    \
                         src/canvas.c    \
                         src/map.c       \
                                        

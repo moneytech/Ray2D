@@ -23,7 +23,7 @@ App NewApp(const int screenWidth, const int screenHeight, const char *title)
     app.background = BLUE;
     
     // Obervador. 
-    app.player = NewParticle((Vector2) {200.0f, 300.0f});
+    app.player = NewPlayer((Vector2) {200.0f, 300.0f});
 
     // Reservo memoria para almacenar paredes.
     app.walls = (Boundary*) malloc(sizeof(Boundary) * MAX_WALLS);
@@ -80,7 +80,7 @@ void FreeApp(App *const app)
         free(app->walls);
         app->walls = NULL;
     }
-    FreeParticle(&app->player);
+    FreePlayer(&app->player);
 
     CloseWindow();
 }
@@ -97,7 +97,7 @@ static void __UpdateApp(App *const app)
     __KeyEventsApp(app);
     // actualiza la posicion de la particula
     // segun el movimiento del mouse.
-    UpdateParticle(&app->player, GetMousePosition());
+    UpdatePlayer(&app->player, GetMousePosition());
 }
 
 static void __DrawApp(const App *const app)
@@ -111,7 +111,7 @@ static void __DrawApp(const App *const app)
         DrawBoundary(&(app->walls[i]));
     
     // Dibuja la particula.
-    DrawParticle(&app->player, app->walls);
+    DrawPlayer(&app->player, app->walls);
 
     EndDrawing();
 }
