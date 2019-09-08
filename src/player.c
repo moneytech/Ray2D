@@ -96,7 +96,7 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
             Vector2 auxPoint = GetIntersectionRay2D(&(player->rays[i]), &walls[iWall]);
             if (auxPoint.x > 0)
            {
-               float distance = Distance(player->rays[i].position, auxPoint);
+                float distance = Distance(player->rays[i].position, auxPoint);
                 if (distance < max)
                 {
                     max = distance;
