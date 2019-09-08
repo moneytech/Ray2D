@@ -1,8 +1,10 @@
 #include "../headers/player.h"
 #include "../headers/helper.h"
+#include "../headers/global.h"
 #include <stdlib.h>
 
 extern const int MAX_WALLS; // Numero de paredes a colisionar (MODIFICAR). 
+extern Global global;
 
 //******************************************************************
 //******************FIRMAS DE FUNCIOANES STATIC*********************
@@ -18,7 +20,7 @@ Player NewPlayer(const Vector2 position)
     Player player = {0};
     player.position = position;
     player.color = RED;
-    player.numRays = 40; // angulo de vision del observador.
+    player.numRays = 90; // angulo de vision del observador.
     player.slices = (float*) calloc(player.numRays, sizeof(float));
     
     player.rays = (Ray2D*) malloc(sizeof(Ray2D) * player.numRays);
@@ -100,17 +102,18 @@ static void __DrawRay(const Player *const player, const Boundary *const walls)
         }
         player->slices[i] = max; // almaceno las trazas para su renderizado en 'Map'.
 
-        if (flag)
+        if (flag && global.section == CANVAS)
             DrawLineRay2D(&player->rays[i], pto);
     }
 }
 
 static void __DrawPlayer(const Player *const player)
 {
-    DrawCircle(
-        player->position.x,
-        player->position.y,
-        5.0f,
-        player->color
-    );
+    if (global.section == CANVAS)
+        DrawCircle(
+            player->position.x,
+            player->position.y,
+            5.0f,
+            player->color
+        );
 }

@@ -5,7 +5,7 @@ Global NewGlobal()
     Global global = {0};
     
     global.section = CANVAS;
-    global.screenWidth = 800;
+    global.screenWidth = 810;
     global.screenHeight = 600;
     global.title = "Overflow::Engine";
 

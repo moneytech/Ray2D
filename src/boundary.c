@@ -1,5 +1,7 @@
 #include "../headers/boundary.h"
+#include "../headers/global.h"
 
+extern Global global;
 
 Boundary NewBoundary(const Vector2 pto0, const Vector2 pto1)
 {
@@ -18,13 +20,14 @@ void UpdateBoundary(Boundary *const boundary)
 
 void DrawBoundary(const Boundary *const boundary)
 {
-    DrawLine(
-        boundary->pto0.x,
-        boundary->pto0.y,
-        boundary->pto1.x,
-        boundary->pto1.y,
-        boundary->color
-    );
+    if (global.section == CANVAS)
+        DrawLine(
+            boundary->pto0.x,
+            boundary->pto0.y,
+            boundary->pto1.x,
+            boundary->pto1.y,
+            boundary->color
+        );
 }
 
 void FreeBoundary(Boundary *const boundary)
