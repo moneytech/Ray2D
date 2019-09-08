@@ -4,6 +4,8 @@
 
 Global global;
 
+static const int *slicesPlayer;
+
 //******************************************************************
 //******************FIRMAS DE FUNCIOANES STATIC*********************
 //******************************************************************
@@ -75,6 +77,7 @@ static void __UpdateApp(App *const app)
 {
     __KeyEventsApp(app);
     UpdateScene(&app->scene); // la escene se actualiza siempre.
+    slicesPlayer = GetSlicesPlayerScene(&app->scene);
 
     switch (global.section)
     {

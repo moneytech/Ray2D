@@ -67,3 +67,8 @@ void FreeScene(Scene *const scene)
     
     FreePlayer(&scene->player);
 }
+
+const int *GetSlicesPlayerScene(const Scene *const scene)
+{
+    return GetSlicesPlayer(&scene->player);
+}
