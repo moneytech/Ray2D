@@ -12,6 +12,7 @@ typedef struct Player
 
     int numRays;
     float *slices;
+    float angle;
 
 }Player;
 

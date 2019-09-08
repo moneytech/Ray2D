@@ -9,8 +9,10 @@ extern Global global;
 //******************************************************************
 //******************FIRMAS DE FUNCIOANES STATIC*********************
 //******************************************************************
-static void __DrawRay(const Player *const player, const Boundary *const walls);
+static void __DrawRayPlayer(const Player *const player, const Boundary *const walls);
 static void __DrawPlayer(const Player *const player);
+static void __KeyEventPlayer(Player *const player);
+static void __RotatePlayer(Player *const player, float angle);
 
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
@@ -22,7 +24,8 @@ Player NewPlayer(const Vector2 position)
     player.color = RED;
     player.numRays = 45; // angulo de vision del observador.
     player.slices = (float*) calloc(player.numRays, sizeof(float));
-    
+    player.angle = 0;
+
     player.rays = (Ray2D*) malloc(sizeof(Ray2D) * player.numRays);
     for (int angle=0; angle < player.numRays; angle++)
         player.rays[angle] = NewAngleRay2D(position, angle);
@@ -31,7 +34,8 @@ Player NewPlayer(const Vector2 position)
 }
 
 void UpdatePlayer(Player *const player, const Vector2 position)
-{
+{   
+    __KeyEventPlayer(player);
     // Detectar colision con pared.
     player->position = position; // Mueve la particula segun el mouse.
     
@@ -41,7 +45,7 @@ void UpdatePlayer(Player *const player, const Vector2 position)
 
 void DrawPlayer(const Player *const player, const Boundary *const walls)
 {
-    __DrawRay(player, walls); // Dibuja la vision del player.
+    __DrawRayPlayer(player, walls); // Dibuja la vision del player.
     __DrawPlayer(player); // Dibuja la posicion del player.
 }
 
@@ -75,9 +79,9 @@ const int GetNumRayPlayer(const Player *const player)
 //****************IMAPLEMENTACION FUNCIOANES STATIC*****************
 //******************************************************************
 
-static void __DrawRay(const Player *const player, const Boundary *const walls)
+static void __DrawRayPlayer(const Player *const player, const Boundary *const walls)
 {
-    float max = 0xF00000;
+    float max = 0xF00000; //15728640
     Vector2 pto = {0};
     bool flag = false;
 
@@ -88,7 +92,7 @@ static void __DrawRay(const Player *const player, const Boundary *const walls)
 
         for (int iWall=0; iWall < MAX_WALLS; iWall++)
         {
-            Vector2 auxPoint = GetIntersection(&(player->rays[i]), &walls[iWall]);
+            Vector2 auxPoint = GetIntersectionRay2D(&(player->rays[i]), &walls[iWall]);
             if (auxPoint.x > 0)
            {
                float distance = Distance(player->rays[i].position, auxPoint);
@@ -116,4 +120,23 @@ static void __DrawPlayer(const Player *const player)
             5.0f,
             player->color
         );
+}
+
+static void __KeyEventPlayer(Player *const player)
+{
+    if (IsKeyDown(KEY_LEFT))
+        __RotatePlayer(player, -0.1);
+    
+    else if (IsKeyDown(KEY_RIGHT))
+        __RotatePlayer(player, +0.1);
+}
+
+static void __RotatePlayer(Player *const player, float angle)
+{
+    player->angle += angle;
+    if (player->angle > 360 || player->angle < -360)
+        player->angle = 0;
+
+    for (int i=0; i < GetNumRayPlayer(player); i++)
+        SetAngleRay2D(&player->rays[i], i + player->angle);
 }

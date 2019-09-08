@@ -31,7 +31,7 @@ Ray2D NewAngleRay2D(const Vector2 position, float angle)
 
     // direccion del vector
     ray2d.direction = (Vector2) {
-        cos(ray2d.angle + PI),
+        cos(ray2d.angle),
         sin(ray2d.angle)
     };
 
@@ -70,7 +70,7 @@ void FreeRay2d(Ray2D *const ray2d)
     //Liberacion de recursos...
 }
 
-Vector2 GetIntersection(const Ray2D *const ray2d, const Boundary *const wall)
+Vector2 GetIntersectionRay2D(const Ray2D *const ray2d, const Boundary *const wall)
 {
     Vector2 pto = {-1.0f, -1.0f};
 
@@ -99,4 +99,12 @@ Vector2 GetIntersection(const Ray2D *const ray2d, const Boundary *const wall)
     }
 
     return pto;
+}
+
+void SetAngleRay2D(Ray2D *const ray2d, float angle)
+{
+    ray2d->direction = (Vector2) {
+        cos(angle * DEG2RAD),
+        sin(angle * DEG2RAD)
+    };
 }
