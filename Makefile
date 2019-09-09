@@ -351,6 +351,7 @@ PROJECT_SOURCE_FILES ?= main.c          \
                         src/map.c       \
                         src/global.c    \
                         src/scene.c     \
+                        src/grid2d.c    \
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))

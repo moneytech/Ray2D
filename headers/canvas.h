@@ -3,9 +3,11 @@
 
 #include "raylib.h"
 #include "scene.h"
+#include "grid2d.h"
 
 typedef struct Canvas
 {
+    Grid2D grid2d;
     Color color;
 
 }Canvas;
