@@ -46,7 +46,9 @@ void UpdatePlayer(Player *const player, const Vector2 position)
 
 void DrawPlayer(const Player *const player, const Boundary *const walls)
 {
-    __DrawRayPlayer(player, walls); // Dibuja la vision del player.
+    if (walls != NULL)
+        __DrawRayPlayer(player, walls); // Dibuja la vision del player.
+    
     __DrawPlayer(player); // Dibuja la posicion del player.
 }
 
@@ -124,12 +126,31 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
 static void __DrawPlayer(const Player *const player)
 {
     if (global.section == CANVAS)
-        DrawCircle(
+    {
+        DrawLine(
             player->position.x,
             player->position.y,
-            5.0f,
-            player->color
+            player->position.x + cos(player->angle * DEG2RAD + PI/6) * 20,
+            player->position.y + sin(player->angle * DEG2RAD + PI/6) * 20,
+            RED
         );
+
+        DrawLine(
+            player->position.x,
+            player->position.y,
+            player->position.x + cos((player->angle - 45)  * DEG2RAD + PI/6) * 10,
+            player->position.y + sin((player->angle - 45) * DEG2RAD + PI/6) * 10,
+            RED
+        );
+        
+        DrawLine(
+            player->position.x,
+            player->position.y,
+            player->position.x + cos((player->angle + 45)  * DEG2RAD + PI/6) * 10,
+            player->position.y + sin((player->angle + 45) * DEG2RAD + PI/6) * 10,
+            RED
+        );;
+    }
 }
 
 static void __KeyEventPlayer(Player *const player)
