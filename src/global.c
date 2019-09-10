@@ -9,7 +9,7 @@ Global NewGlobal()
     global.screenHeight = 600; // altura de la ventana.
     global.title = "Overflow::Engine"; // titulo de la app.
 
-    global.velocityPlayer = 0.1; // velocidad de desplazamiento del player.
+    global.velocityPlayer = 0.09; // velocidad de desplazamiento del player.
 
     return global;
 }

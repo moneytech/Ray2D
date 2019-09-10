@@ -13,9 +13,9 @@ static void __UpdateApp(App *const app);
 static void __DrawApp(const App *const app);
 static void __DrawCanvasApp(const App *const app);
 static void __DrawMapApp(const App *const app);
+static void __DrawObjectsApp(const App *const app);
 static void __UpdateCanvasApp(App *const app);
 static void __UpdateMapApp(App *const app);
-
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
@@ -104,20 +104,16 @@ static void __UpdateApp(App *const app)
 static void __DrawApp(const App *const app)
 {
     BeginDrawing();
+    
+    if (global.section == CANVAS)
+    {
+        BeginMode2D(camera);
+            __DrawObjectsApp(app);
+        EndMode2D();
+    }
+    else
+        __DrawObjectsApp(app);
 
-    BeginMode2D(camera);
-        switch (global.section)
-        {
-            case CANVAS:
-                ClearBackground(app->backgroundCanvas); // limpia la pantalla.
-                __DrawCanvasApp(app);
-                break;
-            
-            default:
-                ClearBackground(app->backgroundMap); // limpia la pantalla.
-                __DrawMapApp(app);
-        }
-    EndMode2D();
 
     EndDrawing();
 }
@@ -131,6 +127,22 @@ static void __DrawMapApp(const App *const app)
 {
     DrawMap(&app->map, &app->scene);
 }
+
+static void __DrawObjectsApp(const App *const app)
+{
+    switch (global.section)
+    {
+        case CANVAS:
+            ClearBackground(app->backgroundCanvas); // limpia la pantalla.
+            __DrawCanvasApp(app);
+            break;
+        
+        default:
+            ClearBackground(app->backgroundMap); // limpia la pantalla.
+            __DrawMapApp(app);
+    }
+}
+
 
 static void __UpdateCanvasApp(App *const app)
 {
