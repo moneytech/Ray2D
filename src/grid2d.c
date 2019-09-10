@@ -16,13 +16,8 @@ void UpdateGrid2D(Grid2D *const grid2d)
 
 void DrawGrid2D(const Grid2D *const grid2d)
 {
-    int space = 20;
-    for (int i=0; i < 50.0f; i++) {
-        DrawLine(0, i * space, 1000.0f, i * space, GRAY);
-        
-        for (int j=0; j < 50.0f; j++)
-            DrawLine(j * space, 0, j * space, 1000.0f, GRAY);
-    }
+    DrawLine(1000000.0f, 0, -1000000.0f, 0, RED);
+    DrawLine(0, 1000000.0f, 0, -1000000.0f, GREEN);
 }
 
 void FreeGrid2D(Grid2D *const grid2d)

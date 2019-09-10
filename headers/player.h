@@ -5,7 +5,7 @@
 #include "ray2d.h"
 
 typedef struct Player
-{
+{    
     Vector2 position;
     Ray2D *rays;
     Color color;

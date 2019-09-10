@@ -19,6 +19,7 @@ typedef struct Global
     int fps;
     const char *title;
     Section section;
+    float velocityPlayer;
 
 }Global;
 

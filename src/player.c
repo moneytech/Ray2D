@@ -7,6 +7,7 @@
 
 extern const int MAX_WALLS; // Numero de paredes a colisionar (MODIFICAR). 
 extern Global global;
+extern Camera2D camera;
 
 //******************************************************************
 //******************FIRMAS DE FUNCIOANES STATIC*********************
@@ -24,7 +25,7 @@ Player NewPlayer(const Vector2 position)
 {
     Player player = {0};
     player.position = position;
-    player.color = RED;
+    player.color = (Color) {231.0f, 76.0f, 60.0f, 255.0f};
     player.numRays = 60; // angulo de vision del observador.
     player.slices = (float*) calloc(player.numRays, sizeof(float));
     player.angle = 0;
@@ -132,7 +133,7 @@ static void __DrawPlayer(const Player *const player)
             player->position.y,
             player->position.x + cos(player->angle * DEG2RAD + PI/6) * 20,
             player->position.y + sin(player->angle * DEG2RAD + PI/6) * 20,
-            RED
+            player->color
         );
 
         DrawLine(
@@ -140,7 +141,7 @@ static void __DrawPlayer(const Player *const player)
             player->position.y,
             player->position.x + cos((player->angle - 45)  * DEG2RAD + PI/6) * 10,
             player->position.y + sin((player->angle - 45) * DEG2RAD + PI/6) * 10,
-            RED
+            player->color
         );
         
         DrawLine(
@@ -148,24 +149,28 @@ static void __DrawPlayer(const Player *const player)
             player->position.y,
             player->position.x + cos((player->angle + 45)  * DEG2RAD + PI/6) * 10,
             player->position.y + sin((player->angle + 45) * DEG2RAD + PI/6) * 10,
-            RED
-        );;
+            player->color
+        );
     }
 }
 
 static void __KeyEventPlayer(Player *const player)
 {
     if (IsKeyDown(KEY_LEFT))
-        __RotatePlayer(player, -0.1);
+        __RotatePlayer(player, -global.velocityPlayer);
     
     else if (IsKeyDown(KEY_RIGHT))
-        __RotatePlayer(player, +0.1);
+        __RotatePlayer(player, global.velocityPlayer);
     
     else if (IsKeyDown(KEY_UP))
-        __MovePlayer(player, -0.1);
+    {
+        __MovePlayer(player, -global.velocityPlayer);
+        camera.offset.y += global.velocityPlayer * sin(player->angle * DEG2RAD + PI/6);
+        camera.offset.x += global.velocityPlayer * cos(player->angle * DEG2RAD + PI/6);
+    }
     
-    else if (IsKeyDown(KEY_DOWN))
-        __MovePlayer(player, 0.1);
+    camera.target.x = player->position.x + 20;
+    camera.target.y = player->position.y + 20;
 }
 
 static void __RotatePlayer(Player *const player, float angle)
