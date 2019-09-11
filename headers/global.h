@@ -5,6 +5,7 @@ typedef enum Section
 {
     CANVAS,
     MAP
+    
 }Section;
 
 /**

@@ -26,7 +26,7 @@ App NewApp(const int screenWidth, const int screenHeight, const char *title)
     App app = {0};
     // rgb(30, 39, 46)
     // app.backgroundCanvas = (Color) {45.0f, 52.0f, 54.0f, 255.0f};
-    app.backgroundCanvas = (Color) {30.0f, 39.0f, 46.0f, 255.0f};
+    app.backgroundCanvas = (Color) {61.0f, 61.0f, 61.0f, 255.0f};
     app.backgroundMap = BLACK;
     
     camera.target = (Vector2) {

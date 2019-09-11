@@ -4,12 +4,12 @@
 #include "raylib.h"
 
 typedef struct Grid2D {
-    float diff;
+    int slices;
     Color color;
 
 }Grid2D;
 
-Grid2D NewGrid2D(float diff, Color color);
+Grid2D NewGrid2D(int slices, Color color);
 
 void UpdateGrid2D(Grid2D *const grid2d);
 
