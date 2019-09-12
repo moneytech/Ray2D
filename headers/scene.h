@@ -21,4 +21,8 @@ void FreeScene(Scene *const scene);
 
 const float *GetSlicesPlayerScene(const Scene *const scene);
 
+const Player *GetPlayerScene(const Scene *const scene);
+
+const Boundary *GetWallsScene(const Scene *const scene);
+
 #endif //SCENE_H

@@ -64,3 +64,13 @@ const float *GetSlicesPlayerScene(const Scene *const scene)
 {
     return GetSlicesPlayer(&scene->player);
 }
+
+const Player *GetPlayerScene(const Scene *const scene)
+{
+    return &scene->player;
+}
+
+const Boundary *GetWallsScene(const Scene *const scene)
+{
+    return scene->walls;
+}

@@ -17,31 +17,19 @@ static void __DrawMapApp(const App *const app);
 static void __DrawObjectsApp(const App *const app);
 static void __UpdateCanvasApp(App *const app);
 static void __UpdateMapApp(App *const app);
+static void __InitCameraApp(const App *const app);
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
 App NewApp()
 {
     global = NewGlobal();
-
     App app = {0};
-    // rgb(30, 39, 46)
-    // app.backgroundCanvas = (Color) {45.0f, 52.0f, 54.0f, 255.0f};
+
     app.backgroundCanvas = (Color) {61.0f, 61.0f, 61.0f, 255.0f};
     app.backgroundMap = BLACK;
     
-    camera.target = (Vector2) {
-        app.scene.player.position.x + 20,
-        app.scene.player.position.y + 20
-    };
-
-    camera.offset = (Vector2) {
-        global.screenWidth / 2,
-        global.screenHeight / 2
-    };
-
-    camera.zoom = 1.0f;
-    camera.rotation = 0.0f;
+    __InitCameraApp(&app);
 
     app.scene = NewScene();
     globalWalls = &app.scene.walls;
@@ -84,15 +72,26 @@ void FreeApp(App *const app)
 //******************************************************************
 static void __KeyEventsApp(App *const app)
 {
-    
-    if (IsKeyPressed(global.keySectionCanvas))
+    static bool flag = false;
+
+    if (IsKeyPressed(global.keySectionCanvas) && GetCurrentSectionGlobal(&global) != CANVAS)
     {
+        if (flag == false)
+            HideFOVPlayer(&app->scene.player);
+        else
+            ShowFOVPlayer(&app->scene.player);
+
         SetSectionGlobal(&global, CANVAS);
     }
-    else if (IsKeyPressed(global.keySectionMap))
+    else if (IsKeyPressed(global.keySectionMap) && GetCurrentSectionGlobal(&global) != MAP)
     {
-        if (IsHideFOVPlayer(&app->scene.player))
+        if (!IsShowFOVPlayer(&app->scene.player))
+        {
+            flag = false;
             ShowFOVPlayer(&app->scene.player);
+        }
+        else
+            flag = true;
 
         SetSectionGlobal(&global, MAP);
     }
@@ -165,4 +164,20 @@ static void __UpdateCanvasApp(App *const app)
 static void __UpdateMapApp(App *const app)
 {
     UpdateMap(&app->map);
+}
+
+static void __InitCameraApp(const App *const app)
+{
+    camera.target = (Vector2) {
+        app->scene.player.position.x + 20,
+        app->scene.player.position.y + 20
+    };
+
+    camera.offset = (Vector2) {
+        global.screenWidth / 2,
+        global.screenHeight / 2
+    };
+
+    camera.zoom = 1.0f;
+    camera.rotation = 0.0f;
 }

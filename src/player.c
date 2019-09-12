@@ -79,14 +79,16 @@ const int GetNumRayPlayer(const Player *const player)
     return player->numRays;
 }
 
-void ShowFOVPlayer(Player *const player)
+bool ShowFOVPlayer(Player *const player)
 {
     player->showFOV = true;
+    return player->showFOV;
 }
 
-void HideFOVPlayer(Player *const player)
+bool HideFOVPlayer(Player *const player)
 {
     player->showFOV = false;
+    return player->showFOV;
 }
 
 bool IsHideFOVPlayer(const Player *const player)
