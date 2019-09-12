@@ -8,7 +8,7 @@ typedef struct Result
     bool ok;
     Vector2 pto; // Hacer generico.
 
-}Result;
+} Result;
 
 // Funcion que devuelve el modulo de dos vectores.
 float Distance(const Vector2 pto, const Vector2 pto1);

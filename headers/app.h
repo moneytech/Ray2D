@@ -15,7 +15,7 @@ typedef struct App
     Canvas canvas;
     Map map;
 
-}App;
+} App;
 
 App NewApp();
 

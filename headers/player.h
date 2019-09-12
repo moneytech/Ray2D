@@ -16,7 +16,7 @@ typedef struct Player
 
     bool showFOV;
 
-}Player;
+} Player;
 
 Player NewPlayer(const Vector2 position);
 

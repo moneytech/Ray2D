@@ -9,7 +9,7 @@ typedef struct Scene
     Boundary *walls;
     Player player;
 
-}Scene;
+} Scene;
 
 Scene NewScene();
 

@@ -8,7 +8,7 @@ typedef struct Map
 {
     Color color;
     
-}Map;
+} Map;
 
 Map NewMap();
 

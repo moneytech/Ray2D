@@ -7,7 +7,7 @@ typedef struct Grid2D {
     int slices;
     Color color;
 
-}Grid2D;
+} Grid2D;
 
 Grid2D NewGrid2D(int slices, Color color);
 

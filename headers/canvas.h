@@ -10,7 +10,7 @@ typedef struct Canvas
     Grid2D grid2d;
     Color color;
 
-}Canvas;
+} Canvas;
 
 Canvas NewCanvas();
 

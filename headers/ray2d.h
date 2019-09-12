@@ -11,7 +11,7 @@ typedef struct Ray2D
 
     float angle;
 
-}Ray2D;
+} Ray2D;
 
 Ray2D NewRay2D(const Vector2 position, const Vector2 direction);
 
