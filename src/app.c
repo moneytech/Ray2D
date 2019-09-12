@@ -18,6 +18,7 @@ static void __DrawObjectsApp(const App *const app);
 static void __UpdateCanvasApp(App *const app);
 static void __UpdateMapApp(App *const app);
 static void __InitCameraApp(const App *const app);
+static void __InitConfigWindowApp(const App *const app);
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
@@ -28,26 +29,15 @@ App NewApp()
 
     app.backgroundCanvas = (Color) {61.0f, 61.0f, 61.0f, 255.0f};
     app.backgroundMap = BLACK;
-    
-    __InitCameraApp(&app);
-
     app.scene = NewScene();
-    globalWalls = &app.scene.walls;
-    
+    // se inicializa antes que el scene
+    // y depues del canvas.
+    globalWalls = &app.scene.walls; 
     app.canvas = NewCanvas();
     app.map = NewMap();
 
-    // Inicializacion de la ventana.   
-    InitWindow(
-        GetScreenWidthGlobal(&global), // Ancho de la ventana.
-        GetScreenHeightGlobal(&global), // Alto de la ventana.
-        GetTitleGlobal(&global) // Titulo de la ventana.
-    );
-
-    // HideCursor();
-    SetMousePosition(GetScreenWidthGlobal(&global)/2, GetScreenHeightGlobal(&global)/2);
-    SetExitKey(KEY_F8);
-    SetTargetFPS(GetFPSGlobal(&global));
+    __InitCameraApp(&app);
+    __InitConfigWindowApp(&app);
 
     return app;
 }
@@ -180,4 +170,24 @@ static void __InitCameraApp(const App *const app)
 
     camera.zoom = 1.0f;
     camera.rotation = 0.0f;
+}
+
+static void __InitConfigWindowApp(const App *const app)
+{
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    // Inicializacion de la ventana.   
+    InitWindow(
+        GetScreenWidthGlobal(&global), // Ancho de la ventana.
+        GetScreenHeightGlobal(&global), // Alto de la ventana.
+        GetTitleGlobal(&global) // Titulo de la ventana.
+    );
+
+    // HideCursor();
+    SetMousePosition(
+        GetScreenWidthGlobal(&global)/2, 
+        GetScreenHeightGlobal(&global)/2
+    );
+
+    SetExitKey(KEY_F8);
+    SetTargetFPS(GetFPSGlobal(&global));
 }

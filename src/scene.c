@@ -23,7 +23,6 @@ Scene NewScene()
     //     (Vector2) {300.0f, -300.0f}
     // );
     
-
     return scene;
 }
 
