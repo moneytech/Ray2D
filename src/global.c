@@ -1,4 +1,5 @@
 #include "../headers/global.h"
+#include "raylib.h"
 
 Global NewGlobal()
 {
@@ -12,10 +13,14 @@ Global NewGlobal()
     global.fps = 60;
     // configuraciones para el player.
     global.velocityPlayer = 2.09; // velocidad de desplazamiento del player.
-    
+    global.visionAngle = 45.0f;
+    global.diffAngle = PI/8; // P/6
+    global.visionDistance = 500.0f; // distancia de vision del player.
+
+
     // configuraciones para la grilla.
     global.spaceGrid2D = 30; 
-    global.numLinesGrid2D = 30;
+    global.numLinesGrid2D = 10;
 
     return global;
 }

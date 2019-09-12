@@ -1,10 +1,11 @@
 #include "../headers/ray2d.h"
 #include "../headers/helper.h"
 #include "../headers/app.h"
+#include "../headers/global.h"
 #include <math.h>
 #include <stdio.h>
 
-const int LENGTH = 10;
+extern Global global;
 
 Ray2D NewRay2D(const Vector2 position, const Vector2 direction)
 {
@@ -48,8 +49,8 @@ void DrawRay2D(const Ray2D *const ray2d)
     DrawLine(
         ray2d->position.x,
         ray2d->position.y,
-        ray2d->position.x + (ray2d->direction.x * LENGTH),
-        ray2d->position.y + (ray2d->direction.y * LENGTH),
+        ray2d->position.x + (ray2d->direction.x * global.visionDistance),
+        ray2d->position.y + (ray2d->direction.y * global.visionDistance),
         RAYWHITE
     );
 }

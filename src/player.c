@@ -26,7 +26,7 @@ Player NewPlayer(const Vector2 position)
     Player player = {0};
     player.position = position;
     player.color = (Color) {231.0f, 76.0f, 60.0f, 255.0f};
-    player.numRays = 60; // angulo de vision del observador.
+    player.numRays = global.visionAngle; // angulo de vision del observador.
     player.slices = (float*) calloc(player.numRays, sizeof(float));
     player.angle = 0;
     player.showFOV = false;
@@ -119,17 +119,18 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
                 }
            }
         }
-        player->slices[i] = max; // almaceno las trazas para su renderizado en 'Map'.
 
-        if (flag && global.section == CANVAS)
+        player->slices[i] = (max < global.visionDistance) ? max : 0xF00000; // almaceno las trazas para su renderizado en 'Map'.
+
+        if (flag && global.section == CANVAS && max < global.visionDistance)
             DrawLineRay2D(&player->rays[i], pto);
         
         else if (global.section == CANVAS)
             DrawLine(
                 player->position.x,
                 player->position.y,
-                player->rays[i].position.x + player->rays[i].direction.x * (-1000),
-                player->rays[i].position.y + player->rays[i].direction.y * (-1000),
+                player->rays[i].position.x + player->rays[i].direction.x * (-global.visionDistance),
+                player->rays[i].position.y + player->rays[i].direction.y * (-global.visionDistance),
                 GRAY
             );
     }
@@ -142,24 +143,24 @@ static void __DrawPlayer(const Player *const player)
         DrawLine(
             player->position.x,
             player->position.y,
-            player->position.x + cos(player->angle * DEG2RAD + PI/6) * 20,
-            player->position.y + sin(player->angle * DEG2RAD + PI/6) * 20,
+            player->position.x + cos(player->angle * DEG2RAD + global.diffAngle) * 20,
+            player->position.y + sin(player->angle * DEG2RAD + global.diffAngle) * 20,
             player->color
         );
 
         DrawLine(
             player->position.x,
             player->position.y,
-            player->position.x + cos((player->angle - 45)  * DEG2RAD + PI/6) * 10,
-            player->position.y + sin((player->angle - 45) * DEG2RAD + PI/6) * 10,
+            player->position.x + cos((player->angle - 45)  * DEG2RAD + global.diffAngle) * 10,
+            player->position.y + sin((player->angle - 45) * DEG2RAD + global.diffAngle) * 10,
             player->color
         );
         
         DrawLine(
             player->position.x,
             player->position.y,
-            player->position.x + cos((player->angle + 45)  * DEG2RAD + PI/6) * 10,
-            player->position.y + sin((player->angle + 45) * DEG2RAD + PI/6) * 10,
+            player->position.x + cos((player->angle + 45)  * DEG2RAD + global.diffAngle) * 10,
+            player->position.y + sin((player->angle + 45) * DEG2RAD + global.diffAngle) * 10,
             player->color
         );
     }
@@ -176,15 +177,15 @@ static void __KeyEventPlayer(Player *const player)
     else if (IsKeyDown(KEY_UP))
     {
         __MovePlayer(player, -global.velocityPlayer);
-        camera.offset.y += global.velocityPlayer * sin(player->angle * DEG2RAD + PI/6);
-        camera.offset.x += global.velocityPlayer * cos(player->angle * DEG2RAD + PI/6);
+        camera.offset.y += global.velocityPlayer * sin(player->angle * DEG2RAD + global.diffAngle);
+        camera.offset.x += global.velocityPlayer * cos(player->angle * DEG2RAD + global.diffAngle);
     }
 
     else if (IsKeyDown(KEY_DOWN))
     {
         __MovePlayer(player, global.velocityPlayer);
-        camera.offset.y -= global.velocityPlayer * sin(player->angle * DEG2RAD + PI/6);
-        camera.offset.x -= global.velocityPlayer * cos(player->angle * DEG2RAD + PI/6);
+        camera.offset.y -= global.velocityPlayer * sin(player->angle * DEG2RAD + global.diffAngle);
+        camera.offset.x -= global.velocityPlayer * cos(player->angle * DEG2RAD + global.diffAngle);
     }
     
     if (IsKeyPressed(KEY_F3) && global.section == CANVAS)
@@ -206,6 +207,6 @@ static void __RotatePlayer(Player *const player, float angle)
 
 static void __MovePlayer(Player *const player, float velocity)
 {
-    player->position.x += cos(player->angle * DEG2RAD + PI/6) * velocity;
-    player->position.y += sin(player->angle * DEG2RAD + PI/6) * velocity;
+    player->position.x += cos(player->angle * DEG2RAD + global.diffAngle) * velocity;
+    player->position.y += sin(player->angle * DEG2RAD + global.diffAngle) * velocity;
 }

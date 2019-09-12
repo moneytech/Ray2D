@@ -20,7 +20,11 @@ typedef struct Global
     int fps; // frames por segundos.
     const char *title; // titulo de la ventana.
     Section section; // seccion en ejecucion (Canvas|Map).
-    float velocityPlayer; // velocidad del jugador. 
+    float velocityPlayer; // velocidad del player. 
+    float visionAngle; // angulo de vision del player.
+    float diffAngle;
+    float visionDistance;
+
     int spaceGrid2D; // espacio de los cuadrados de la grilla.
     int numLinesGrid2D; // numero de lineas que se renderizan en la grilla.
 
