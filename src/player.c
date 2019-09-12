@@ -79,6 +79,16 @@ const int GetNumRayPlayer(const Player *const player)
     return player->numRays;
 }
 
+void ShowFOVPlayer(Player *const player)
+{
+    player->showFOV = true;
+}
+
+void HideFOVPlayer(Player *const player)
+{
+    player->showFOV = false;
+}
+
 
 //******************************************************************
 //****************IMAPLEMENTACION FUNCIOANES STATIC*****************
@@ -177,7 +187,7 @@ static void __KeyEventPlayer(Player *const player)
         camera.offset.x -= global.velocityPlayer * cos(player->angle * DEG2RAD + PI/6);
     }
     
-    if (IsKeyPressed(KEY_F3))
+    if (IsKeyPressed(KEY_F3) && global.section == CANVAS)
         player->showFOV = !player->showFOV;
     
     camera.target.x = player->position.x + 20;

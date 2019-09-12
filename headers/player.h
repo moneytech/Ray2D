@@ -30,4 +30,8 @@ const float *GetSlicesPlayer(const Player *const player);
 
 const int GetNumRayPlayer(const Player *const player);
 
+void ShowFOVPlayer(Player *const player);
+
+void HideFOVPlayer(Player *const player);
+
 #endif //PLAYER_H

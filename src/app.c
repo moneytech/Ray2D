@@ -85,7 +85,12 @@ void FreeApp(App *const app)
 static void __KeyEventsApp(App *const app)
 {
     if (IsKeyPressed(KEY_TAB))
+    {
+        if (global.section == CANVAS && !app->scene.player.showFOV)
+            app->scene.player.showFOV = true;
+
         global.section = (global.section == CANVAS) ? (MAP) : (CANVAS);
+    }
 }
 
 static void __UpdateApp(App *const app)
