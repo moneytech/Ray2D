@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 Global global;
+Boundary **globalWalls;
 Camera2D camera;
 
 //******************************************************************
@@ -43,6 +44,8 @@ App NewApp(const int screenWidth, const int screenHeight, const char *title)
     camera.rotation = 0.0f;
 
     app.scene = NewScene();
+    globalWalls = &app.scene.walls;
+    
     app.canvas = NewCanvas();
     app.map = NewMap();
 

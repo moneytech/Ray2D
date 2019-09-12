@@ -92,13 +92,13 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
 
     for (int i=0; i < player->numRays; i++)
     {
-        max = 1000000000.f;
+        max = 0xF00000;
         flag = false;
 
         for (int iWall=0; iWall < MAX_WALLS; iWall++)
         {
             Vector2 auxPoint = GetIntersectionRay2D(&(player->rays[i]), &walls[iWall]);
-            if (auxPoint.x > 0)
+            if (auxPoint.x > -100000.0f)
            {
                 float distance = Distance(player->rays[i].position, auxPoint);
                 if (distance < max)

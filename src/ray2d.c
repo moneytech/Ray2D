@@ -72,7 +72,7 @@ void FreeRay2d(Ray2D *const ray2d)
 
 Vector2 GetIntersectionRay2D(const Ray2D *const ray2d, const Boundary *const wall)
 {
-    Vector2 pto = {-1.0f, -1.0f};
+    Vector2 pto = {-1000000.0f, -1000000.0f};
 
     float x1 = wall->pto0.x;
     float y1 = wall->pto0.y;

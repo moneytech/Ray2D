@@ -4,12 +4,18 @@ Global NewGlobal()
 {
     Global global = {0};
     
+    // configuraciones para la ventana.
     global.section = CANVAS; // inicializa en la seccion canvas.
     global.screenWidth = 810; // ancho de la ventana.
     global.screenHeight = 600; // altura de la ventana.
     global.title = "Overflow::Engine"; // titulo de la app.
-
+    
+    // configuraciones para el player.
     global.velocityPlayer = 0.09; // velocidad de desplazamiento del player.
+    
+    // configuraciones para la grilla.
+    global.spaceGrid2D = 30; 
+    global.numLinesGrid2D = 60;
 
     return global;
 }

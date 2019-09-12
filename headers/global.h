@@ -6,7 +6,7 @@ typedef enum Section
     CANVAS,
     MAP
     
-}Section;
+} Section;
 
 /**
  * La estructura global permite
@@ -15,14 +15,16 @@ typedef enum Section
 */
 typedef struct Global
 {
-    int screenWidth;
-    int screenHeight;
-    int fps;
-    const char *title;
-    Section section;
-    float velocityPlayer;
+    int screenWidth; // ancho de la ventana.
+    int screenHeight; // altura de la ventana.
+    int fps; // frames por segundos.
+    const char *title; // titulo de la ventana.
+    Section section; // seccion en ejecucion (Canvas|Map).
+    float velocityPlayer; // velocidad del jugador. 
+    int spaceGrid2D; // espacio de los cuadrados de la grilla.
+    int numLinesGrid2D; // numero de lineas que se renderizan en la grilla.
 
-}Global;
+} Global;
 
 Global NewGlobal();
 

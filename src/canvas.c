@@ -1,11 +1,13 @@
 #include "../headers/canvas.h"
+#include "../headers/global.h"
 #include <stdlib.h>
 
+extern Global global;
 
 Canvas NewCanvas()
 {
     Canvas canvas = {0};
-    canvas.grid2d = NewGrid2D(20, (Color) {75.0f, 75.0f, 75.0f, 255.0f});
+    canvas.grid2d = NewGrid2D(global.numLinesGrid2D, (Color) {75.0f, 75.0f, 75.0f, 255.0f});
     canvas.color = GRAY;
 
     return canvas;
