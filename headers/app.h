@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "canvas.h"
 #include "scene.h"
+#include "menu.h"
 #include "map.h"
 
 typedef struct App
@@ -11,6 +12,7 @@ typedef struct App
     Color backgroundCanvas;
     Color backgroundMap;
     
+    Menu menu;
     Scene scene;
     Canvas canvas;
     Map map;

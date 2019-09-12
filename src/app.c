@@ -35,7 +35,7 @@ App NewApp()
     globalWalls = &app.scene.walls; 
     app.canvas = NewCanvas();
     app.map = NewMap();
-
+    app.menu = NewMenu();
     __InitCameraApp(&app);
     __InitConfigWindowApp(&app);
 
@@ -53,6 +53,9 @@ void RunApp(App *const app)
 
 void FreeApp(App *const app)
 {
+    FreeMenu(&app->menu);
+    FreeScene(&app->scene);
+    FreeMap(&app->map);
     FreeCanvas(&app->canvas);
     CloseWindow();
 }
@@ -96,6 +99,7 @@ static void __UpdateApp(App *const app)
     {
         case CANVAS:
             __UpdateCanvasApp(app);
+            UpdateMenu(&app->menu);
             break;
         
         default:
@@ -107,15 +111,15 @@ static void __DrawApp(const App *const app)
 {
     BeginDrawing();
     
-    if (global.section == CANVAS)
+    if (GetCurrentSectionGlobal(&global) == CANVAS)
     {
         BeginMode2D(camera);
             __DrawObjectsApp(app);
         EndMode2D();
+        DrawMenu(&app->menu);
     }
     else
         __DrawObjectsApp(app);
-
 
     EndDrawing();
 }
@@ -144,7 +148,6 @@ static void __DrawObjectsApp(const App *const app)
             __DrawMapApp(app);
     }
 }
-
 
 static void __UpdateCanvasApp(App *const app)
 {
