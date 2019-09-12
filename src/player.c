@@ -89,6 +89,16 @@ void HideFOVPlayer(Player *const player)
     player->showFOV = false;
 }
 
+bool IsHideFOVPlayer(const Player *const player)
+{
+    return !player->showFOV;
+}
+
+bool IsShowFOVPlayer(const Player *const player)
+{
+    return player->showFOV;
+}
+
 
 //******************************************************************
 //****************IMAPLEMENTACION FUNCIOANES STATIC*****************

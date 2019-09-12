@@ -34,4 +34,8 @@ void ShowFOVPlayer(Player *const player);
 
 void HideFOVPlayer(Player *const player);
 
+bool IsHideFOVPlayer(const Player *const player);
+
+bool IsShowFOVPlayer(const Player *const player);
+
 #endif //PLAYER_H

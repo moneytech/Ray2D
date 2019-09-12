@@ -28,6 +28,9 @@ typedef struct Global
     int spaceGrid2D; // espacio de los cuadrados de la grilla.
     int numLinesGrid2D; // numero de lineas que se renderizan en la grilla.
 
+    int keySectionCanvas;
+    int keySectionMap;
+
 } Global;
 
 Global NewGlobal();
@@ -39,5 +42,9 @@ const int GetScreenHeightGlobal(const Global *const global);
 const int GetFPSGlobal(const Global *const global);
 
 const char *GetTitleGlobal(const Global *const global);
+
+void SetSectionGlobal(Global *const global, Section section);
+
+Section GetCurrentSectionGlobal(const Global *const global);
 
 #endif //GLOBAL_H

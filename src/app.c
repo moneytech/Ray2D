@@ -56,7 +56,7 @@ App NewApp()
         GetTitleGlobal(&global) // Titulo de la ventana.
     );
 
-    HideCursor();
+    // HideCursor();
     SetMousePosition(GetScreenWidthGlobal(&global)/2, GetScreenHeightGlobal(&global)/2);
     SetExitKey(KEY_F8);
     SetTargetFPS(GetFPSGlobal(&global));
@@ -84,12 +84,17 @@ void FreeApp(App *const app)
 //******************************************************************
 static void __KeyEventsApp(App *const app)
 {
-    if (IsKeyPressed(KEY_TAB))
+    
+    if (IsKeyPressed(global.keySectionCanvas))
     {
-        if (global.section == CANVAS && !app->scene.player.showFOV)
-            app->scene.player.showFOV = true;
+        SetSectionGlobal(&global, CANVAS);
+    }
+    else if (IsKeyPressed(global.keySectionMap))
+    {
+        if (IsHideFOVPlayer(&app->scene.player))
+            ShowFOVPlayer(&app->scene.player);
 
-        global.section = (global.section == CANVAS) ? (MAP) : (CANVAS);
+        SetSectionGlobal(&global, MAP);
     }
 }
 

@@ -8,7 +8,9 @@ Global NewGlobal()
     // configuraciones para la ventana.
     global.section = CANVAS; // inicializa en la seccion canvas.
     global.screenWidth = 810; // ancho de la ventana.
+    // global.screenWidth = 900; // ancho de la ventana.
     global.screenHeight = 600; // altura de la ventana.
+    // global.screenHeight = 700; // altura de la ventana.
     global.title = "Overflow::Engine"; // titulo de la app.
     global.fps = 60;
     // configuraciones para el player.
@@ -21,6 +23,9 @@ Global NewGlobal()
     // configuraciones para la grilla.
     global.spaceGrid2D = 30; 
     global.numLinesGrid2D = 20;
+
+    global.keySectionCanvas = KEY_F1;
+    global.keySectionMap = KEY_F2;
 
     return global;
 }
@@ -43,4 +48,14 @@ const int GetScreenHeightGlobal(const Global *const global)
 const char *GetTitleGlobal(const Global *const global)
 {
     return global->title;
+}
+
+void SetSectionGlobal(Global *const global, Section section)
+{
+    global->section = section;
+}
+
+Section GetCurrentSectionGlobal(const Global *const global)
+{
+    return global->section;
 }
