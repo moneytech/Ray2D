@@ -5,7 +5,7 @@
 Canvas NewCanvas()
 {
     Canvas canvas = {0};
-    canvas.grid2d = NewGrid2D(30, (Color) {75.0f, 75.0f, 75.0f, 255.0f});
+    canvas.grid2d = NewGrid2D(20, (Color) {75.0f, 75.0f, 75.0f, 255.0f});
     canvas.color = GRAY;
 
     return canvas;

@@ -14,6 +14,8 @@ typedef struct Player
     float *slices;
     float angle;
 
+    bool showFOV;
+
 }Player;
 
 Player NewPlayer(const Vector2 position);

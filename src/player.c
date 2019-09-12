@@ -29,6 +29,7 @@ Player NewPlayer(const Vector2 position)
     player.numRays = 60; // angulo de vision del observador.
     player.slices = (float*) calloc(player.numRays, sizeof(float));
     player.angle = 0;
+    player.showFOV = false;
 
     player.rays = (Ray2D*) malloc(sizeof(Ray2D) * player.numRays);
     for (int angle=0; angle < player.numRays; angle++)
@@ -47,7 +48,7 @@ void UpdatePlayer(Player *const player, const Vector2 position)
 
 void DrawPlayer(const Player *const player, const Boundary *const walls)
 {
-    if (walls != NULL)
+    if (walls != NULL && player->showFOV)
         __DrawRayPlayer(player, walls); // Dibuja la vision del player.
     
     __DrawPlayer(player); // Dibuja la posicion del player.
@@ -168,6 +169,9 @@ static void __KeyEventPlayer(Player *const player)
         camera.offset.y += global.velocityPlayer * sin(player->angle * DEG2RAD + PI/6);
         camera.offset.x += global.velocityPlayer * cos(player->angle * DEG2RAD + PI/6);
     }
+    
+    if (IsKeyPressed(KEY_F3))
+        player->showFOV = !player->showFOV;
     
     camera.target.x = player->position.x + 20;
     camera.target.y = player->position.y + 20;
