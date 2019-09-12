@@ -17,7 +17,7 @@ typedef struct App
 
 }App;
 
-App NewApp(const int screenWidth, const int screenHeight, const char *title);
+App NewApp();
 
 void RunApp(App *const app);
 

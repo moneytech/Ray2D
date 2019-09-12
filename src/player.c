@@ -169,6 +169,13 @@ static void __KeyEventPlayer(Player *const player)
         camera.offset.y += global.velocityPlayer * sin(player->angle * DEG2RAD + PI/6);
         camera.offset.x += global.velocityPlayer * cos(player->angle * DEG2RAD + PI/6);
     }
+
+    else if (IsKeyDown(KEY_DOWN))
+    {
+        __MovePlayer(player, global.velocityPlayer);
+        camera.offset.y -= global.velocityPlayer * sin(player->angle * DEG2RAD + PI/6);
+        camera.offset.x -= global.velocityPlayer * cos(player->angle * DEG2RAD + PI/6);
+    }
     
     if (IsKeyPressed(KEY_F3))
         player->showFOV = !player->showFOV;

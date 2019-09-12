@@ -20,7 +20,7 @@ static void __UpdateMapApp(App *const app);
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
-App NewApp(const int screenWidth, const int screenHeight, const char *title)
+App NewApp()
 {
     global = NewGlobal();
 

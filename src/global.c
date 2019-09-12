@@ -9,13 +9,13 @@ Global NewGlobal()
     global.screenWidth = 810; // ancho de la ventana.
     global.screenHeight = 600; // altura de la ventana.
     global.title = "Overflow::Engine"; // titulo de la app.
-    
+    global.fps = 60;
     // configuraciones para el player.
-    global.velocityPlayer = 0.09; // velocidad de desplazamiento del player.
+    global.velocityPlayer = 2.09; // velocidad de desplazamiento del player.
     
     // configuraciones para la grilla.
     global.spaceGrid2D = 30; 
-    global.numLinesGrid2D = 60;
+    global.numLinesGrid2D = 30;
 
     return global;
 }
