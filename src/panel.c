@@ -40,13 +40,11 @@ void DrawPanel(const Panel *const panel)
         panel->panelColor
     );
 
-    char *text = (char*) malloc(sizeof(char)*30);
-
+    char text[30] = "";
     int x = (GetMousePosition().x - (global.screenWidth/2)) + global.posPlayer->x;
     int y = (GetMousePosition().y - (global.screenHeight/2)) + global.posPlayer->y;
 
     sprintf(text, "x: %d, y: %d", x , y); 
-    
     DrawText(
         text,
         panel->rect.x + 10, 
@@ -54,16 +52,6 @@ void DrawPanel(const Panel *const panel)
         18,
         panel->textColor
     );
-
-    free(text);
-    // DrawTextEx(
-    //     panel->font,
-    //     panel->text,
-    //     (Vector2) {panel->rect.x + 10, panel->rect.y + 5},
-    //     24,
-    //     1.0f,
-    //     panel->textColor
-    // );
 }
 
 void FreePanel(Panel *const panel)
