@@ -23,15 +23,10 @@ Global NewGlobal()
 
     // configuraciones para la grilla.
     global.spaceGrid2D = 30; 
-    global.numLinesGrid2D = 20;
+    global.numLinesGrid2D = 60;
 
     global.keySectionCanvas = KEY_F1;
     global.keySectionMap = KEY_F2;
-
-    global.center = (Vector2) {
-        (int) GetScreenWidth()/2,
-        (int) GetScreenHeight()/2
-    };
 
     return global;
 }
@@ -72,4 +67,12 @@ void SetSectionGlobal(Global *const global, Section section)
 Section GetCurrentSectionGlobal(const Global *const global)
 {
     return global->section;
+}
+
+void UpdateCenterGlobal(Global *const global)
+{
+    global->center = (Vector2) {
+        (int) GetScreenWidth()/2,
+        (int) GetScreenHeight()/2
+    };
 }

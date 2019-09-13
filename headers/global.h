@@ -55,4 +55,6 @@ void SetSectionGlobal(Global *const global, Section section);
 
 Section GetCurrentSectionGlobal(const Global *const global);
 
+void UpdateCenterGlobal(Global *const global);
+
 #endif //GLOBAL_H

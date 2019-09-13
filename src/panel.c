@@ -51,8 +51,8 @@ void DrawPanel(const Panel *const panel)
     // int x = (GetMousePosition().x - (global.screenWidth/2)) + global.posPlayer->x;
     // int y = (GetMousePosition().y - (global.screenHeight/2)) + global.posPlayer->y;
     
-    int x = global.center.x + global.posPlayer->x;
-    int y = global.center.y + global.posPlayer->y;
+    int x = GetMousePosition().x - global.center.x + global.posPlayer->x;
+    int y = GetMousePosition().y - global.center.y + global.posPlayer->y;
 
     sprintf(text, "x: %d, y: %d", x , y); 
     DrawText(
