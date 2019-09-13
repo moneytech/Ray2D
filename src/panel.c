@@ -40,9 +40,13 @@ void DrawPanel(const Panel *const panel)
         panel->panelColor
     );
 
-    char *text = (char*) malloc(sizeof(char)*20);
-    sprintf(text, "x: %d, y: %d", (int) GetMousePosition().x - (global.screenWidth/2) , (int) GetMousePosition().y - (global.screenHeight/2)); 
+    char *text = (char*) malloc(sizeof(char)*30);
 
+    int x = (GetMousePosition().x - (global.screenWidth/2)) + global.posPlayer->x;
+    int y = (GetMousePosition().y - (global.screenHeight/2)) + global.posPlayer->y;
+
+    sprintf(text, "x: %d, y: %d", x , y); 
+    
     DrawText(
         text,
         panel->rect.x + 10, 

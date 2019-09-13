@@ -1,6 +1,8 @@
 #if !defined(GLOBAL_H)
 #define GLOBAL_H
 
+#include "raylib.h"
+
 typedef enum Section
 {
     CANVAS,
@@ -22,6 +24,8 @@ typedef struct Global
     Section section; // seccion en ejecucion (Canvas|Map).
     float velocityPlayer; // velocidad del player. 
     float visionAngle; // angulo de vision del player.
+    const Vector2 *posPlayer;
+
     float diffAngle;
     float visionDistance;
 

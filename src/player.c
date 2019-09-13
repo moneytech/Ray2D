@@ -205,6 +205,8 @@ static void __KeyEventPlayer(Player *const player)
     
     camera.target.x = player->position.x + 20;
     camera.target.y = player->position.y + 20;
+
+    global.posPlayer = &player->position;
 }
 
 static void __RotatePlayer(Player *const player, float angle)

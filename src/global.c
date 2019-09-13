@@ -1,5 +1,5 @@
 #include "../headers/global.h"
-#include "raylib.h"
+#include <stdlib.h>
 
 Global NewGlobal()
 {
@@ -13,12 +13,13 @@ Global NewGlobal()
     // global.screenHeight = 700; // altura de la ventana.
     global.title = "Overflow::Engine"; // titulo de la app.
     global.fps = 60;
+    
     // configuraciones para el player.
     global.velocityPlayer = 2.09; // velocidad de desplazamiento del player.
     global.visionAngle = 45.0f;
+    global.posPlayer = NULL;
     global.diffAngle = PI/8; // P/6
     global.visionDistance = 250.0f; // distancia de vision del player.
-
 
     // configuraciones para la grilla.
     global.spaceGrid2D = 30; 
