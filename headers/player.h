@@ -38,4 +38,10 @@ bool IsHideFOVPlayer(const Player *const player);
 
 bool IsShowFOVPlayer(const Player *const player);
 
+Vector2 GetPositionPlayer(const Player *const player);
+
+void SetPositionXPlayer(Player *const player, float x);
+
+void SetPositionYPlayer(Player *const player, float y);
+
 #endif //PLAYER_H

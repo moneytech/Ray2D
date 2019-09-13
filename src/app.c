@@ -1,6 +1,7 @@
 #include "../headers/app.h"
 #include "../headers/global.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 Global global;
 Boundary **globalWalls;
@@ -19,6 +20,7 @@ static void __UpdateCanvasApp(App *const app);
 static void __UpdateMapApp(App *const app);
 static void __InitCameraApp(const App *const app);
 static void __InitConfigWindowApp(const App *const app);
+static void __ResizeWindowApp(App *const app);
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
@@ -92,6 +94,8 @@ static void __KeyEventsApp(App *const app)
 
 static void __UpdateApp(App *const app)
 {
+    __ResizeWindowApp(app);
+    
     __KeyEventsApp(app);
     UpdateScene(&app->scene); // la escene se actualiza siempre.
 
@@ -162,9 +166,11 @@ static void __UpdateMapApp(App *const app)
 static void __InitCameraApp(const App *const app)
 {
     camera.target = (Vector2) {
-        app->scene.player.position.x + 20,
-        app->scene.player.position.y + 20
+        GetPositionPlayer(&app->scene.player).x + 20,
+        GetPositionPlayer(&app->scene.player).y + 20
     };
+
+    
 
     camera.offset = (Vector2) {
         global.screenWidth / 2,
@@ -193,4 +199,24 @@ static void __InitConfigWindowApp(const App *const app)
 
     SetExitKey(KEY_F8);
     SetTargetFPS(GetFPSGlobal(&global));
+}
+
+static void __ResizeWindowApp(App *const app)
+{
+    if (global.posPlayer != NULL)
+        printf("player: x: %f, y: %f\n", global.posPlayer->x, global.posPlayer->y);
+    
+    if (global.screenWidth != GetScreenWidth() || global.screenHeight != GetScreenHeight())
+    {
+        global.screenWidth = GetScreenWidth();
+        global.screenHeight = GetScreenHeight();
+        __InitCameraApp(app);
+        
+        global.center = (Vector2) {
+            GetScreenWidth()/2,
+            GetScreenHeight()/2
+        };
+
+        printf("x: %d, y: %d\n", GetScreenWidth(), GetScreenHeight());
+    }
 }

@@ -15,6 +15,8 @@ float y = 0;
 //******************FIRMAS DE FUNCIOANES STATIC*********************
 //******************************************************************
 static void __WallsLimitGrid2D(int slices);
+static void __ResizeWindowUpdateGrid2D(Grid2D *const grid2d);
+
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
@@ -23,6 +25,7 @@ Grid2D NewGrid2D(int slices, Color color)
     Grid2D grid2d = {0};
     grid2d.slices = slices;
     grid2d.color = color;
+    grid2d.sizeWindow = GetScreenGlobal(&global);
 
     // Crea el limite del mapa para el
     // jugador.
@@ -33,7 +36,7 @@ Grid2D NewGrid2D(int slices, Color color)
 
 void UpdateGrid2D(Grid2D *const grid2d)
 {
-    // implementar funcion
+    __ResizeWindowUpdateGrid2D(grid2d);
 }
 
 void DrawGrid2D(const Grid2D *const grid2d)
@@ -53,6 +56,9 @@ void FreeGrid2D(Grid2D *const grid2d)
     // implementar funcion
 }
 
+//******************************************************************
+//****************IMAPLEMENTACION FUNCIOANES STATIC*****************
+//******************************************************************
 static void __WallsLimitGrid2D(int slices)
 {
     distance = (slices * global.spaceGrid2D);
@@ -82,4 +88,16 @@ static void __WallsLimitGrid2D(int slices)
         (Vector2) {x, y},
         (Vector2) {x, -y}
     );
+}
+
+static void __ResizeWindowUpdateGrid2D(Grid2D *const grid2d)
+{
+    int screenWidth = GetScreenWidthGlobal(&global);
+    int screenHeight = GetScreenHeightGlobal(&global);
+
+    if (grid2d->sizeWindow.x != screenWidth || grid2d->sizeWindow.y != screenHeight)
+    {
+        grid2d->sizeWindow.x = screenWidth;
+        grid2d->sizeWindow.y = screenHeight;
+    }
 }

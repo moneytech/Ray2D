@@ -35,6 +35,8 @@ typedef struct Global
     int keySectionCanvas;
     int keySectionMap;
 
+    Vector2 center;
+
 } Global;
 
 Global NewGlobal();
@@ -42,6 +44,8 @@ Global NewGlobal();
 const int GetScreenWidthGlobal(const Global *const global);
 
 const int GetScreenHeightGlobal(const Global *const global);
+
+const Vector2 GetScreenGlobal(const Global *const global);
 
 const int GetFPSGlobal(const Global *const global);
 

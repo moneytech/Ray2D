@@ -28,6 +28,11 @@ Global NewGlobal()
     global.keySectionCanvas = KEY_F1;
     global.keySectionMap = KEY_F2;
 
+    global.center = (Vector2) {
+        (int) GetScreenWidth()/2,
+        (int) GetScreenHeight()/2
+    };
+
     return global;
 }
 
@@ -36,14 +41,22 @@ const int GetScreenWidthGlobal(const Global *const global)
     return global->screenWidth;
 }
 
-const int GetFPSGlobal(const Global *const global)
-{
-    return global->fps;
-}
-
 const int GetScreenHeightGlobal(const Global *const global)
 {
     return global->screenHeight;
+}
+
+const Vector2 GetScreenGlobal(const Global *const global)
+{
+    return (Vector2) {
+        (int) GetScreenWidthGlobal(global),
+        (int) GetScreenHeightGlobal(global)
+    };
+}
+
+const int GetFPSGlobal(const Global *const global)
+{
+    return global->fps;
 }
 
 const char *GetTitleGlobal(const Global *const global)

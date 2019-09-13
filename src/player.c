@@ -101,6 +101,20 @@ bool IsShowFOVPlayer(const Player *const player)
     return player->showFOV;
 }
 
+Vector2 GetPositionPlayer(const Player *const player)
+{
+    return player->position;
+}
+
+void SetPositionXPlayer(Player *const player, float x)
+{
+    player->position.x = x;
+}
+
+void SetPositionYPlayer(Player *const player, float y)
+{
+    player->position.y = y;
+}
 
 //******************************************************************
 //****************IMAPLEMENTACION FUNCIOANES STATIC*****************

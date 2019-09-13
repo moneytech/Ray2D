@@ -10,6 +10,8 @@ typedef struct Panel
     Font font;
     Color panelColor;
     Color textColor;
+    
+    Vector2 sizeWindow;
 
 } Panel;
 

@@ -7,6 +7,13 @@
 extern Camera2D camera;
 extern Global global;
 
+//******************************************************************
+//******************FIRMAS DE FUNCIOANES STATIC*********************
+//******************************************************************
+static void __ResizeWindowUpdatePanel(Panel *const panel);
+
+//******************************************************************
+//*********************IMPLEMENTACION DE FUNCIONES******************
 Panel NewPanel(float x, float y, float width, float height, Color color)
 {
     Panel panel = {0};
@@ -20,14 +27,14 @@ Panel NewPanel(float x, float y, float width, float height, Color color)
     
     panel.panelColor = color;
     panel.textColor = RAYWHITE;
+    panel.sizeWindow = GetScreenGlobal(&global);
 
     return panel;
 }
 
 void UpdatePanel(Panel *const panel)
 {
-    // panel->rect.x = camera.target.x;
-    // panel->rect.y = camera.target.y;
+    __ResizeWindowUpdatePanel(panel);
 }
 
 void DrawPanel(const Panel *const panel)
@@ -41,8 +48,11 @@ void DrawPanel(const Panel *const panel)
     );
 
     char text[30] = "";
-    int x = (GetMousePosition().x - (global.screenWidth/2)) + global.posPlayer->x;
-    int y = (GetMousePosition().y - (global.screenHeight/2)) + global.posPlayer->y;
+    // int x = (GetMousePosition().x - (global.screenWidth/2)) + global.posPlayer->x;
+    // int y = (GetMousePosition().y - (global.screenHeight/2)) + global.posPlayer->y;
+    
+    int x = global.center.x + global.posPlayer->x;
+    int y = global.center.y + global.posPlayer->y;
 
     sprintf(text, "x: %d, y: %d", x , y); 
     DrawText(
@@ -58,4 +68,21 @@ void FreePanel(Panel *const panel)
 {
     // UnloadFont(panel->font);
     printf("FUENTE  VACIADA...\n");
+}
+
+//******************************************************************
+//****************IMAPLEMENTACION FUNCIOANES STATIC*****************
+//******************************************************************
+static void __ResizeWindowUpdatePanel(Panel *const panel)
+{
+    int screenWidth = GetScreenWidthGlobal(&global);
+    int screenHeight = GetScreenHeightGlobal(&global);
+
+    if (panel->sizeWindow.x != screenWidth || panel->sizeWindow.y != screenHeight)
+    {
+        panel->sizeWindow.x = screenWidth;
+        panel->sizeWindow.y = screenHeight;
+        panel->rect.width = screenWidth;
+        panel->rect.y = screenHeight - panel->rect.height;
+    }
 }

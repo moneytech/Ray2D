@@ -5,6 +5,7 @@
 
 typedef struct Grid2D {
     int slices;
+    Vector2 sizeWindow;
     Color color;
 
 } Grid2D;
