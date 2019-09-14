@@ -35,8 +35,6 @@ typedef struct Global
     int keySectionCanvas;
     int keySectionMap;
 
-    Vector2 center;
-
 } Global;
 
 Global NewGlobal();

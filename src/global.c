@@ -28,11 +28,6 @@ Global NewGlobal()
     global.keySectionCanvas = KEY_F1;
     global.keySectionMap = KEY_F2;
 
-    global.center = (Vector2) {
-        (int) GetScreenWidth()/2,
-        (int) GetScreenHeight()/2
-    };
-
     return global;
 }
 

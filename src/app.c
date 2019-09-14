@@ -38,8 +38,8 @@ App NewApp()
     app.canvas = NewCanvas();
     app.map = NewMap();
     app.menu = NewMenu();
-    __InitCameraApp(&app);
     __InitConfigWindowApp(&app);
+    __InitCameraApp(&app);
 
     return app;
 }
@@ -170,12 +170,15 @@ static void __InitCameraApp(const App *const app)
         GetPositionPlayer(&app->scene.player).y + 20
     };
 
+    float x = (GetScreenWidth() / 2);
+    float y = (GetScreenHeight() / 2);
+    if (global.posPlayer != NULL)
+    {
+        x -= global.posPlayer->x;
+        y -= global.posPlayer->y;
+    }
     
-
-    camera.offset = (Vector2) {
-        global.screenWidth / 2,
-        global.screenHeight / 2
-    };
+    camera.offset = (Vector2) {x, y};
 
     camera.zoom = 1.0f;
     camera.rotation = 0.0f;
@@ -203,20 +206,12 @@ static void __InitConfigWindowApp(const App *const app)
 
 static void __ResizeWindowApp(App *const app)
 {
-    if (global.posPlayer != NULL)
-        printf("player: x: %f, y: %f\n", global.posPlayer->x, global.posPlayer->y);
-    
     if (global.screenWidth != GetScreenWidth() || global.screenHeight != GetScreenHeight())
     {
         global.screenWidth = GetScreenWidth();
         global.screenHeight = GetScreenHeight();
         __InitCameraApp(app);
         
-        global.center = (Vector2) {
-            GetScreenWidth()/2,
-            GetScreenHeight()/2
-        };
-
-        printf("x: %d, y: %d\n", GetScreenWidth(), GetScreenHeight());
+        // printf("x: %d, y: %d\n", GetScreenWidth(), GetScreenHeight());
     }
 }
