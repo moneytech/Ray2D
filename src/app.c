@@ -38,6 +38,8 @@ App NewApp()
     app.canvas = NewCanvas();
     app.map = NewMap();
     app.menu = NewMenu();
+    app.icon = LoadImage("data/ico.png");
+
     __InitConfigWindowApp(&app);
     __InitCameraApp(&app);
 
@@ -59,6 +61,7 @@ void FreeApp(App *const app)
     FreeScene(&app->scene);
     FreeMap(&app->map);
     FreeCanvas(&app->canvas);
+    UnloadImage(app->icon);
     CloseWindow();
 }
 
@@ -198,7 +201,8 @@ static void __InitConfigWindowApp(const App *const app)
         GetScreenWidthGlobal(&global)/2, 
         GetScreenHeightGlobal(&global)/2
     );
-
+    
+    SetWindowIcon(app->icon);
     SetExitKey(KEY_F8);
     SetTargetFPS(GetFPSGlobal(&global));
 }

@@ -23,8 +23,9 @@ Panel NewPanel(float x, float y, float width, float height, Color color)
     panel.rect.height = height;
 
     panel.text = "x: 0, y: 0";
-    // panel.font = LoadFont("data/fonts/04B_03__.TTF");
-    
+
+    // panel.font = LoadFont("data/fonts/04B_03__.ttf");
+
     panel.panelColor = color;
     panel.textColor = RAYWHITE;
     panel.sizeWindow = GetScreenGlobal(&global);
