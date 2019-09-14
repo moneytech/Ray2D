@@ -29,7 +29,8 @@ App NewApp()
     global = NewGlobal();
     App app = {0};
 
-    app.backgroundCanvas = (Color) {61.0f, 61.0f, 61.0f, 255.0f};
+    // app.backgroundCanvas = (Color) {61.0f, 61.0f, 61.0f, 255.0f};
+    app.backgroundCanvas = BLACK;
     app.backgroundMap = BLACK;
     app.scene = NewScene();
     // se inicializa antes que el scene
@@ -79,6 +80,7 @@ static void __KeyEventsApp(App *const app)
         else
             ShowFOVPlayer(&app->scene.player);
 
+        ShowCursor();
         SetSectionGlobal(&global, CANVAS);
     }
     else if (IsKeyPressed(global.keySectionMap) && GetCurrentSectionGlobal(&global) != MAP)
@@ -91,8 +93,15 @@ static void __KeyEventsApp(App *const app)
         else
             flag = true;
 
+        HideCursor();
         SetSectionGlobal(&global, MAP);
     }
+    else if (IsKeyPressed(KEY_F11))
+    {
+        printf("full\n");
+        SetConfigFlags(FLAG_FULLSCREEN_MODE);
+    }
+    
 }
 
 static void __UpdateApp(App *const app)
@@ -201,7 +210,7 @@ static void __InitConfigWindowApp(const App *const app)
         GetScreenWidthGlobal(&global)/2, 
         GetScreenHeightGlobal(&global)/2
     );
-    
+
     SetWindowIcon(app->icon);
     SetExitKey(KEY_F8);
     SetTargetFPS(GetFPSGlobal(&global));
