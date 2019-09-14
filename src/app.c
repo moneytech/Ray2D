@@ -194,7 +194,6 @@ static void __InitConfigWindowApp(const App *const app)
         GetTitleGlobal(&global) // Titulo de la ventana.
     );
 
-    // HideCursor();
     SetMousePosition(
         GetScreenWidthGlobal(&global)/2, 
         GetScreenHeightGlobal(&global)/2
@@ -211,7 +210,5 @@ static void __ResizeWindowApp(App *const app)
         global.screenWidth = GetScreenWidth();
         global.screenHeight = GetScreenHeight();
         __InitCameraApp(app);
-        
-        // printf("x: %d, y: %d\n", GetScreenWidth(), GetScreenHeight());
     }
 }
