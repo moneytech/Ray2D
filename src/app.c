@@ -29,7 +29,8 @@ App NewApp()
     global = NewGlobal();
     App app = {0};
 
-    app.backgroundCanvas = (Color) {61.0f, 61.0f, 61.0f, 255.0f};
+    // app.backgroundCanvas = (Color) {61.0f, 61.0f, 61.0f, 255.0f};
+    app.backgroundCanvas = BLACK;
     app.backgroundMap = BLACK;
     app.scene = NewScene();
     // se inicializa antes que el scene
@@ -38,8 +39,10 @@ App NewApp()
     app.canvas = NewCanvas();
     app.map = NewMap();
     app.menu = NewMenu();
-    __InitCameraApp(&app);
+    app.icon = LoadImage("data/ico.png");
+
     __InitConfigWindowApp(&app);
+    __InitCameraApp(&app);
 
     return app;
 }
@@ -59,6 +62,7 @@ void FreeApp(App *const app)
     FreeScene(&app->scene);
     FreeMap(&app->map);
     FreeCanvas(&app->canvas);
+    UnloadImage(app->icon);
     CloseWindow();
 }
 
@@ -76,6 +80,7 @@ static void __KeyEventsApp(App *const app)
         else
             ShowFOVPlayer(&app->scene.player);
 
+        ShowCursor();
         SetSectionGlobal(&global, CANVAS);
     }
     else if (IsKeyPressed(global.keySectionMap) && GetCurrentSectionGlobal(&global) != MAP)
@@ -88,8 +93,15 @@ static void __KeyEventsApp(App *const app)
         else
             flag = true;
 
+        HideCursor();
         SetSectionGlobal(&global, MAP);
     }
+    else if (IsKeyPressed(KEY_F11))
+    {
+        printf("full\n");
+        SetConfigFlags(FLAG_FULLSCREEN_MODE);
+    }
+    
 }
 
 static void __UpdateApp(App *const app)
@@ -170,12 +182,15 @@ static void __InitCameraApp(const App *const app)
         GetPositionPlayer(&app->scene.player).y + 20
     };
 
+    float x = (GetScreenWidth() / 2);
+    float y = (GetScreenHeight() / 2);
+    if (global.posPlayer != NULL)
+    {
+        x -= global.posPlayer->x;
+        y -= global.posPlayer->y;
+    }
     
-
-    camera.offset = (Vector2) {
-        global.screenWidth / 2,
-        global.screenHeight / 2
-    };
+    camera.offset = (Vector2) {x, y};
 
     camera.zoom = 1.0f;
     camera.rotation = 0.0f;
@@ -190,13 +205,13 @@ static void __InitConfigWindowApp(const App *const app)
         GetScreenHeightGlobal(&global), // Alto de la ventana.
         GetTitleGlobal(&global) // Titulo de la ventana.
     );
-    UpdateCenterGlobal(&global);
-    // HideCursor();
+
     SetMousePosition(
         GetScreenWidthGlobal(&global)/2, 
         GetScreenHeightGlobal(&global)/2
     );
 
+    SetWindowIcon(app->icon);
     SetExitKey(KEY_F8);
     SetTargetFPS(GetFPSGlobal(&global));
 }
@@ -208,9 +223,5 @@ static void __ResizeWindowApp(App *const app)
         global.screenWidth = GetScreenWidth();
         global.screenHeight = GetScreenHeight();
         __InitCameraApp(app);
-        
-        UpdateCenterGlobal(&global);
-
-        printf("x: %d, y: %d\n", GetScreenWidth(), GetScreenHeight());
     }
 }

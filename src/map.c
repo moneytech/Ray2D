@@ -23,6 +23,7 @@ void UpdateMap(Map *const map)
 void DrawMap(const Map *const map, const Scene *const scene)
 {
     DrawScene(scene); // Dibuja la escene en el canvas.
+    // DrawRectangle(0, global.screenHeight/2, global.screenWidth, global.screenHeight/2, BROWN);
     __DrawRay(scene);    
 }
 
@@ -34,6 +35,7 @@ void FreeMap(Map *const map)
 
 static void __DrawRay(const Scene *const scene)
 {
+
     int sliceWidth = GetScreenWidthGlobal(&global) / GetNumRayPlayer(&scene->player);
     float value = 0;
     float distance = 0;
@@ -50,27 +52,11 @@ static void __DrawRay(const Scene *const scene)
         float h = abs(distance - GetScreenHeightGlobal(&global));
 
         DrawRectangle(
-            i*sliceWidth,
+            (i * sliceWidth),
             GetScreenHeightGlobal(&global) - h,
             sliceWidth,
             h - (GetScreenHeightGlobal(&global) - h),
             (Color) {value, value, value, 255.0f}
         );
-
-        // DrawRectangle(
-        //     i*sliceWidth + sliceWidth/2,
-        //     0,
-        //     sliceWidth,
-        //     abs(distance - GetScreenHeightGlobal(&global)),
-        //     (Color) {value, value, value, 255.0f}
-        // );
-
-        // DrawRectangle(
-        //     i*sliceWidth,
-        //     0,
-        //     sliceWidth,
-        //     global.screenHeight,
-        //     (Color) {value, value, value, 255.0f}
-        // );
     }
 }

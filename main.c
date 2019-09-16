@@ -7,7 +7,7 @@ int main(void)
     // Crea una instancia de app, recibe el ancho, alto y
     // el titulo de la ventana.
     App app = NewApp();
-    // ciclo que actualiza  dibuja los 
+    // ciclo que actualiza  dibuja los
     // elementos.
     RunApp(&app);
     // libera los recursos que han sido

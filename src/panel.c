@@ -23,9 +23,11 @@ Panel NewPanel(float x, float y, float width, float height, Color color)
     panel.rect.height = height;
 
     panel.text = "x: 0, y: 0";
-    // panel.font = LoadFont("data/fonts/04B_03__.TTF");
-    
-    panel.panelColor = color;
+
+    // panel.font = LoadFont("data/fonts/04B_03__.ttf");
+
+    // panel.panelColor = color;
+    panel.panelColor = (Color) {5.0f, 5.0f, 5.0f, 255.0f};
     panel.textColor = RAYWHITE;
     panel.sizeWindow = GetScreenGlobal(&global);
 
@@ -51,8 +53,8 @@ void DrawPanel(const Panel *const panel)
     // int x = (GetMousePosition().x - (global.screenWidth/2)) + global.posPlayer->x;
     // int y = (GetMousePosition().y - (global.screenHeight/2)) + global.posPlayer->y;
     
-    int x = GetMousePosition().x - global.center.x + global.posPlayer->x;
-    int y = GetMousePosition().y - global.center.y + global.posPlayer->y;
+    int x = global.posPlayer->x;
+    int y = global.posPlayer->y;
 
     sprintf(text, "x: %d, y: %d", x , y); 
     DrawText(
