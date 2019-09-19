@@ -15,7 +15,10 @@ static void __InitCameraOCamera(OCamera *const ocamera);
 OCamera NewOCamera(void)
 {
     OCamera ocamera = {0};
+    
+    ocamera.position = (Vector2) {0.0f, 0.0f};
     __InitCameraOCamera(&ocamera);
+
     return ocamera;
 }
 
@@ -26,7 +29,7 @@ Camera2D *GetCameraOCamera(OCamera *const ocamera)
 
 void UpdateOCamera(OCamera *const ocamera)
 {
-
+    printf("x: %f, y: %f\n", GetMousePositionGlobal(&global).x, GetMousePositionGlobal(&global).y);
 }
 
 void ResizeOCamera(OCamera *const ocamera)

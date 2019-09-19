@@ -55,4 +55,6 @@ Section GetCurrentSectionGlobal(const Global *const global);
 
 void UpdateCenterGlobal(Global *const global);
 
+Vector2 GetMousePositionGlobal(const Global *const global);
+
 #endif //GLOBAL_H

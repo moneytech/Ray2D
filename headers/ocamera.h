@@ -6,6 +6,7 @@
 typedef struct OCamera
 {
     Camera2D camera;
+    Vector2 position;
 
 } OCamera;
 

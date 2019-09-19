@@ -112,6 +112,7 @@ static void __UpdateApp(App *const app)
     switch (global.section)
     {
         case CANVAS:
+            UpdateOCamera(&app->ocamera);
             __UpdateCanvasApp(app);
             UpdateMenu(&app->menu);
             break;

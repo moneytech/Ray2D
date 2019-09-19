@@ -131,7 +131,6 @@ static void __InitSquaresGrid2D(Grid2D *const grid2d)
     {
         for (int j=0; j < grid2d->slices; j++)
         {
-            printf("x: %f, y: %f\n", _x, _y);
             grid2d->squares[i][j] = NewSquare(_x, _y, space, BLACK);
             _x += space;
         }

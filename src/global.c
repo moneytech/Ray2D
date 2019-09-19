@@ -1,5 +1,8 @@
 #include "../headers/global.h"
+#include "../headers/ocamera.h"
 #include <stdlib.h>
+
+extern OCamera *ocamera;
 
 Global NewGlobal()
 {
@@ -69,7 +72,17 @@ Section GetCurrentSectionGlobal(const Global *const global)
     return global->section;
 }
 
+Vector2 GetMousePositionGlobal(const Global *const global)
+{
+    Vector2 mousePosition = GetMousePosition();
+    return (Vector2) {
+        mousePosition.x + ocamera->position.x,
+        mousePosition.y + ocamera->position.y
+    };
+}
+
+
 void UpdateCenterGlobal(Global *const global)
 {
-    
+    // Falta implementar.
 }
