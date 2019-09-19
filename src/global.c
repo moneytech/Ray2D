@@ -71,8 +71,5 @@ Section GetCurrentSectionGlobal(const Global *const global)
 
 void UpdateCenterGlobal(Global *const global)
 {
-    global->center = (Vector2) {
-        (int) GetScreenWidth()/2,
-        (int) GetScreenHeight()/2
-    };
+    
 }

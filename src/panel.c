@@ -17,18 +17,13 @@ static void __ResizeWindowUpdatePanel(Panel *const panel);
 Panel NewPanel(float x, float y, float width, float height, Color color)
 {
     Panel panel = {0};
+
     panel.rect.x = x;
     panel.rect.y = y;
     panel.rect.width = width;
     panel.rect.height = height;
+    panel.color = color;
 
-    panel.text = "x: 0, y: 0";
-
-    // panel.font = LoadFont("data/fonts/04B_03__.ttf");
-
-    // panel.panelColor = color;
-    panel.panelColor = (Color) {5.0f, 5.0f, 5.0f, 255.0f};
-    panel.textColor = RAYWHITE;
     panel.sizeWindow = GetScreenGlobal(&global);
 
     return panel;
@@ -46,30 +41,14 @@ void DrawPanel(const Panel *const panel)
         panel->rect.y,
         panel->rect.width,
         panel->rect.height,
-        panel->panelColor
-    );
-
-    char text[30] = "";
-    // int x = (GetMousePosition().x - (global.screenWidth/2)) + global.posPlayer->x;
-    // int y = (GetMousePosition().y - (global.screenHeight/2)) + global.posPlayer->y;
-    
-    int x = global.posPlayer->x;
-    int y = global.posPlayer->y;
-
-    sprintf(text, "x: %d, y: %d", x , y); 
-    DrawText(
-        text,
-        panel->rect.x + 10, 
-        panel->rect.y + 5,
-        18,
-        panel->textColor
+        panel->color
     );
 }
 
 void FreePanel(Panel *const panel)
 {
     // UnloadFont(panel->font);
-    printf("FUENTE  VACIADA...\n");
+    printf("PANEL VACIADO...\n");
 }
 
 //******************************************************************

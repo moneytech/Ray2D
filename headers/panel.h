@@ -6,10 +6,7 @@
 typedef struct Panel
 {
     Rectangle rect;
-    const char* text;
-    Font font;
-    Color panelColor;
-    Color textColor;
+    Color color;
     
     Vector2 sizeWindow;
 
