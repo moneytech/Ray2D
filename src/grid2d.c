@@ -2,6 +2,7 @@
 #include "../headers/boundary.h"
 #include "../headers/global.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 extern Boundary **globalWalls;
 extern Global global;
@@ -17,6 +18,8 @@ float y = 0;
 static void __WallsLimitGrid2D(int slices);
 static void __ResizeWindowUpdateGrid2D(Grid2D *const grid2d);
 
+static void __InitSquaresGrid2D(Grid2D *const grid2d);
+static void __DrawSquaresGrid2D(const Grid2D *const grid2d);
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
@@ -27,9 +30,15 @@ Grid2D NewGrid2D(int slices, Color color)
     grid2d.color = color;
     grid2d.sizeWindow = GetScreenGlobal(&global);
 
+    // Inicializamos la matriz de Squares.
+    grid2d.squares = (Square**) malloc(sizeof(Square*) * slices);
+    for (int i=0; i < grid2d.slices; i++)
+        grid2d.squares[i] = (Square*) malloc(sizeof(Square) * slices);
+
     // Crea el limite del mapa para el
     // jugador.
     __WallsLimitGrid2D(slices);
+    __InitSquaresGrid2D(&grid2d);
 
     return grid2d;
 }
@@ -41,19 +50,27 @@ void UpdateGrid2D(Grid2D *const grid2d)
 
 void DrawGrid2D(const Grid2D *const grid2d)
 {
-    for (int i=0; i < grid2d->slices + 1; i++)
-    {
-        DrawLine(-x, (i * global.spaceGrid2D) - y, x, (i * global.spaceGrid2D) - y, grid2d->color); // horizontal
-        DrawLine((i * global.spaceGrid2D) - x, -y, (i * global.spaceGrid2D) - x, y, grid2d->color); // vertical
-    }
-
-    DrawLine(x, 0, -x, 0, RED); // linea del eje x
-    DrawLine(0, y, 0, -y, GREEN); // linea del eje y
+    // Dibuja la matriz de Squares.
+    __DrawSquaresGrid2D(grid2d);
+    
+    DrawLine(x*2, 0, -x*2, 0, RED); // linea del eje x
+    DrawLine(0, y*2, 0, -y*2, GREEN); // linea del eje y
 }
 
 void FreeGrid2D(Grid2D *const grid2d)
 {
-    // implementar funcion
+    if (grid2d->squares != NULL)
+    {
+        for (int i=0; i < grid2d->slices; i++)
+        {
+            free(grid2d->squares[i]);
+            grid2d->squares[i] = NULL;
+        }
+
+        free(grid2d->squares);
+        grid2d->squares = NULL;
+        printf("SQUARES DELETED\n");
+    }
 }
 
 //******************************************************************
@@ -99,5 +116,35 @@ static void __ResizeWindowUpdateGrid2D(Grid2D *const grid2d)
     {
         grid2d->sizeWindow.x = screenWidth;
         grid2d->sizeWindow.y = screenHeight;
+    }
+}
+
+static void __InitSquaresGrid2D(Grid2D *const grid2d)
+{
+    float space = 32;
+    distance = (grid2d->slices * global.spaceGrid2D);
+
+    float _x = -x;
+    float _y = -y;
+
+    for(int i=0; i < grid2d->slices; i++)
+    {
+        for (int j=0; j < grid2d->slices; j++)
+        {
+            printf("x: %f, y: %f\n", _x, _y);
+            grid2d->squares[i][j] = NewSquare(_x, _y, space, BLACK);
+            _x += space;
+        }
+        _y += space;
+        _x = -x;
+    }
+}
+
+static void __DrawSquaresGrid2D(const Grid2D *const grid2d)
+{
+    for (int i=0; i < grid2d->slices; i++)
+    {
+        for (int j=0; j < grid2d->slices; j++)
+            DrawSquare(&grid2d->squares[i][j]);
     }
 }

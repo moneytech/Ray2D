@@ -2,8 +2,10 @@
 #define GRID_H
 
 #include "raylib.h"
+#include "square.h"
 
 typedef struct Grid2D {
+    Square **squares;
     int slices;
     Vector2 sizeWindow;
     Color color;
