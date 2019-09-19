@@ -4,7 +4,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-extern Camera2D camera;
 extern Global global;
 
 //******************************************************************

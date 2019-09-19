@@ -6,6 +6,7 @@
 #include "scene.h"
 #include "menu.h"
 #include "map.h"
+#include "ocamera.h"
 
 typedef struct App
 {
@@ -18,6 +19,8 @@ typedef struct App
     Map map;
 
     Image icon;
+
+    OCamera ocamera;
 
 } App;
 

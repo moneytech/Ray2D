@@ -5,20 +5,18 @@
 
 Global global;
 Boundary **globalWalls;
-Camera2D camera;
 
 //******************************************************************
 //******************FIRMAS DE FUNCIOANES STATIC*********************
 //******************************************************************
 static void __KeyEventsApp(App *const app);
 static void __UpdateApp(App *const app);
-static void __DrawApp(const App *const app);
+static void __DrawApp(App *const app);
 static void __DrawCanvasApp(const App *const app);
 static void __DrawMapApp(const App *const app);
 static void __DrawObjectsApp(const App *const app);
 static void __UpdateCanvasApp(App *const app);
 static void __UpdateMapApp(App *const app);
-static void __InitCameraApp(const App *const app);
 static void __InitConfigWindowApp(const App *const app);
 static void __ResizeWindowApp(App *const app);
 //******************************************************************
@@ -42,7 +40,8 @@ App NewApp()
     app.icon = LoadImage("data/ico.png");
 
     __InitConfigWindowApp(&app);
-    __InitCameraApp(&app);
+    
+    app.ocamera = NewOCamera();
 
     return app;
 }
@@ -101,7 +100,6 @@ static void __KeyEventsApp(App *const app)
         printf("full\n");
         SetConfigFlags(FLAG_FULLSCREEN_MODE);
     }
-    
 }
 
 static void __UpdateApp(App *const app)
@@ -123,13 +121,13 @@ static void __UpdateApp(App *const app)
     }
 }
 
-static void __DrawApp(const App *const app)
+static void __DrawApp(App *const app)
 {
     BeginDrawing();
     
     if (GetCurrentSectionGlobal(&global) == CANVAS)
     {
-        BeginMode2D(camera);
+        BeginMode2D(*GetCameraOCamera(&app->ocamera));
             __DrawObjectsApp(app);
         EndMode2D();
         DrawMenu(&app->menu);
@@ -173,27 +171,7 @@ static void __UpdateCanvasApp(App *const app)
 static void __UpdateMapApp(App *const app)
 {
     UpdateMap(&app->map);
-}
-
-static void __InitCameraApp(const App *const app)
-{
-    camera.target = (Vector2) {
-        GetPositionPlayer(&app->scene.player).x + 20,
-        GetPositionPlayer(&app->scene.player).y + 20
-    };
-
-    float x = (GetScreenWidth() / 2);
-    float y = (GetScreenHeight() / 2);
-    if (global.posPlayer != NULL)
-    {
-        x -= global.posPlayer->x;
-        y -= global.posPlayer->y;
-    }
-    
-    camera.offset = (Vector2) {x, y};
-
-    camera.zoom = 1.0f;
-    camera.rotation = 0.0f;
+    ResizeOCamera(&app->ocamera);
 }
 
 static void __InitConfigWindowApp(const App *const app)
@@ -222,6 +200,6 @@ static void __ResizeWindowApp(App *const app)
     {
         global.screenWidth = GetScreenWidth();
         global.screenHeight = GetScreenHeight();
-        __InitCameraApp(app);
+        ResizeOCamera(&app->ocamera);
     }
 }

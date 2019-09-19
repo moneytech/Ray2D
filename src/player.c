@@ -1,13 +1,14 @@
 #include "../headers/player.h"
 #include "../headers/helper.h"
 #include "../headers/global.h"
+#include "../headers/ocamera.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
 extern const int MAX_WALLS; // Numero de paredes a colisionar (MODIFICAR). 
 extern Global global;
-extern Camera2D camera;
+extern OCamera *ocamera; //Puntero a la camera de la estructura OCamera (Corregir).
 
 //******************************************************************
 //******************FIRMAS DE FUNCIOANES STATIC*********************
@@ -203,24 +204,26 @@ static void __KeyEventPlayer(Player *const player)
     else if (IsKeyDown(KEY_UP))
     {
         __MovePlayer(player, -global.velocityPlayer);
-        camera.offset.y += global.velocityPlayer * sin(player->angle * DEG2RAD + global.diffAngle);
-        camera.offset.x += global.velocityPlayer * cos(player->angle * DEG2RAD + global.diffAngle);
+        ocamera->camera.offset.y += global.velocityPlayer * sin(player->angle * DEG2RAD + global.diffAngle);
+        ocamera->camera.offset.x += global.velocityPlayer * cos(player->angle * DEG2RAD + global.diffAngle);
     }
 
     else if (IsKeyDown(KEY_DOWN))
     {
         __MovePlayer(player, global.velocityPlayer);
-        camera.offset.y -= global.velocityPlayer * sin(player->angle * DEG2RAD + global.diffAngle);
-        camera.offset.x -= global.velocityPlayer * cos(player->angle * DEG2RAD + global.diffAngle);
+        ocamera->camera.offset.y -= global.velocityPlayer * sin(player->angle * DEG2RAD + global.diffAngle);
+        ocamera->camera.offset.x -= global.velocityPlayer * cos(player->angle * DEG2RAD + global.diffAngle);
     }
     
     if (IsKeyPressed(KEY_F3) && global.section == CANVAS)
         player->showFOV = !player->showFOV;
     
-    camera.target.x = player->position.x + 20;
-    camera.target.y = player->position.y + 20;
+    ocamera->camera.target.x = player->position.x + 20;
+    ocamera->camera.target.y = player->position.y + 20;
 
-    global.posPlayer = &player->position;
+    // printf("x: %f\n", camera->offset.x);
+
+    global.posPlayer = &player->position;  
 }
 
 static void __RotatePlayer(Player *const player, float angle)

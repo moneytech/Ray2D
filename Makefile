@@ -341,19 +341,20 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
 endif
 
 # Define all source files required
-PROJECT_SOURCE_FILES ?= main.c          \
-                        src/app.c       \
-                        src/ray2d.c     \
-                        src/boundary.c  \
-                        src/helper.c    \
-                        src/player.c    \
-                        src/canvas.c    \
-                        src/map.c       \
-                        src/global.c    \
-                        src/scene.c     \
-                        src/grid2d.c    \
-                        src/panel.c     \
-                        src/menu.c      \
+PROJECT_SOURCE_FILES ?= main.c              \
+                        src/app.c           \
+                        src/ray2d.c         \
+                        src/boundary.c      \
+                        src/helper.c        \
+                        src/player.c        \
+                        src/canvas.c        \
+                        src/map.c           \
+                        src/global.c        \
+                        src/scene.c         \
+                        src/grid2d.c        \
+                        src/panel.c         \
+                        src/menu.c          \
+                        src/ocamera.c       \
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))
