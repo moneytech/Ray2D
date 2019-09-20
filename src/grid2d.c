@@ -4,9 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern Boundary **globalWalls;
 extern Global global;
+extern Boundary **globalWalls;
 extern int MAX_WALLS; // MAX_WALLS debe tener un valor >= a 4.
+extern int COUNT_WALLS;
 
 float distance = 0; 
 float x = 0;
@@ -84,28 +85,31 @@ static void __WallsLimitGrid2D(int slices)
     y = distance / 2;
 
     // limite superior.
-    globalWalls[0][0] = NewBoundary(
+    (*globalWalls)[MAX_WALLS - 4] = NewBoundary(
         (Vector2) {-x, -y},
         (Vector2) {x, -y}
     );
-
+    COUNT_WALLS++;
     // limite inferior.
     (*globalWalls)[MAX_WALLS - 3] = NewBoundary(
         (Vector2) {-x, y},
         (Vector2) {x, y}
     );
+    COUNT_WALLS++;
 
     // limite izquierdo.
     (*globalWalls)[MAX_WALLS - 2] = NewBoundary(
         (Vector2) {-x, y},
         (Vector2) {-x, -y}
     );
+    COUNT_WALLS++;
 
     // limite derecho.
     (*globalWalls)[MAX_WALLS - 1] = NewBoundary(
         (Vector2) {x, y},
         (Vector2) {x, -y}
     );
+    COUNT_WALLS++;
 }
 
 static void __ResizeWindowUpdateGrid2D(Grid2D *const grid2d)

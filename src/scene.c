@@ -3,7 +3,8 @@
 #include <stdlib.h>
 
 extern Global global;
-const int MAX_WALLS = 0 + 4;
+const int MAX_WALLS = 100000 + 4;
+int COUNT_WALLS = 0;
 
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
@@ -17,7 +18,7 @@ Scene NewScene()
 
     // Reservo memoria para almacenar paredes.
     scene.walls = NULL;
-    scene.walls = (Boundary*) malloc(sizeof(Boundary) * MAX_WALLS);
+    scene.walls = (Boundary *) malloc(sizeof(Boundary) * MAX_WALLS);
     // scene.walls[0] = NewBoundary(
     //     (Vector2) {-300.0f, -300.0f},
     //     (Vector2) {300.0f, -300.0f}

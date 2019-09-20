@@ -1,5 +1,6 @@
 #include "../headers/boundary.h"
 #include "../headers/global.h"
+#include <stdio.h>
 
 extern Global global;
 
