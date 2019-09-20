@@ -20,6 +20,7 @@ static void __ResizeWindowUpdateGrid2D(Grid2D *const grid2d);
 
 static void __InitSquaresGrid2D(Grid2D *const grid2d);
 static void __DrawSquaresGrid2D(const Grid2D *const grid2d);
+static void __UpdateSquaresGrid2D(const Grid2D *const grid2d);
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
@@ -46,6 +47,7 @@ Grid2D NewGrid2D(int slices, Color color)
 void UpdateGrid2D(Grid2D *const grid2d)
 {
     __ResizeWindowUpdateGrid2D(grid2d);
+    __UpdateSquaresGrid2D(grid2d);
 }
 
 void DrawGrid2D(const Grid2D *const grid2d)
@@ -69,7 +71,6 @@ void FreeGrid2D(Grid2D *const grid2d)
 
         free(grid2d->squares);
         grid2d->squares = NULL;
-        printf("SQUARES DELETED\n");
     }
 }
 
@@ -145,5 +146,14 @@ static void __DrawSquaresGrid2D(const Grid2D *const grid2d)
     {
         for (int j=0; j < grid2d->slices; j++)
             DrawSquare(&grid2d->squares[i][j]);
+    }
+}
+
+static void __UpdateSquaresGrid2D(const Grid2D *const grid2d)
+{
+    for (int i=0; i < grid2d->slices; i++)
+    {
+        for (int j=0; j < grid2d->slices; j++)
+            UpdateSquare(&grid2d->squares[i][j]);
     }
 }
