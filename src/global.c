@@ -75,12 +75,15 @@ Section GetCurrentSectionGlobal(const Global *const global)
 Vector2 GetMousePositionGlobal(const Global *const global)
 {
     Vector2 mousePosition = GetMousePosition();
+    
+    int _x = (mousePosition.x + global->posPlayer->x) - (GetScreenWidthGlobal(global) / 2);
+    int _y = (mousePosition.y + global->posPlayer->y) - (GetScreenHeightGlobal(global) / 2); 
+
     return (Vector2) {
-        mousePosition.x + ocamera->position.x,
-        mousePosition.y + ocamera->position.y
+        _x,
+        _y
     };
 }
-
 
 void UpdateCenterGlobal(Global *const global)
 {
