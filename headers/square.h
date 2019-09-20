@@ -10,6 +10,7 @@ typedef struct Square
 
     float side; 
     float scale;
+    bool active;
 
     Color color;
 

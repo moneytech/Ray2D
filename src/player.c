@@ -26,7 +26,7 @@ Player NewPlayer(const Vector2 position)
 {
     Player player = {0};
     player.position = position;
-    player.color = (Color) {231.0f, 76.0f, 60.0f, 255.0f};
+    player.color = OVE_RED;
     player.numRays = global.visionAngle; // angulo de vision del observador.
     player.slices = (float*) calloc(player.numRays, sizeof(float));
     player.angle = 0;
@@ -158,7 +158,7 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
                 player->position.y,
                 player->rays[i].position.x + player->rays[i].direction.x * (-global.visionDistance),
                 player->rays[i].position.y + player->rays[i].direction.y * (-global.visionDistance),
-                GRAY
+                OVE_DARKGRAY
             );
     }
 }
@@ -220,8 +220,6 @@ static void __KeyEventPlayer(Player *const player)
     
     ocamera->camera.target.x = player->position.x + 20;
     ocamera->camera.target.y = player->position.y + 20;
-
-    // printf("x: %f\n", camera->offset.x);
 
     global.posPlayer = &player->position;  
 }

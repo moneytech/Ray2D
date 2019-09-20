@@ -55,8 +55,8 @@ void DrawGrid2D(const Grid2D *const grid2d)
     // Dibuja la matriz de Squares.
     __DrawSquaresGrid2D(grid2d);
     
-    DrawLine(x*2, 0, -x*2, 0, RED); // linea del eje x
-    DrawLine(0, y*2, 0, -y*2, GREEN); // linea del eje y
+    DrawLine(x*2, 0, -x*2, 0, OVE_RED); // linea del eje x
+    DrawLine(0, y*2, 0, -y*2, OVE_GREEN); // linea del eje y
 }
 
 void FreeGrid2D(Grid2D *const grid2d)
@@ -122,7 +122,7 @@ static void __ResizeWindowUpdateGrid2D(Grid2D *const grid2d)
 
 static void __InitSquaresGrid2D(Grid2D *const grid2d)
 {
-    float space = 32;
+    float space = global.spaceGrid2D;
     distance = (grid2d->slices * global.spaceGrid2D);
 
     float _x = -x;
@@ -132,7 +132,7 @@ static void __InitSquaresGrid2D(Grid2D *const grid2d)
     {
         for (int j=0; j < grid2d->slices; j++)
         {
-            grid2d->squares[i][j] = NewSquare(_x, _y, space, BLACK);
+            grid2d->squares[i][j] = NewSquare(_x, _y, space, OVE_BEIGE);
             _x += space;
         }
         _y += space;

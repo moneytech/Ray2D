@@ -29,7 +29,7 @@ Camera2D *GetCameraOCamera(OCamera *const ocamera)
 
 void UpdateOCamera(OCamera *const ocamera)
 {
-    printf("x: %f, y: %f\n", GetMousePositionGlobal(&global).x, GetMousePositionGlobal(&global).y);
+
 }
 
 void ResizeOCamera(OCamera *const ocamera)

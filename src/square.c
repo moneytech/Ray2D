@@ -17,6 +17,7 @@ Square NewSquare(float x, float y, float side, Color color)
     square.position = (Vector2) {x, y};
     square.side = side;
     square.scale = 1.0f;
+    square.active = false;
     square.color = color;
 
     square.center = (Vector2) 
@@ -32,13 +33,17 @@ void UpdateSquare(Square *const square)
 {
     if (__IsInsideSquare(square))
     {
-        square->color = RED;
+        if (!square->active && IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+        {
+            square->active = true;
+            square->color = OVE_RED;
+        }
+        else if (square->active && IsMouseButtonDown(MOUSE_RIGHT_BUTTON))
+        {
+            square->active = false;
+            square->color = OVE_BEIGE;
+        }
     }
-    else
-    {
-        square->color = BLACK;
-    }
-    
 }
 
 void DrawSquare(const Square *const square)
@@ -59,7 +64,7 @@ void DrawSquare(const Square *const square)
             square->side
         }, 
         1, 
-        BEIGE
+        OVE_GRAY
     );
 }
 

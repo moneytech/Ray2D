@@ -25,8 +25,8 @@ Global NewGlobal()
     global.visionDistance = 450.0f; // distancia de vision del player.
 
     // configuraciones para la grilla.
-    global.spaceGrid2D = 32; 
-    global.numLinesGrid2D = 16;
+    global.spaceGrid2D = 16; 
+    global.numLinesGrid2D = 64;
 
     global.keySectionCanvas = KEY_F1;
     global.keySectionMap = KEY_F2;

@@ -22,7 +22,6 @@ Panel NewPanel(float x, float y, float width, float height, Color color)
     panel.rect.width = width;
     panel.rect.height = height;
     panel.color = color;
-
     panel.sizeWindow = GetScreenGlobal(&global);
 
     return panel;
@@ -41,6 +40,19 @@ void DrawPanel(const Panel *const panel)
         panel->rect.width,
         panel->rect.height,
         panel->color
+    );
+
+
+    Vector2 mousePosition = GetMousePositionGlobal(&global);
+    char cmousePosition[100];
+    sprintf(cmousePosition, "x: %d, y: %d", (int) mousePosition.x, (int) mousePosition.y);
+
+    DrawText(
+        cmousePosition,
+        panel->rect.x + 30,
+        panel->rect.y + 6,
+        16,
+        OVE_BEIGE
     );
 }
 

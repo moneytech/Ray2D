@@ -154,12 +154,12 @@ static void __DrawObjectsApp(const App *const app)
     switch (global.section)
     {
         case CANVAS:
-            ClearBackground(app->backgroundCanvas); // limpia la pantalla.
+            ClearBackground(OVE_BLUE); // limpia la pantalla.
             __DrawCanvasApp(app);
             break;
         
         default:
-            ClearBackground(app->backgroundMap); // limpia la pantalla.
+            ClearBackground(OVE_BLUE); // limpia la pantalla.
             __DrawMapApp(app);
     }
 }

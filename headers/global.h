@@ -3,6 +3,20 @@
 
 #include "raylib.h"
 
+
+#define OVE_DARKMARRON (Color) {43.0f, 40.0f, 33.0f, 255.0f} 
+#define OVE_MARRON (Color) {98.0f, 76.0f, 60.0f, 255.0f} 
+#define OVE_YELLOW (Color) {224.0f, 200.0f, 114.0f, 255.0f} 
+#define OVE_GREEN (Color) {62.0f, 105.0f, 88.0f, 255.0f} 
+#define OVE_RED (Color) {176.0f, 58.0f, 72.0f, 255.0f} 
+#define OVE_GRAY (Color) {177.0f, 165.0f, 141.0f, 255.0f} 
+#define OVE_DARKGRAY (Color) {93.0f, 114.0f, 117.0f, 255.0f} 
+#define OVE_DARKBEIGE (Color) {217.0f, 172.0f, 139.0f, 255.0f} 
+#define OVE_BEIGE (Color) {227.0f, 207.0f, 180.0f, 255.0f} 
+#define OVE_DARKBLUE (Color) {36.0f, 61.0f, 92.0f, 255.0f} 
+#define OVE_BLUE (Color) {92.0f, 139.0f, 147.0f, 255.0f} 
+#define OVE_ORAGEN (Color) {212.0f, 128.0f, 77.0f, 255.0f} 
+
 typedef enum Section
 {
     CANVAS,

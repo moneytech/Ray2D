@@ -11,7 +11,7 @@ Menu NewMenu()
         global.screenHeight - 30,
         global.screenWidth,
         30,
-        (Color) {30.0f, 39.0f, 46.0f, 255.0f}
+        OVE_BLUE
     );
 
     return menu;
