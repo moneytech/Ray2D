@@ -20,4 +20,6 @@ void DrawGrid2D(const Grid2D *const grid2d);
 
 void FreeGrid2D(Grid2D *const grid2d);
 
+void InitLimitWallsGrid2D(Grid2D *const grid2d);
+
 #endif //GRID_H

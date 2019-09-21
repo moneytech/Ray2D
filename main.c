@@ -9,6 +9,7 @@ int main(void)
     // Crea una instancia de app, recibe el ancho, alto y
     // el titulo de la ventana.
     App app = NewApp();
+    // globalWalls = &app.scene.walls;
     ocamera = &app.ocamera;
     // ciclo que actualiza  dibuja los
     // elementos.

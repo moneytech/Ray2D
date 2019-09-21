@@ -19,10 +19,6 @@ Scene NewScene()
     // Reservo memoria para almacenar paredes.
     scene.walls = NULL;
     scene.walls = (Boundary *) malloc(sizeof(Boundary) * MAX_WALLS);
-    // scene.walls[0] = NewBoundary(
-    //     (Vector2) {-300.0f, -300.0f},
-    //     (Vector2) {300.0f, -300.0f}
-    // );
     
     return scene;
 }

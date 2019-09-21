@@ -30,3 +30,8 @@ void FreeCanvas(Canvas *const canvas)
     // Falta imaplementacion 
     FreeGrid2D(&canvas->grid2d);
 }
+
+void InitLimitWallsCanvas(Canvas *const canvas)
+{
+    InitLimitWallsGrid2D(&canvas->grid2d);
+}

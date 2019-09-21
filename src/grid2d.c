@@ -75,15 +75,8 @@ void FreeGrid2D(Grid2D *const grid2d)
     }
 }
 
-//******************************************************************
-//****************IMAPLEMENTACION FUNCIOANES STATIC*****************
-//******************************************************************
-static void __WallsLimitGrid2D(int slices)
+void InitLimitWallsGrid2D(Grid2D *const grid2d)
 {
-    distance = (slices * global.spaceGrid2D);
-    x = distance / 2;
-    y = distance / 2;
-
     // limite superior.
     (*globalWalls)[MAX_WALLS - 4] = NewBoundary(
         (Vector2) {-x, -y},
@@ -110,6 +103,19 @@ static void __WallsLimitGrid2D(int slices)
         (Vector2) {x, -y}
     );
     COUNT_WALLS++;
+}
+
+
+//******************************************************************
+//****************IMAPLEMENTACION FUNCIOANES STATIC*****************
+//******************************************************************
+static void __WallsLimitGrid2D(int slices)
+{
+    distance = (slices * global.spaceGrid2D);
+    x = distance / 2;
+    y = distance / 2;
+
+    
 }
 
 static void __ResizeWindowUpdateGrid2D(Grid2D *const grid2d)

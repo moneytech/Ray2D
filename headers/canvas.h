@@ -20,4 +20,6 @@ void DrawCanvas(const Canvas *const canvas, const Scene *const scene);
 
 void FreeCanvas(Canvas *const canvas);
 
+void InitLimitWallsCanvas(Canvas *const canvas);
+
 #endif //CANVAS_H

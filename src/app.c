@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 Global global;
-Boundary **globalWalls;
+Boundary **globalWalls = NULL;
 
 //******************************************************************
 //******************FIRMAS DE FUNCIOANES STATIC*********************
@@ -31,9 +31,9 @@ App NewApp()
     app.backgroundCanvas = BLACK;
     app.backgroundMap = BLACK;
     app.scene = NewScene();
+    
     // se inicializa antes que el scene
     // y depues del canvas.
-    globalWalls = &app.scene.walls; 
     app.canvas = NewCanvas();
     app.map = NewMap();
     app.menu = NewMenu();
@@ -43,11 +43,16 @@ App NewApp()
     
     app.ocamera = NewOCamera();
 
+    globalWalls = &app.scene.walls;
+
     return app;
 }
 
 void RunApp(App *const app)
 {
+    globalWalls = &((*app).scene.walls); 
+    InitLimitWallsCanvas(&app->canvas);
+   
     while (!WindowShouldClose())
     {
         __UpdateApp(app);
