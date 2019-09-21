@@ -2,6 +2,7 @@
 #define GLOBAL_H
 
 #include "raylib.h"
+#include "boundary.h"
 
 
 #define OVE_DARKMARRON (Color) {43.0f, 40.0f, 33.0f, 255.0f} 
@@ -23,6 +24,13 @@ typedef enum Section
     MAP
     
 } Section;
+
+typedef struct Line 
+{
+    Vector2 pto0;
+    Vector2 pto1;
+    
+} Line;
 
 /**
  * La estructura global permite
@@ -49,6 +57,10 @@ typedef struct Global
     int keySectionCanvas;
     int keySectionMap;
 
+    Boundary **walls;
+    int maxWalls;
+    int countWalls;
+
 } Global;
 
 Global NewGlobal();
@@ -70,5 +82,9 @@ Section GetCurrentSectionGlobal(const Global *const global);
 void UpdateCenterGlobal(Global *const global);
 
 Vector2 GetMousePositionGlobal(const Global *const global);
+
+void AddWallGlobal(Global *const global, Line line, int index);
+
+void DeleteWallGlobal(Global *const global, int index);
 
 #endif //GLOBAL_H

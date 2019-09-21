@@ -22,14 +22,18 @@ Global NewGlobal()
     global.visionAngle = 45.0f;
     global.posPlayer = NULL;
     global.diffAngle = PI/8; // P/6
-    global.visionDistance = 450.0f; // distancia de vision del player.
+    global.visionDistance = 1000.0f; // distancia de vision del player.
 
     // configuraciones para la grilla.
-    global.spaceGrid2D = 16; 
-    global.numLinesGrid2D = 16;
+    global.spaceGrid2D = 32; 
+    global.numLinesGrid2D = 32;
 
     global.keySectionCanvas = KEY_F1;
     global.keySectionMap = KEY_F2;
+
+    global.walls = NULL;
+    global.maxWalls = 1000 + 4;
+    global.countWalls = 0;
 
     return global;
 }
@@ -88,4 +92,14 @@ Vector2 GetMousePositionGlobal(const Global *const global)
 void UpdateCenterGlobal(Global *const global)
 {
     // Falta implementar.
+}
+
+void AddWallGlobal(Global *const global, Line line, int index)
+{
+
+}
+
+void DeleteWallGlobal(Global *const global, int index)
+{
+    
 }

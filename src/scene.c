@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 extern Global global;
-const int MAX_WALLS = 100000 + 4;
+const int MAX_WALLS = 1000 + 4;
 int COUNT_WALLS = 0;
 
 //******************************************************************

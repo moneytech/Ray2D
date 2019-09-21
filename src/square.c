@@ -44,40 +44,30 @@ void UpdateSquare(Square *const square)
             square->active = true;
             square->color = OVE_RED;
 
-            printf("COUNT_WALLS: %d\n", COUNT_WALLS);
 
-            // (*globalWalls)[COUNT_WALLS] = NewBoundary(
-            //     (Vector2) {square->position.x, square->position.y},
-            //     (Vector2) {square->position.x + (square->side/2), square->position.y}
-            // );
-            
             (*globalWalls)[COUNT_WALLS] = NewBoundary(
-                (Vector2) {0, 0},
-                (Vector2) {0, 0}
+                (Vector2) {square->position.x, square->position.y},
+                (Vector2) {square->position.x + (square->side), square->position.y}
             );
-
             COUNT_WALLS++;
 
-            printf("COUNT_WALLS: %d\n", COUNT_WALLS);
+            (*globalWalls)[COUNT_WALLS] = NewBoundary(
+                (Vector2) {square->position.x + (square->side), square->position.y},
+                (Vector2) {square->position.x + (square->side), square->position.y + (square->side)}
+            );
+            COUNT_WALLS++;
 
+            (*globalWalls)[COUNT_WALLS] = NewBoundary(
+                (Vector2) {square->position.x + (square->side), square->position.y + (square->side)},
+                (Vector2) {square->position.x, square->position.y + (square->side)}
+            );
+            COUNT_WALLS++;
 
-            // (*globalWalls)[COUNT_WALLS] = NewBoundary(
-            //     (Vector2) {square->position.x + (square->side/2), square->position.y},
-            //     (Vector2) {square->position.x + (square->side/2), square->position.y + (square->side/2)}
-            // );
-            // COUNT_WALLS++;
-
-            // (*globalWalls)[COUNT_WALLS] = NewBoundary(
-            //     (Vector2) {square->position.x + (square->side/2), square->position.y + (square->side/2)},
-            //     (Vector2) {square->position.x, square->position.y + (square->side/2)}
-            // );
-            // COUNT_WALLS++;
-
-            // (*globalWalls)[COUNT_WALLS] = NewBoundary(
-            //     (Vector2) {square->position.x, square->position.y + (square->side/2)},
-            //     (Vector2) {square->position.x, square->position.y}
-            // );
-            // COUNT_WALLS++;
+            (*globalWalls)[COUNT_WALLS] = NewBoundary(
+                (Vector2) {square->position.x, square->position.y + (square->side)},
+                (Vector2) {square->position.x, square->position.y}
+            );
+            COUNT_WALLS++;
         }
         else if (square->active && IsMouseButtonDown(MOUSE_RIGHT_BUTTON))
         {
