@@ -28,23 +28,17 @@
 
 int main(void)
 {
-    Tree *node = NULL;
-    // 2, 7, 5, 2, 6, 9, 5, 11 y 4
-    AddElmentTree(&node, 2);
-    AddElmentTree(&node, 7);
-    AddElmentTree(&node, 5);
-    AddElmentTree(&node, 2);
-    AddElmentTree(&node, 6);
-    AddElmentTree(&node, 9);
-    AddElmentTree(&node, 5);
-    AddElmentTree(&node, 11);
-    AddElmentTree(&node, 4);
+    Tree *tree = NewTree();
 
-    WalkTree(node);
+    AddElementTree(&tree, 1);
+    AddElementTree(&tree, 3);
+    AddElementTree(&tree, 5);
+    AddElementTree(&tree, 6);
+    AddElementTree(&tree, 7);
 
-    printf("first: %d\n", node->index);
+    PrintTree(tree);
 
-    DeleteTree(&node);
+    DeleteTree(&tree);
 
     return 0;
 }

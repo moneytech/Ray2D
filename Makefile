@@ -27,7 +27,7 @@
 PROJECT_NAME       ?= overflow
 RAYLIB_VERSION     ?= 2.5.0
 RAYLIB_API_VERSION ?= 2
-RAYLIB_PATH        ?= ../../raylib/src
+RAYLIB_PATH        ?= ../raylib/src
 
 # Define default options
 

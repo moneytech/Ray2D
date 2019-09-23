@@ -3,20 +3,19 @@
 
 typedef struct Tree
 {
-    int index;
+    int value;
+    int height;
     struct Tree *left;
     struct Tree *right;
 
 } Tree;
 
-void AddElmentTree(Tree **const tree, int index);
+Tree *NewTree(void);
 
-void DeleteTree(Tree **tree);
+void AddElementTree(Tree **const tree, int value); 
 
-void DeleteElementTree(Tree **const tree, int index);
+void DeleteTree(Tree **const tree);
 
-int GetElementTree(const Tree *const tree, int index); 
-
-void WalkTree(const Tree *tree);
+void PrintTree(const Tree *const tree);
 
 #endif //TREE_H
