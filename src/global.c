@@ -25,7 +25,7 @@ Global NewGlobal()
     global.visionDistance = 1000.0f; // distancia de vision del player.
 
     // configuraciones para la grilla.
-    global.spaceGrid2D = 16; 
+    global.spaceGrid2D = 8; 
     global.numLinesGrid2D = 32;
 
     global.keySectionCanvas = KEY_F1;
@@ -34,6 +34,8 @@ Global NewGlobal()
     global.walls = NULL;
     global.maxWalls = 1000 + 4;
     global.countWalls = 0;
+
+    global.boundaries = NewTree();
 
     return global;
 }

@@ -5,9 +5,6 @@
 #include <stdlib.h>
 
 extern Global global;
-extern Boundary **globalWalls;
-extern int MAX_WALLS; // MAX_WALLS debe tener un valor >= a 4.
-extern int COUNT_WALLS;
 
 float distance = 0; 
 float x = 0;
@@ -77,32 +74,32 @@ void FreeGrid2D(Grid2D *const grid2d)
 
 void InitLimitWallsGrid2D(Grid2D *const grid2d)
 {
-    // limite superior.
-    (*globalWalls)[MAX_WALLS - 4] = NewBoundary(
-        (Vector2) {-x, -y},
-        (Vector2) {x, -y}
-    );
-    COUNT_WALLS++;
-    // limite inferior.
-    (*globalWalls)[MAX_WALLS - 3] = NewBoundary(
-        (Vector2) {-x, y},
-        (Vector2) {x, y}
-    );
-    COUNT_WALLS++;
+    // // limite superior.
+    // (*globalWalls)[MAX_WALLS - 4] = NewBoundary(
+    //     (Vector2) {-x, -y},
+    //     (Vector2) {x, -y}
+    // );
+    // COUNT_WALLS++;
+    // // limite inferior.
+    // (*globalWalls)[MAX_WALLS - 3] = NewBoundary(
+    //     (Vector2) {-x, y},
+    //     (Vector2) {x, y}
+    // );
+    // COUNT_WALLS++;
 
-    // limite izquierdo.
-    (*globalWalls)[MAX_WALLS - 2] = NewBoundary(
-        (Vector2) {-x, y},
-        (Vector2) {-x, -y}
-    );
-    COUNT_WALLS++;
+    // // limite izquierdo.
+    // (*globalWalls)[MAX_WALLS - 2] = NewBoundary(
+    //     (Vector2) {-x, y},
+    //     (Vector2) {-x, -y}
+    // );
+    // COUNT_WALLS++;
 
-    // limite derecho.
-    (*globalWalls)[MAX_WALLS - 1] = NewBoundary(
-        (Vector2) {x, y},
-        (Vector2) {x, -y}
-    );
-    COUNT_WALLS++;
+    // // limite derecho.
+    // (*globalWalls)[MAX_WALLS - 1] = NewBoundary(
+    //     (Vector2) {x, y},
+    //     (Vector2) {x, -y}
+    // );
+    // COUNT_WALLS++;
 }
 
 

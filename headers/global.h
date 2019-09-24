@@ -3,7 +3,7 @@
 
 #include "raylib.h"
 #include "boundary.h"
-
+#include "tree.h"
 
 #define OVE_DARKMARRON (Color) {43.0f, 40.0f, 33.0f, 255.0f} 
 #define OVE_MARRON (Color) {98.0f, 76.0f, 60.0f, 255.0f} 
@@ -60,6 +60,9 @@ typedef struct Global
     Boundary **walls;
     int maxWalls;
     int countWalls;
+
+    // Arbol dinamico y balanceado.
+    Tree *boundaries;
 
 } Global;
 

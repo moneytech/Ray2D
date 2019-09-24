@@ -136,7 +136,7 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
         {
             Vector2 auxPoint = GetIntersectionRay2D(&(player->rays[i]), &walls[iWall]);
             if (auxPoint.x > -100000.0f)
-           {
+            {
                 float distance = Distance(player->rays[i].position, auxPoint);
                 if (distance < max)
                 {
@@ -144,7 +144,7 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
                     pto = auxPoint;
                     flag = true;
                 }
-           }
+            }
         }
 
         player->slices[i] = (max < global.visionDistance) ? max : 0xF00000; // almaceno las trazas para su renderizado en 'Map'.

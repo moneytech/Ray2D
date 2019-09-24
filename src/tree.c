@@ -23,7 +23,7 @@ static void __DoubleRotationLeftTree(Tree **const tree);
 static void __DoubleRotationRightTree(Tree **const tree);
 
 // El tipo que retorna cambia segun el dato que almacena el arbol (OJO)
-static int __DeleteElementMinTree(Tree **const tree);
+static Node *__DeleteElementMinTree(Tree **const tree);
 
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
@@ -35,23 +35,23 @@ Tree *NewTree(void)
     return tree;
 }
 
-void AddElementTree(Tree **const tree, int value)
+void AddElementTree(Tree **const tree, Node node)
 {
     if ((*tree) == NULL)
     {
         (*tree) = (Tree *) malloc(sizeof(Tree));
-        (*tree)->value = value;
+        (*tree)->node = node;
         (*tree)->height = 0;
         (*tree)->left = NULL;
         (*tree)->right = NULL;
     }
     else
     {
-        if ((*tree)->value < value)
-            AddElementTree(&(*tree)->right, value);
+        if ((*tree)->node.id < node.id)
+            AddElementTree(&(*tree)->right, node);
         
-        else if ((*tree)->value > value)
-            AddElementTree(&(*tree)->left, value);
+        else if ((*tree)->node.id > node.id)
+            AddElementTree(&(*tree)->left, node);
 
         __SwingingTree(&(*tree));
         __UpdateHeightTree((*tree));
@@ -74,21 +74,21 @@ void PrintTree(const Tree *const tree)
 {
     if (tree != NULL)
     {
-        printf("value: %d, height: %d \n", tree->value, tree->height);
+        printf("id: %d, height: %d \n", tree->node.id, tree->height);
         PrintTree(tree->left);
         PrintTree(tree->right);
     }
 }
 
-void DeleteElementTree(Tree **const tree, int value)
+void DeleteElementTree(Tree **const tree, int id)
 {
     if ((*tree) != NULL)
     {
-        if ((*tree)->value < value)
-            DeleteElementTree(&(*tree)->right, value);
+        if ((*tree)->node.id < id)
+            DeleteElementTree(&(*tree)->right, id);
     
-        else if ((*tree)->value < value)
-            DeleteElementTree(&(*tree)->left, value);
+        else if ((*tree)->node.id < id)
+            DeleteElementTree(&(*tree)->left, id);
         
         else
         {
@@ -112,14 +112,13 @@ void DeleteElementTree(Tree **const tree, int value)
                 (*tree) = auxTree; 
             }   
             else
-                 (*tree)->value = __DeleteElementMinTree(&(*tree)->right);
+                 (*tree)->node = *__DeleteElementMinTree(&(*tree)->right);
 
             __SwingingTree(&(*tree));
             __UpdateHeightTree((*tree));
         }
     }
 }
-
 
 //******************************************************************
 //****************IMAPLEMENTACION FUNCIOANES STATIC*****************
@@ -208,27 +207,27 @@ static void __DoubleRotationRightTree(Tree **const tree)
     }
 }
 
-static int __DeleteElementMinTree(Tree **const tree)
+static Node *__DeleteElementMinTree(Tree **const tree)
 {
     if ((*tree) != NULL)
     {
         if ((*tree)->left != NULL)
         {
-            int value = __DeleteElementMinTree(&(*tree)->left);
+            Node *node = __DeleteElementMinTree(&(*tree)->left);
             __SwingingTree(&(*tree));
             __UpdateHeightTree((*tree));
-            return value;
+            return node;
         }
         else
         {   
-            int value = (*tree)->value;
+            Node *node = &(*tree)->node;
             Tree *auxTree = (*tree);
             (*tree) = (*tree)->right;
             free(auxTree);
             auxTree = NULL;
-            return value;
+            return &(*node);
         }
     }
 
-    return -1;
+    return NULL;
 }
