@@ -2,10 +2,12 @@
 #define MENU_H
 
 #include "panel.h"
+#include "option.h"
 
 typedef struct Menu
 {
     Panel panelDown;
+    Option option;
 
 } Menu;
 

@@ -359,6 +359,7 @@ PROJECT_SOURCE_FILES ?= main.c              \
                         src/tree.c          \
                         src/node.c          \
                         src/list.c          \
+                        src/option.c        \
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))
