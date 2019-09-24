@@ -1,6 +1,7 @@
 #include "../headers/grid2d.h"
 #include "../headers/boundary.h"
 #include "../headers/global.h"
+#include "../headers/list.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -74,32 +75,38 @@ void FreeGrid2D(Grid2D *const grid2d)
 
 void InitLimitWallsGrid2D(Grid2D *const grid2d)
 {
+    Node node = NewNode(4, -1);
+
     // // limite superior.
-    // (*globalWalls)[MAX_WALLS - 4] = NewBoundary(
-    //     (Vector2) {-x, -y},
-    //     (Vector2) {x, -y}
-    // );
-    // COUNT_WALLS++;
+    Boundary boundary = NewBoundary(
+        (Vector2) {-x, -y},
+        (Vector2) {x, -y}
+    );
+    AddElementNode(&node, boundary, 0);
+
     // // limite inferior.
-    // (*globalWalls)[MAX_WALLS - 3] = NewBoundary(
-    //     (Vector2) {-x, y},
-    //     (Vector2) {x, y}
-    // );
-    // COUNT_WALLS++;
+    boundary = NewBoundary(
+        (Vector2) {-x, y},
+        (Vector2) {x, y}
+    );
+    AddElementNode(&node, boundary, 1);
 
     // // limite izquierdo.
-    // (*globalWalls)[MAX_WALLS - 2] = NewBoundary(
-    //     (Vector2) {-x, y},
-    //     (Vector2) {-x, -y}
-    // );
-    // COUNT_WALLS++;
+    boundary = NewBoundary(
+        (Vector2) {-x, y},
+        (Vector2) {-x, -y}
+    );
+    AddElementNode(&node, boundary, 2);
 
     // // limite derecho.
-    // (*globalWalls)[MAX_WALLS - 1] = NewBoundary(
-    //     (Vector2) {x, y},
-    //     (Vector2) {x, -y}
-    // );
-    // COUNT_WALLS++;
+    boundary = NewBoundary(
+        (Vector2) {x, y},
+        (Vector2) {x, -y}
+    );
+    AddElementNode(&node, boundary, 3);
+
+    // almacena el nodo en la lista de paredes.
+    AddElementList(&(global.listWalls), node);
 }
 
 
@@ -134,12 +141,13 @@ static void __InitSquaresGrid2D(Grid2D *const grid2d)
 
     float _x = -x;
     float _y = -y;
-
+    int count = 0;
     for(int i=0; i < grid2d->slices; i++)
     {
         for (int j=0; j < grid2d->slices; j++)
         {
-            grid2d->squares[i][j] = NewSquare(_x, _y, space, OVE_BEIGE);
+            grid2d->squares[i][j] = NewSquare(_x, _y, space, OVE_BEIGE, count);
+            count++;
             _x += space;
         }
         _y += space;

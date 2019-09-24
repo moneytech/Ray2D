@@ -3,7 +3,7 @@
 
 #include "raylib.h"
 #include "boundary.h"
-#include "tree.h"
+#include "list.h"
 
 #define OVE_DARKMARRON (Color) {43.0f, 40.0f, 33.0f, 255.0f} 
 #define OVE_MARRON (Color) {98.0f, 76.0f, 60.0f, 255.0f} 
@@ -61,8 +61,8 @@ typedef struct Global
     int maxWalls;
     int countWalls;
 
-    // Arbol dinamico y balanceado.
-    Tree *boundaries;
+    List *listWalls;
+    int wallID;
 
 } Global;
 
@@ -86,8 +86,6 @@ void UpdateCenterGlobal(Global *const global);
 
 Vector2 GetMousePositionGlobal(const Global *const global);
 
-void AddWallGlobal(Global *const global, Line line, int index);
-
-void DeleteWallGlobal(Global *const global, int index);
+void FreeGlobal(Global *const global);
 
 #endif //GLOBAL_H

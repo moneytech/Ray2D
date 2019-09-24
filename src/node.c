@@ -4,16 +4,22 @@
 Node NewNode(int size, int id)
 {
     Node node = {0};
-    node.boundary = (Boundary *) malloc(sizeof(Boundary) * size);
+    node.boundaries = (Boundary *) malloc(sizeof(Boundary) * size);
     node.size = size;
     node.id = id;
 
     return node;
 }
 
+void AddElementNode(Node *const node, Boundary boundary, int index)
+{
+    if (node != NULL)
+        node->boundaries[index] = boundary;
+}
+
 const Boundary *GetBoundary(const Node *const node)
 {
-    return node->boundary;
+    return node->boundaries;
 }
 
 const int GetSizeBoundary(const Node *const node)
@@ -28,9 +34,9 @@ const int GetIdBoundary(const Node *const node)
 
 void DeleteBoundary(Node *const node)
 {
-    if (node->boundary != NULL)
+    if (node->boundaries != NULL)
     {
-        free(node->boundary);
-        node->boundary = NULL;
+        free(node->boundaries);
+        node->boundaries = NULL;
     }
 }

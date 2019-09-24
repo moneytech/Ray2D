@@ -11,12 +11,13 @@ typedef struct Square
     float side; 
     float scale;
     bool active;
+    int id;
 
     Color color;
 
 } Square;
 
-Square NewSquare(float x, float y, float side, Color color);
+Square NewSquare(float x, float y, float side, Color color, int id);
 
 void UpdateSquare(Square *const square);
 

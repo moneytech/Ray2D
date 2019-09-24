@@ -25,8 +25,8 @@ Global NewGlobal()
     global.visionDistance = 1000.0f; // distancia de vision del player.
 
     // configuraciones para la grilla.
-    global.spaceGrid2D = 8; 
-    global.numLinesGrid2D = 32;
+    global.spaceGrid2D = 16; 
+    global.numLinesGrid2D = 16;
 
     global.keySectionCanvas = KEY_F1;
     global.keySectionMap = KEY_F2;
@@ -35,7 +35,7 @@ Global NewGlobal()
     global.maxWalls = 1000 + 4;
     global.countWalls = 0;
 
-    global.boundaries = NewTree();
+    global.listWalls = NewList();
 
     return global;
 }
@@ -96,12 +96,7 @@ void UpdateCenterGlobal(Global *const global)
     // Falta implementar.
 }
 
-void AddWallGlobal(Global *const global, Line line, int index)
+void FreeGlobal(Global *const global)
 {
-
-}
-
-void DeleteWallGlobal(Global *const global, int index)
-{
-    
+    FreeList(&(global->listWalls));
 }

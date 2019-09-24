@@ -1,6 +1,7 @@
 #include "../headers/square.h"
 #include "../headers/global.h"
 #include "../headers/boundary.h"
+#include "../headers/node.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,7 +18,7 @@ static bool __IsInsideSquare(const Square *const square);
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
-Square NewSquare(float x, float y, float side, Color color)
+Square NewSquare(float x, float y, float side, Color color, int id)
 {
     Square square = {0}; 
 
@@ -26,7 +27,8 @@ Square NewSquare(float x, float y, float side, Color color)
     square.scale = 1.0f;
     square.active = false;
     square.color = color;
-
+    square.id = id;
+    
     square.center = (Vector2) 
     {
         square.position.x + (side/2),        
@@ -45,35 +47,39 @@ void UpdateSquare(Square *const square)
             square->active = true;
             square->color = OVE_RED;
 
+            Node node = NewNode(4, square->id);
 
-            // (*globalWalls)[COUNT_WALLS] = NewBoundary(
-            //     (Vector2) {square->position.x, square->position.y},
-            //     (Vector2) {square->position.x + (square->side), square->position.y}
-            // );
-            // COUNT_WALLS++;
+            Boundary boundary = NewBoundary(
+                (Vector2) {square->position.x, square->position.y},
+                (Vector2) {square->position.x + (square->side), square->position.y}
+            );
+            AddElementNode(&node, boundary, 0);
 
-            // (*globalWalls)[COUNT_WALLS] = NewBoundary(
-            //     (Vector2) {square->position.x + (square->side), square->position.y},
-            //     (Vector2) {square->position.x + (square->side), square->position.y + (square->side)}
-            // );
-            // COUNT_WALLS++;
+            boundary = NewBoundary(
+                (Vector2) {square->position.x + (square->side), square->position.y},
+                (Vector2) {square->position.x + (square->side), square->position.y + (square->side)}
+            );
+            AddElementNode(&node, boundary, 1);
 
-            // (*globalWalls)[COUNT_WALLS] = NewBoundary(
-            //     (Vector2) {square->position.x + (square->side), square->position.y + (square->side)},
-            //     (Vector2) {square->position.x, square->position.y + (square->side)}
-            // );
-            // COUNT_WALLS++;
+            boundary = NewBoundary(
+                (Vector2) {square->position.x + (square->side), square->position.y + (square->side)},
+                (Vector2) {square->position.x, square->position.y + (square->side)}
+            );
+            AddElementNode(&node, boundary, 2);
 
-            // (*globalWalls)[COUNT_WALLS] = NewBoundary(
-            //     (Vector2) {square->position.x, square->position.y + (square->side)},
-            //     (Vector2) {square->position.x, square->position.y}
-            // );
-            // COUNT_WALLS++;
+            boundary = NewBoundary(
+                (Vector2) {square->position.x, square->position.y + (square->side)},
+                (Vector2) {square->position.x, square->position.y}
+            );
+            AddElementNode(&node, boundary, 3);
+
+            AddElementList(&(global.listWalls), node);
         }
         else if (square->active && IsMouseButtonDown(MOUSE_RIGHT_BUTTON))
         {
             square->active = false;
             square->color = OVE_BEIGE;
+            DeleteElementList(&(global.listWalls), square->id);
         }
     }
 }

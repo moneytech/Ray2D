@@ -62,6 +62,7 @@ void FreeApp(App *const app)
     FreeScene(&app->scene);
     FreeMap(&app->map);
     FreeCanvas(&app->canvas);
+    FreeGlobal(&global);
     UnloadImage(app->icon);
     CloseWindow();
 }

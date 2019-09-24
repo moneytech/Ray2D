@@ -132,19 +132,39 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
         max = 0xF00000;
         flag = false;
 
-        for (int iWall=0; iWall < MAX_WALLS; iWall++)
+        // for (int iWall=0; iWall < MAX_WALLS; iWall++)
+        // {
+        //     Vector2 auxPoint = GetIntersectionRay2D(&(player->rays[i]), &walls[iWall]);
+        //     if (auxPoint.x > -100000.0f)
+        //     {
+        //         float distance = Distance(player->rays[i].position, auxPoint);
+        //         if (distance < max)
+        //         {
+        //             max = distance;
+        //             pto = auxPoint;
+        //             flag = true;
+        //         }
+        //     }
+        // }
+        List *auxList = global.listWalls;
+        while (auxList != NULL)
         {
-            Vector2 auxPoint = GetIntersectionRay2D(&(player->rays[i]), &walls[iWall]);
-            if (auxPoint.x > -100000.0f)
+            for (int j=0; j < auxList->node.size; j++)
             {
-                float distance = Distance(player->rays[i].position, auxPoint);
-                if (distance < max)
+                Vector2 auxPoint = GetIntersectionRay2D(&(player->rays[i]), &auxList->node.boundaries[j]);
+                if (auxPoint.x > -100000.0f)
                 {
-                    max = distance;
-                    pto = auxPoint;
-                    flag = true;
+                    float distance = Distance(player->rays[i].position, auxPoint);
+                    if (distance < max)
+                    {
+                        max = distance;
+                        pto = auxPoint;
+                        flag = true;
+                    }
                 }
             }
+
+            auxList = auxList->next;
         }
 
         player->slices[i] = (max < global.visionDistance) ? max : 0xF00000; // almaceno las trazas para su renderizado en 'Map'.

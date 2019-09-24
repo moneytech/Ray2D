@@ -5,13 +5,15 @@
 
 typedef struct Node
 {
-    Boundary *boundary;
+    Boundary *boundaries;
     int size;
     int id;
 
 } Node;
 
 Node NewNode(int size, int id);
+
+void AddElementNode(Node *const node, Boundary boundary, int index);
 
 const Boundary *GetBoundary(const Node *const node);
 
