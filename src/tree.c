@@ -229,4 +229,6 @@ static int __DeleteElementMinTree(Tree **const tree)
             return value;
         }
     }
+
+    return -1;
 }
