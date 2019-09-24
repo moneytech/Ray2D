@@ -112,7 +112,7 @@ void DeleteElementTree(Tree **const tree, int value)
                 (*tree) = auxTree; 
             }   
             else
-                 (*tree)->value = __DeleteElementMinTree(&(*tree));
+                 (*tree)->value = __DeleteElementMinTree(&(*tree)->right);
 
             __SwingingTree(&(*tree));
             __UpdateHeightTree((*tree));

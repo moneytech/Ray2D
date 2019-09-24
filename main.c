@@ -43,6 +43,13 @@ int main(void)
     AddElementTree(&tree, 13);
     AddElementTree(&tree, 14);
 
+
+    DeleteElementTree(&tree, 10);
+    DeleteElementTree(&tree, 13);
+
+    printf("**********************************\n");
+    printf("**********************************\n");
+    printf("**********************************\n");
     PrintTree(tree);
 
     DeleteTree(&tree);
