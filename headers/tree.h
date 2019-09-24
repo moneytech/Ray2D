@@ -18,4 +18,6 @@ void DeleteTree(Tree **const tree);
 
 void PrintTree(const Tree *const tree);
 
+void DeleteElementTree(Tree **const tree, int value);
+
 #endif //TREE_H

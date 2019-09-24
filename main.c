@@ -35,6 +35,13 @@ int main(void)
     AddElementTree(&tree, 5);
     AddElementTree(&tree, 6);
     AddElementTree(&tree, 7);
+    AddElementTree(&tree, 8);
+    AddElementTree(&tree, 9);
+    AddElementTree(&tree, 10);
+    AddElementTree(&tree, 11);
+    AddElementTree(&tree, 12);
+    AddElementTree(&tree, 13);
+    AddElementTree(&tree, 14);
 
     PrintTree(tree);
 
