@@ -161,7 +161,7 @@ static void __DrawObjectsApp(const App *const app)
             break;
         
         default:
-            ClearBackground(global.color0); // limpia la pantalla.
+            ClearBackground(global.color1); // limpia la pantalla.
             __DrawMapApp(app);
     }
 }

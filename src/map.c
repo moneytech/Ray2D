@@ -23,7 +23,7 @@ void UpdateMap(Map *const map)
 void DrawMap(const Map *const map, const Scene *const scene)
 {
     DrawScene(scene); // Dibuja la escene en el canvas.
-    // DrawRectangle(0, global.screenHeight/2, global.screenWidth, global.screenHeight/2, BROWN);
+    DrawRectangle(0, global.screenHeight/2, global.screenWidth, global.screenHeight/2, global.color0);
     __DrawRay(scene);    
 }
 

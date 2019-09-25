@@ -20,10 +20,10 @@ Global NewGlobal()
     
     // configuraciones para la ventana.
     global.section = CANVAS; // inicializa en la seccion canvas.
-    global.screenWidth = 810; // ancho de la ventana.
-    // global.screenWidth = 900; // ancho de la ventana.
-    global.screenHeight = 600; // altura de la ventana.
-    // global.screenHeight = 700; // altura de la ventana.
+    // global.screenWidth = 810; // ancho de la ventana.
+    global.screenWidth = 900; // ancho de la ventana.
+    // global.screenHeight = 600; // altura de la ventana.
+    global.screenHeight = 700; // altura de la ventana.
     global.title = "Overflow::Engine"; // titulo de la app.
     global.fps = 60;
     
@@ -127,7 +127,7 @@ static void __KeyEventGlobal(Global *const global)
     if(IsKeyPressed(KEY_F10))
     {
         global->indexTheme = (global->indexTheme >= 7) ? 0 : global->indexTheme + 1;
-        printf("indexTheme: %d\n", global->indexTheme);
+        // printf("indexTheme: %d\n", global->indexTheme);
         __UpdateThemeGlobal(global);
     }
 }
