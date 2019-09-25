@@ -26,7 +26,7 @@ Player NewPlayer(const Vector2 position)
 {
     Player player = {0};
     player.position = position;
-    player.color = OVE_RED;
+    player.color = OVE_COLOR0;
     player.numRays = global.visionAngle; // angulo de vision del observador.
     player.slices = (float*) calloc(player.numRays, sizeof(float));
     player.angle = 0;
@@ -178,7 +178,7 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
                 player->position.y,
                 player->rays[i].position.x + player->rays[i].direction.x * (-global.visionDistance),
                 player->rays[i].position.y + player->rays[i].direction.y * (-global.visionDistance),
-                OVE_DARKGRAY
+                OVE_COLOR2
             );
     }
 }

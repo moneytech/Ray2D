@@ -42,6 +42,16 @@ void DrawPanel(const Panel *const panel)
         panel->color
     );
 
+    DrawRectangleLinesEx(
+        (Rectangle) {
+            panel->rect.x,
+            panel->rect.y,
+            panel->rect.width,
+            panel->rect.height
+        },
+        4,
+        OVE_COLOR3
+    );
 
     Vector2 mousePosition = GetMousePositionGlobal(&global);
     char cmousePosition[100];
@@ -52,7 +62,7 @@ void DrawPanel(const Panel *const panel)
         panel->rect.x + 30,
         panel->rect.y + 6,
         16,
-        OVE_BEIGE
+        OVE_COLOR3
     );
 }
 

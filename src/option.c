@@ -40,6 +40,17 @@ void DrawOption(const Option *const option)
         option->rect.height,
         option->color
     );
+
+    DrawRectangleLinesEx(
+        (Rectangle) {
+            option->rect.x,
+            option->rect.y,
+            option->rect.width,
+            option->rect.height
+        },
+        4,
+        OVE_COLOR3
+    );
 }
 
 void FreeOption(Option *const option)

@@ -45,7 +45,7 @@ void UpdateSquare(Square *const square)
         if (!square->active && IsMouseButtonDown(MOUSE_LEFT_BUTTON))
         {
             square->active = true;
-            square->color = OVE_RED;
+            square->color = OVE_COLOR0;
 
             Node node = NewNode(4, square->id);
 
@@ -78,7 +78,7 @@ void UpdateSquare(Square *const square)
         else if (square->active && IsMouseButtonDown(MOUSE_RIGHT_BUTTON))
         {
             square->active = false;
-            square->color = OVE_BEIGE;
+            square->color = OVE_COLOR2;
             DeleteElementList(&(global.listWalls), square->id);
         }
     }
@@ -102,7 +102,7 @@ void DrawSquare(const Square *const square)
             square->side
         }, 
         1, 
-        OVE_GRAY
+        OVE_COLOR3
     );
 }
 

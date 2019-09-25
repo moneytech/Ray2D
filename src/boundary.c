@@ -9,7 +9,7 @@ Boundary NewBoundary(const Vector2 pto0, const Vector2 pto1)
     Boundary boundary = {0};
     boundary.pto0 = pto0;
     boundary.pto1 = pto1;
-    boundary.color = OVE_ORAGEN;
+    boundary.color = OVE_COLOR2;
 
     return boundary;
 }

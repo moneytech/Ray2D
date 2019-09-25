@@ -5,18 +5,62 @@
 #include "boundary.h"
 #include "list.h"
 
-#define OVE_DARKMARRON (Color) {43.0f, 40.0f, 33.0f, 255.0f} 
-#define OVE_MARRON (Color) {98.0f, 76.0f, 60.0f, 255.0f} 
-#define OVE_YELLOW (Color) {224.0f, 200.0f, 114.0f, 255.0f} 
-#define OVE_GREEN (Color) {62.0f, 105.0f, 88.0f, 255.0f} 
-#define OVE_RED (Color) {176.0f, 58.0f, 72.0f, 255.0f} 
-#define OVE_GRAY (Color) {177.0f, 165.0f, 141.0f, 255.0f} 
-#define OVE_DARKGRAY (Color) {93.0f, 114.0f, 117.0f, 255.0f} 
-#define OVE_DARKBEIGE (Color) {217.0f, 172.0f, 139.0f, 255.0f} 
-#define OVE_BEIGE (Color) {227.0f, 207.0f, 180.0f, 255.0f} 
-#define OVE_DARKBLUE (Color) {36.0f, 61.0f, 92.0f, 255.0f} 
-#define OVE_BLUE (Color) {92.0f, 139.0f, 147.0f, 255.0f} 
-#define OVE_ORAGEN (Color) {212.0f, 128.0f, 77.0f, 255.0f} 
+// COLOR MIST GB
+#define OVE_MIST_COLOR0 (Color) {45.0f, 27.0f, 0.0f, 255.0f}
+#define OVE_MIST_COLOR1 (Color) {30.0f, 96.0f, 110.0f, 255.0f}
+#define OVE_MIST_COLOR2 (Color) {90.0f, 185.0f, 168.0f, 255.0f}
+#define OVE_MIST_COLOR3 (Color) {196.0f, 240.0f, 194.0f, 255.0f}
+
+
+// COLOR CRIMSON
+#define OVE_CRIMSON_COLOR0 (Color) {27.0f, 3.0f, 38.0f, 255.0f}
+#define OVE_CRIMSON_COLOR1 (Color) {122.0f, 28.0f, 75.0f, 255.0f}
+#define OVE_CRIMSON_COLOR2 (Color) {186.0f, 80.0f, 68.0f, 255.0f}
+#define OVE_CRIMSON_COLOR3 (Color) {239.0f, 249.0f, 214.0f, 255.0f}
+
+// COLOR DIRTYBOY
+#define OVE_DIRTYBOY_COLOR0 (Color) {31.0f, 31.0f, 31.0f, 255.0f}
+#define OVE_DIRTYBOY_COLOR1 (Color) {77.0f, 83.0f, 60.0f, 255.0f}
+#define OVE_DIRTYBOY_COLOR2 (Color) {139.0f, 149.0f, 109.0f, 255.0f}
+#define OVE_DIRTYBOY_COLOR3 (Color) {196.0f, 207.0f, 161.0f, 255.0f}
+
+// COLOR AYY4
+#define OVE_AYY4_COLOR0 (Color) {0.0f, 48.0f, 59.0f, 255.0f}
+#define OVE_AYY4_COLOR1 (Color) {255.0f, 119.0f, 119.0f, 255.0f}
+#define OVE_AYY4_COLOR2 (Color) {255.0f, 206.0f, 150.0f, 255.0f}
+#define OVE_AYY4_COLOR3 (Color) {241.0f, 242.0f, 218.0f, 255.0f}
+
+// COLOR RUSTIC
+#define OVE_RUSTIC_COLOR0 (Color) {44.0f, 33.0f, 55.0f, 255.0f}
+#define OVE_RUSTIC_COLOR1 (Color) {118.0f, 68.0f, 98.0f, 255.0f}
+#define OVE_RUSTIC_COLOR2 (Color) {169.0f, 104.0f, 104.0f, 255.0f}
+#define OVE_RUSTIC_COLOR3 (Color) {237.0f, 180.0f, 161.0f, 255.0f}
+
+// COLOR KIROKAZE GAMEBOY
+#define OVE_KIROKAZE_COLOR0 (Color) {51.0f, 44.0f, 80.0f, 255.0f}
+#define OVE_KIROKAZE_COLOR1 (Color) {70.0f, 135.0f, 143.0f, 255.0f}
+#define OVE_KIROKAZE_COLOR2 (Color) {148.0f, 227.0f, 68.0f, 255.0f}
+#define OVE_KIROKAZE_COLOR3 (Color) {226.0f, 243.0f, 228.0f, 255.0f}
+
+// COLOR LINKS GAMEBOY
+#define OVE_LINKS_COLOR0 (Color) {90.0f, 57.0f, 33.0f, 255.0f}
+#define OVE_LINKS_COLOR1 (Color) {107.0f, 140.0f, 66.0f, 255.0f}
+#define OVE_LINKS_COLOR2 (Color) {123.0f, 198.0f, 123.0f, 255.0f}
+#define OVE_LINKS_COLOR3 (Color) {255.0f, 255.0f, 181.0f, 255.0f}
+
+// COLOR MUDDYSAND
+#define OVE_MUDDYSAND_COLOR0 (Color) {57.0f, 56.0f, 41.0f, 255.0f}
+#define OVE_MUDDYSAND_COLOR1 (Color) {123.0f, 113.0f, 98.0f, 255.0f}
+#define OVE_MUDDYSAND_COLOR2 (Color) {180.0f, 165.0f, 106.0f, 255.0f}
+#define OVE_MUDDYSAND_COLOR3 (Color) {230.0f, 214.0f, 156.0f, 255.0f}
+
+
+// COLOR GLOBAL
+#define OVE_COLOR0 OVE_MIST_COLOR0
+#define OVE_COLOR1 OVE_MIST_COLOR1
+#define OVE_COLOR2 OVE_MIST_COLOR2
+#define OVE_COLOR3 OVE_MIST_COLOR3
+
 
 typedef enum Section
 {
