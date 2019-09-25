@@ -40,12 +40,17 @@ Square NewSquare(float x, float y, float side, Color color, int id)
 
 void UpdateSquare(Square *const square)
 {
+    if (square->color.r != global.color2.r ||
+        square->color.g != global.color2.g ||
+        square->color.b != global.color2.b)
+        square->color = (square->active) ? global.color0 : global.color2;
+
     if (__IsInsideSquare(square))
     {
         if (!square->active && IsMouseButtonDown(MOUSE_LEFT_BUTTON))
         {
             square->active = true;
-            square->color = OVE_COLOR0;
+            square->color = global.color0;
 
             Node node = NewNode(4, square->id);
 
@@ -78,7 +83,7 @@ void UpdateSquare(Square *const square)
         else if (square->active && IsMouseButtonDown(MOUSE_RIGHT_BUTTON))
         {
             square->active = false;
-            square->color = OVE_COLOR2;
+            square->color = global.color2;
             DeleteElementList(&(global.listWalls), square->id);
         }
     }
@@ -102,7 +107,7 @@ void DrawSquare(const Square *const square)
             square->side
         }, 
         1, 
-        OVE_COLOR3
+        global.color3
     );
 }
 

@@ -30,6 +30,11 @@ Panel NewPanel(float x, float y, float width, float height, Color color)
 void UpdatePanel(Panel *const panel)
 {
     __ResizeWindowUpdatePanel(panel);
+
+    if (panel->color.r != global.color1.r ||
+        panel->color.g != global.color1.g ||
+        panel->color.b != global.color1.b)
+        panel->color = global.color1;
 }
 
 void DrawPanel(const Panel *const panel)
@@ -50,7 +55,7 @@ void DrawPanel(const Panel *const panel)
             panel->rect.height
         },
         4,
-        OVE_COLOR3
+        global.color3
     );
 
     Vector2 mousePosition = GetMousePositionGlobal(&global);
@@ -62,7 +67,7 @@ void DrawPanel(const Panel *const panel)
         panel->rect.x + 30,
         panel->rect.y + 6,
         16,
-        OVE_COLOR3
+        global.color3
     );
 }
 

@@ -1,9 +1,19 @@
 #include "../headers/global.h"
 #include "../headers/ocamera.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 extern OCamera *ocamera;
 
+//******************************************************************
+//******************FIRMAS DE FUNCIOANES STATIC*********************
+//******************************************************************
+static void __KeyEventGlobal(Global *const global);
+static void __UpdateThemeGlobal(Global *const global);
+
+//******************************************************************
+//*********************IMPLEMENTACION DE FUNCIONES******************
+//******************************************************************
 Global NewGlobal()
 {
     Global global = {0};
@@ -36,6 +46,9 @@ Global NewGlobal()
     global.countWalls = 0;
 
     global.listWalls = NewList();
+
+    global.indexTheme = 0;
+    __UpdateThemeGlobal(&global);
 
     return global;
 }
@@ -99,4 +112,83 @@ void UpdateCenterGlobal(Global *const global)
 void FreeGlobal(Global *const global)
 {
     FreeList(&(global->listWalls));
+}
+
+void UpdateGlobal(Global *const global)
+{
+    __KeyEventGlobal(global);
+}
+
+//******************************************************************
+//****************IMAPLEMENTACION FUNCIOANES STATIC*****************
+//******************************************************************
+static void __KeyEventGlobal(Global *const global)
+{
+    if(IsKeyPressed(KEY_F10))
+    {
+        global->indexTheme = (global->indexTheme >= 7) ? 0 : global->indexTheme + 1;
+        printf("indexTheme: %d\n", global->indexTheme);
+        __UpdateThemeGlobal(global);
+    }
+}
+
+static void __UpdateThemeGlobal(Global *const global)
+{
+    switch(global->indexTheme)
+    {
+        case 0:
+            global->color0 = OVE_MIST_COLOR0;
+            global->color1 = OVE_MIST_COLOR1;
+            global->color2 = OVE_MIST_COLOR2;
+            global->color3 = OVE_MIST_COLOR3;
+            break;
+        
+        case 1:
+            global->color0 = OVE_CRIMSON_COLOR0;
+            global->color1 = OVE_CRIMSON_COLOR1;
+            global->color2 = OVE_CRIMSON_COLOR2;
+            global->color3 = OVE_CRIMSON_COLOR3;
+            break;
+        
+        case 2:
+            global->color0 = OVE_DIRTYBOY_COLOR0;
+            global->color1 = OVE_DIRTYBOY_COLOR1;
+            global->color2 = OVE_DIRTYBOY_COLOR2;
+            global->color3 = OVE_DIRTYBOY_COLOR3;
+            break;
+        
+        case 3:
+            global->color0 = OVE_AYY4_COLOR0;
+            global->color1 = OVE_AYY4_COLOR1;
+            global->color2 = OVE_AYY4_COLOR2;
+            global->color3 = OVE_AYY4_COLOR3;
+            break;
+        
+        case 4:
+            global->color0 = OVE_RUSTIC_COLOR0;
+            global->color1 = OVE_RUSTIC_COLOR1;
+            global->color2 = OVE_RUSTIC_COLOR2;
+            global->color3 = OVE_RUSTIC_COLOR3;
+            break;
+        
+        case 5:
+            global->color0 = OVE_KIROKAZE_COLOR0;
+            global->color1 = OVE_KIROKAZE_COLOR1;
+            global->color2 = OVE_KIROKAZE_COLOR2;
+            global->color3 = OVE_KIROKAZE_COLOR3;
+            break;
+        
+        case 6:
+            global->color0 = OVE_LINKS_COLOR0;
+            global->color1 = OVE_LINKS_COLOR1;
+            global->color2 = OVE_LINKS_COLOR2;
+            global->color3 = OVE_LINKS_COLOR3;
+            break;
+        
+        default:
+            global->color0 = OVE_MUDDYSAND_COLOR0;
+            global->color1 = OVE_MUDDYSAND_COLOR1;
+            global->color2 = OVE_MUDDYSAND_COLOR2;
+            global->color3 = OVE_MUDDYSAND_COLOR3;
+    }
 }

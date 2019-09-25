@@ -26,7 +26,7 @@ Player NewPlayer(const Vector2 position)
 {
     Player player = {0};
     player.position = position;
-    player.color = OVE_COLOR0;
+    player.color = global.color0;
     player.numRays = global.visionAngle; // angulo de vision del observador.
     player.slices = (float*) calloc(player.numRays, sizeof(float));
     player.angle = 0;
@@ -41,6 +41,11 @@ Player NewPlayer(const Vector2 position)
 
 void UpdatePlayer(Player *const player, const Vector2 position)
 {   
+    if (player->color.r != global.color0.r || 
+        player->color.g != global.color0.g ||
+        player->color.b != global.color0.b)
+        player->color = global.color0;
+
     __KeyEventPlayer(player);
     
     for (int i=0; i < player->numRays; i++)
@@ -120,7 +125,6 @@ void SetPositionYPlayer(Player *const player, float y)
 //******************************************************************
 //****************IMAPLEMENTACION FUNCIOANES STATIC*****************
 //******************************************************************
-
 static void __DrawRayPlayer(const Player *const player, const Boundary *const walls)
 {
     float max = 0xF00000; //15728640

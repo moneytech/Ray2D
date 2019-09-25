@@ -51,7 +51,7 @@ void DrawRay2D(const Ray2D *const ray2d)
         ray2d->position.y,
         ray2d->position.x + (ray2d->direction.x * global.visionDistance),
         ray2d->position.y + (ray2d->direction.y * global.visionDistance),
-        OVE_COLOR2
+        global.color2
     );
 }
 
@@ -62,7 +62,7 @@ void DrawLineRay2D(const Ray2D *const ray2d, const Vector2 position)
         ray2d->position.y,
         position.x,
         position.y,
-        OVE_COLOR1
+        global.color1
     );
 }
 

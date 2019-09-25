@@ -107,8 +107,8 @@ static void __KeyEventsApp(App *const app)
 static void __UpdateApp(App *const app)
 {
     __ResizeWindowApp(app);
-    
     __KeyEventsApp(app);
+    UpdateGlobal(&global);
     UpdateScene(&app->scene); // la escene se actualiza siempre.
 
     switch (global.section)
@@ -156,12 +156,12 @@ static void __DrawObjectsApp(const App *const app)
     switch (global.section)
     {
         case CANVAS:
-            ClearBackground(OVE_COLOR0); // limpia la pantalla.
+            ClearBackground(global.color0); // limpia la pantalla.
             __DrawCanvasApp(app);
             break;
         
         default:
-            ClearBackground(OVE_COLOR0); // limpia la pantalla.
+            ClearBackground(global.color0); // limpia la pantalla.
             __DrawMapApp(app);
     }
 }

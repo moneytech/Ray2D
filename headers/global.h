@@ -108,6 +108,14 @@ typedef struct Global
     List *listWalls;
     int wallID;
 
+    // arreglo
+    int indexTheme;
+    //Colores
+    Color color0;
+    Color color1;
+    Color color2;
+    Color color3;
+
 } Global;
 
 Global NewGlobal();
@@ -131,5 +139,7 @@ void UpdateCenterGlobal(Global *const global);
 Vector2 GetMousePositionGlobal(const Global *const global);
 
 void FreeGlobal(Global *const global);
+
+void UpdateGlobal(Global *const global);
 
 #endif //GLOBAL_H

@@ -11,7 +11,7 @@ Menu NewMenu()
         global.screenHeight - 30,
         global.screenWidth,
         30,
-        OVE_COLOR1
+        global.color1
     );
 
     menu.option = NewOption(
@@ -19,7 +19,7 @@ Menu NewMenu()
         0,
         250.0f,
         global.screenHeight,
-        OVE_COLOR1
+        global.color1
     );
 
     return menu;

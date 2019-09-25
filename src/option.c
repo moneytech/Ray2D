@@ -29,6 +29,11 @@ Option NewOption(float x, float y, float width, float height, Color color)
 void UpdateOption(Option *const option)
 {
     __ResizeWindowUpdateOption(option);
+    
+    if (option->color.r != global.color1.r ||
+        option->color.g != global.color1.g ||
+        option->color.b != global.color1.b)
+        option->color = global.color1;
 }
 
 void DrawOption(const Option *const option)
@@ -49,7 +54,7 @@ void DrawOption(const Option *const option)
             option->rect.height
         },
         4,
-        OVE_COLOR3
+        global.color3
     );
 }
 
@@ -57,6 +62,7 @@ void FreeOption(Option *const option)
 {
     // Falta implementar
     printf("OPTION VACIADO...\n");
+
 }
 
 //******************************************************************
