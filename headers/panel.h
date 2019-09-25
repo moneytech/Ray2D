@@ -7,7 +7,6 @@ typedef struct Panel
 {
     Rectangle rect;
     Color color;
-    
     Vector2 sizeWindow;
 
 } Panel;
