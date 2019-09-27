@@ -1,59 +1,54 @@
 #include "../headers/app.h"
+#include "../headers/global.h"
 #include <stdlib.h>
+#include <stdio.h>
 
-const int MAX_WALLS = 2;
+Global global;
 
 //******************************************************************
-//*********************FIRMA FUNCIOANES STATIC**********************
+//******************FIRMAS DE FUNCIOANES STATIC*********************
 //******************************************************************
 static void __KeyEventsApp(App *const app);
 static void __UpdateApp(App *const app);
-static void __DrawApp(const App *const app);
-
+static void __DrawApp(App *const app);
+static void __DrawCanvasApp(const App *const app);
+static void __DrawMapApp(const App *const app);
+static void __DrawObjectsApp(const App *const app);
+static void __UpdateCanvasApp(App *const app);
+static void __UpdateMapApp(App *const app);
+static void __InitConfigWindowApp(const App *const app);
+static void __ResizeWindowApp(App *const app);
 //******************************************************************
 //*********************IMPLEMENTACION DE FUNCIONES******************
 //******************************************************************
-App NewApp(const int screenWidth, const int screenHeight, const char *title)
+App NewApp()
 {
+    global = NewGlobal();
     App app = {0};
-    app.screenWidth = screenWidth;
-    app.screenHeight = screenHeight;
-    app.title = title;
-    app.fps = 60;
-    app.background = BLUE;
+
+    // app.backgroundCanvas = (Color) {61.0f, 61.0f, 61.0f, 255.0f};
+    app.backgroundCanvas = BLACK;
+    app.backgroundMap = BLACK;
+    app.scene = NewScene();
     
-    // Obervador. 
-    app.player = NewParticle((Vector2) {200.0f, 300.0f});
+    // se inicializa antes que el scene
+    // y depues del canvas.
+    app.canvas = NewCanvas();
+    app.map = NewMap();
+    app.menu = NewMenu();
+    app.icon = LoadImage("data/ico.png");
 
-    // Reservo memoria para almacenar paredes.
-    app.walls = (Boundary*) malloc(sizeof(Boundary) * MAX_WALLS);
-    app.walls[0] = NewBoundary(
-        (Vector2) {400.0f, 100.0f},
-        (Vector2) {400.0f, 400.0f}
-    );
-
-    app.walls[1] = NewBoundary(
-        (Vector2) {450.0f, 10.0f},
-        (Vector2) {440.0f, 400.0f}
-    );
-
-
-    InitWindow(
-        app.screenWidth,
-        app.screenHeight,
-        app.title
-    );
-
-    DisableCursor();
-    SetMousePosition(screenWidth/2, screenHeight/2);
-    SetExitKey(KEY_F8);
-    SetTargetFPS(app.fps);
+    __InitConfigWindowApp(&app);
+    
+    app.ocamera = NewOCamera();
 
     return app;
 }
 
 void RunApp(App *const app)
 {
+    InitLimitWallsCanvas(&app->canvas);
+   
     while (!WindowShouldClose())
     {
         __UpdateApp(app);
@@ -63,15 +58,12 @@ void RunApp(App *const app)
 
 void FreeApp(App *const app)
 {
-    // Libero la memoria reservada para las
-    // paredes.
-    if (app->walls != NULL)
-    {
-        free(app->walls);
-        app->walls = NULL;
-    }
-    FreeParticle(&app->player);
-
+    FreeMenu(&app->menu);
+    FreeScene(&app->scene);
+    FreeMap(&app->map);
+    FreeCanvas(&app->canvas);
+    FreeGlobal(&global);
+    UnloadImage(app->icon);
     CloseWindow();
 }
 
@@ -80,28 +72,137 @@ void FreeApp(App *const app)
 //******************************************************************
 static void __KeyEventsApp(App *const app)
 {
+    static bool flag = false;
+
+    if (IsKeyPressed(global.keySectionCanvas) && GetCurrentSectionGlobal(&global) != CANVAS)
+    {
+        if (flag == false)
+            HideFOVPlayer(&app->scene.player);
+        else
+            ShowFOVPlayer(&app->scene.player);
+
+        ShowCursor();
+        SetSectionGlobal(&global, CANVAS);
+    }
+    else if (IsKeyPressed(global.keySectionMap) && GetCurrentSectionGlobal(&global) != MAP)
+    {
+        if (!IsShowFOVPlayer(&app->scene.player))
+        {
+            flag = false;
+            ShowFOVPlayer(&app->scene.player);
+        }
+        else
+            flag = true;
+
+        HideCursor();
+        SetSectionGlobal(&global, MAP);
+    }
+    else if (IsKeyPressed(KEY_F11))
+    {
+        printf("full\n");
+        SetConfigFlags(FLAG_FULLSCREEN_MODE);
+    }
 }
 
 static void __UpdateApp(App *const app)
 {
+    __ResizeWindowApp(app);
     __KeyEventsApp(app);
-    // actualiza la posicion de la particula
-    // segun el movimiento del mouse.
-    UpdateParticle(&app->player, GetMousePosition());
+    UpdateGlobal(&global);
+    UpdateScene(&app->scene); // la escene se actualiza siempre.
+
+    switch (global.section)
+    {
+        case CANVAS:
+            UpdateOCamera(&app->ocamera);
+            __UpdateCanvasApp(app);
+            UpdateMenu(&app->menu);
+            break;
+        
+        default:
+            __UpdateMapApp(app);
+    }
 }
 
-static void __DrawApp(const App *const app)
+static void __DrawApp(App *const app)
 {
     BeginDrawing();
-    // limpia la pantalla.
-    ClearBackground(app->background);
-
-    // Dibuja las paredes.
-    for (int i=0; i < MAX_WALLS; i++)
-        DrawBoundary(&(app->walls[i]));
     
-    // Dibuja la particula.
-    DrawParticle(&app->player, app->walls);
+    if (GetCurrentSectionGlobal(&global) == CANVAS)
+    {
+        BeginMode2D(*GetCameraOCamera(&app->ocamera));
+            __DrawObjectsApp(app);
+        EndMode2D();
+        DrawMenu(&app->menu);
+    }
+    else
+        __DrawObjectsApp(app);
 
     EndDrawing();
+}
+
+static void __DrawCanvasApp(const App *const app)
+{
+    DrawCanvas(&app->canvas, &app->scene);
+}
+
+static void __DrawMapApp(const App *const app)
+{
+    DrawMap(&app->map, &app->scene);
+}
+
+static void __DrawObjectsApp(const App *const app)
+{
+    switch (global.section)
+    {
+        case CANVAS:
+            ClearBackground(global.color0); // limpia la pantalla.
+            __DrawCanvasApp(app);
+            break;
+        
+        default:
+            ClearBackground(global.color1); // limpia la pantalla.
+            __DrawMapApp(app);
+    }
+}
+
+static void __UpdateCanvasApp(App *const app)
+{
+    UpdateCanvas(&(app->canvas));
+}
+
+static void __UpdateMapApp(App *const app)
+{
+    UpdateMap(&app->map);
+    ResizeOCamera(&app->ocamera);
+}
+
+static void __InitConfigWindowApp(const App *const app)
+{
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    // Inicializacion de la ventana.   
+    InitWindow(
+        GetScreenWidthGlobal(&global), // Ancho de la ventana.
+        GetScreenHeightGlobal(&global), // Alto de la ventana.
+        GetTitleGlobal(&global) // Titulo de la ventana.
+    );
+
+    SetMousePosition(
+        GetScreenWidthGlobal(&global)/2, 
+        GetScreenHeightGlobal(&global)/2
+    );
+
+    SetWindowIcon(app->icon);
+    SetExitKey(KEY_F8);
+    SetTargetFPS(GetFPSGlobal(&global));
+}
+
+static void __ResizeWindowApp(App *const app)
+{
+    if (global.screenWidth != GetScreenWidth() || global.screenHeight != GetScreenHeight())
+    {
+        global.screenWidth = GetScreenWidth();
+        global.screenHeight = GetScreenHeight();
+        ResizeOCamera(&app->ocamera);
+    }
 }

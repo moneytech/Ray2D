@@ -11,7 +11,7 @@ typedef struct Ray2D
 
     float angle;
 
-}Ray2D;
+} Ray2D;
 
 Ray2D NewRay2D(const Vector2 position, const Vector2 direction);
 
@@ -25,6 +25,8 @@ void DrawLineRay2D(const Ray2D *const ray2d, const Vector2 position);
 
 void FreeRay2d(Ray2D *const ray2d);
 
-Vector2 GetIntersection(const Ray2D *const ray2d, const Boundary *const wall);
+Vector2 GetIntersectionRay2D(const Ray2D *const ray2d, const Boundary *const wall);
+
+void SetAngleRay2D(Ray2D *const ray2d, float angle);
 
 #endif //RAY2D_H

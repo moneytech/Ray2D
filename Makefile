@@ -24,7 +24,7 @@
 .PHONY: all clean
 
 # Define required raylib variables
-PROJECT_NAME       ?= ray2D
+PROJECT_NAME       ?= overflow
 RAYLIB_VERSION     ?= 2.5.0
 RAYLIB_API_VERSION ?= 2
 RAYLIB_PATH        ?= ../../raylib/src
@@ -341,12 +341,25 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
 endif
 
 # Define all source files required
-PROJECT_SOURCE_FILES ?= main.c          \
-                        src/app.c       \
-                        src/ray2d.c     \
-                        src/boundary.c  \
-                        src/helper.c    \
-                        src/particle.c                 
+PROJECT_SOURCE_FILES ?= main.c              \
+                        src/app.c           \
+                        src/ray2d.c         \
+                        src/boundary.c      \
+                        src/helper.c        \
+                        src/player.c        \
+                        src/canvas.c        \
+                        src/map.c           \
+                        src/global.c        \
+                        src/scene.c         \
+                        src/grid2d.c        \
+                        src/panel.c         \
+                        src/menu.c          \
+                        src/ocamera.c       \
+                        src/square.c        \
+                        src/tree.c          \
+                        src/node.c          \
+                        src/list.c          \
+                        src/option.c        \
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))

@@ -1,10 +1,11 @@
 #include "../headers/ray2d.h"
 #include "../headers/helper.h"
 #include "../headers/app.h"
+#include "../headers/global.h"
 #include <math.h>
 #include <stdio.h>
 
-const int LENGTH = 10;
+extern Global global;
 
 Ray2D NewRay2D(const Vector2 position, const Vector2 direction)
 {
@@ -48,9 +49,9 @@ void DrawRay2D(const Ray2D *const ray2d)
     DrawLine(
         ray2d->position.x,
         ray2d->position.y,
-        ray2d->position.x + (ray2d->direction.x * LENGTH),
-        ray2d->position.y + (ray2d->direction.y * LENGTH),
-        RAYWHITE
+        ray2d->position.x + (ray2d->direction.x * global.visionDistance),
+        ray2d->position.y + (ray2d->direction.y * global.visionDistance),
+        global.color2
     );
 }
 
@@ -61,7 +62,7 @@ void DrawLineRay2D(const Ray2D *const ray2d, const Vector2 position)
         ray2d->position.y,
         position.x,
         position.y,
-        RAYWHITE
+        global.color1
     );
 }
 
@@ -70,9 +71,9 @@ void FreeRay2d(Ray2D *const ray2d)
     //Liberacion de recursos...
 }
 
-Vector2 GetIntersection(const Ray2D *const ray2d, const Boundary *const wall)
+Vector2 GetIntersectionRay2D(const Ray2D *const ray2d, const Boundary *const wall)
 {
-    Vector2 pto = {-1.0f, -1.0f};
+    Vector2 pto = {-1000000.0f, -1000000.0f};
 
     float x1 = wall->pto0.x;
     float y1 = wall->pto0.y;
@@ -99,4 +100,12 @@ Vector2 GetIntersection(const Ray2D *const ray2d, const Boundary *const wall)
     }
 
     return pto;
+}
+
+void SetAngleRay2D(Ray2D *const ray2d, float angle)
+{
+    ray2d->direction = (Vector2) {
+        cos(angle * DEG2RAD),
+        sin(angle * DEG2RAD)
+    };
 }

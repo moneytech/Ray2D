@@ -2,23 +2,29 @@
 #define APP_H
 
 #include "raylib.h"
-#include "particle.h"
-#include "boundary.h"
+#include "canvas.h"
+#include "scene.h"
+#include "menu.h"
+#include "map.h"
+#include "ocamera.h"
 
 typedef struct App
 {
-    int screenWidth;
-    int screenHeight;
-    float fps;
-    const char *title;
-    Color background;
+    Color backgroundCanvas;
+    Color backgroundMap;
+    
+    Menu menu;
+    Scene scene;
+    Canvas canvas;
+    Map map;
 
-    Particle player;
-    Boundary *walls;
+    Image icon;
 
-}App;
+    OCamera ocamera;
 
-App NewApp(const int screenWidth, const int screenHeight, const char *title);
+} App;
+
+App NewApp();
 
 void RunApp(App *const app);
 

@@ -8,7 +8,8 @@ typedef struct Boundary
     Vector2 pto0;
     Vector2 pto1;
     Color color;
-}Boundary;
+
+} Boundary;
 
 Boundary NewBoundary(const Vector2 pto0, const Vector2 pto1);
 
