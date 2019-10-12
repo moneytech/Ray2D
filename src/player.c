@@ -136,20 +136,6 @@ static void __DrawRayPlayer(const Player *const player, const Boundary *const wa
         max = 0xF00000;
         flag = false;
 
-        // for (int iWall=0; iWall < MAX_WALLS; iWall++)
-        // {
-        //     Vector2 auxPoint = GetIntersectionRay2D(&(player->rays[i]), &walls[iWall]);
-        //     if (auxPoint.x > -100000.0f)
-        //     {
-        //         float distance = Distance(player->rays[i].position, auxPoint);
-        //         if (distance < max)
-        //         {
-        //             max = distance;
-        //             pto = auxPoint;
-        //             flag = true;
-        //         }
-        //     }
-        // }
         List *auxList = global.listWalls;
         while (auxList != NULL)
         {

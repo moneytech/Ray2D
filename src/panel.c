@@ -62,11 +62,12 @@ void DrawPanel(const Panel *const panel)
     char cmousePosition[100];
     sprintf(cmousePosition, "x: %d, y: %d", (int) mousePosition.x, (int) mousePosition.y);
 
-    DrawText(
+    DrawTextEx(
+        global.font_b03,
         cmousePosition,
-        panel->rect.x + 30,
-        panel->rect.y + 6,
+        (Vector2) {panel->rect.x + 30, panel->rect.y + 6},
         16,
+        1,
         global.color3
     );
 }

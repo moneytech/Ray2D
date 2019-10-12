@@ -53,6 +53,11 @@ Global NewGlobal()
     return global;
 }
 
+void InitDataGlobal(Global *const global)
+{
+    global->font_b03 = LoadFont("data/fonts/04B_03__.ttf");
+}
+
 const int GetScreenWidthGlobal(const Global *const global)
 {
     return global->screenWidth;
@@ -112,6 +117,7 @@ void UpdateCenterGlobal(Global *const global)
 void FreeGlobal(Global *const global)
 {
     FreeList(&(global->listWalls));
+    UnloadFont(global->font_b03);
 }
 
 void UpdateGlobal(Global *const global)

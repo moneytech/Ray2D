@@ -13,7 +13,6 @@ void AddElementList(List **const list, Node node)
 {
     if ((*list) == NULL)
     {   
-        printf("hello\n");
         (*list) = (List *) malloc(sizeof(List));
         (*list)->node = node;
         (*list)->next = NULL;

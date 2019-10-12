@@ -40,6 +40,7 @@ App NewApp()
 
     __InitConfigWindowApp(&app);
     
+    InitDataGlobal(&global);
     app.ocamera = NewOCamera();
 
     return app;

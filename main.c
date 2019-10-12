@@ -11,6 +11,7 @@ int main(void)
     App app = NewApp();
     // globalWalls = &app.scene.walls;
     ocamera = &app.ocamera;
+
     // ciclo que actualiza  dibuja los
     // elementos.
     RunApp(&app);
@@ -21,38 +22,33 @@ int main(void)
     return 0;
 }
 
-// #include "headers/tree.h"
-// #include <stdio.h>
-// #include <stdlib.h>
-
-
-// int main(void)
+// int main(void) 
 // {
-//     Tree *tree = NewTree();
+//     InitWindow(640, 480, "fonts");
 
-//     AddElementTree(&tree, 1);
-//     AddElementTree(&tree, 3);
-//     AddElementTree(&tree, 5);
-//     AddElementTree(&tree, 6);
-//     AddElementTree(&tree, 7);
-//     AddElementTree(&tree, 8);
-//     AddElementTree(&tree, 9);
-//     AddElementTree(&tree, 10);
-//     AddElementTree(&tree, 11);
-//     AddElementTree(&tree, 12);
-//     AddElementTree(&tree, 13);
-//     AddElementTree(&tree, 14);
+//     Font font = LoadFont("data/fonts/04B_03__.ttf");
 
+//     SetTargetFPS(30);
+//     while (!WindowShouldClose())
+//     {
+//         BeginDrawing();
+//         ClearBackground(BLACK);
+        
+//         DrawTextEx(
+//             font,
+//             "hello",
+//             (Vector2) {100, 100},
+//             24,
+//             1,
+//             RAYWHITE
+//         );
 
-//     DeleteElementTree(&tree, 10);
-//     DeleteElementTree(&tree, 13);
+//         EndDrawing();
+//     }
+//     UnloadFont(font);
+//     CloseWindow();
+    
 
-//     printf("**********************************\n");
-//     printf("**********************************\n");
-//     printf("**********************************\n");
-//     PrintTree(tree);
-
-//     DeleteTree(&tree);
 
 //     return 0;
 // }

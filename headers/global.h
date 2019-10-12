@@ -110,15 +110,21 @@ typedef struct Global
 
     // arreglo
     int indexTheme;
-    //Colores
+    
+    // Colores
     Color color0;
     Color color1;
     Color color2;
     Color color3;
 
+    // Fuentes
+    Font font_b03;
+
 } Global;
 
 Global NewGlobal();
+
+void InitDataGlobal(Global *const global);
 
 const int GetScreenWidthGlobal(const Global *const global);
 
